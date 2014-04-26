@@ -10,9 +10,9 @@ module.exports = function(grunt) {
             },
             dist:{
                 src: [
-
+                    "src/module.js"
                 ],
-                dest: "build/<%=pkg.name %>.<%= pkg.version %>.js"
+                dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }
         },
 
@@ -55,4 +55,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['concat', 'uglify', "jsdoc"]);
+
+    //Use it only in dev
+    grunt.registerTask('refresh', ['concat']);
 };
