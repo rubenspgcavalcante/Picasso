@@ -33,3 +33,119 @@ Picasso.module = function (namespace) {
     }
     return currentObj;
 };
+/**
+ * A set of array utils
+ * @module {utils}
+ */
+
+Picasso.module("Picasso.utils.array");
+Picasso.utils.array = (function () {
+
+    // Depedences
+    var objUtil = Picasso.module("Picasso.utils.object");
+
+
+    /**
+     * Finds a element into the array
+     * @param {Array} arr A array to search into
+     * @param {*} element The element to find
+     * @return {boolean} If the element was found
+     * @public
+     */
+    var find = function (arr, element) {
+        for (var i = 0; i < arr.length; i++) {
+            if (typeof arr[i] == 'object' && typeof element == 'object') {
+                if (objUtil.equals(arr[i], element)) {
+                    return true;
+                }
+            }
+            else {
+                if (arr[i] === element) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    };
+
+    /**
+     * Compares two arrays and verify if their are equals
+     * @param {Array} arr1 First array
+     * @param {Array} arr2 Second array
+     * @return {boolean} If they are equals
+     * @public
+     */
+    var equals = function (arr1, arr2) {
+        if (arr1.length != arr2.length) return false;
+
+        for (var i = 0; i < arr2.length; i++) {
+            if (!find(arr1, arr2[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    // Public API
+    return {
+        find: find,
+        equals: equals
+    }
+
+}());
+/**
+ * A set of array utils
+ * @module {utils}
+ */
+
+Picasso.module("Picasso.utils.object");
+Picasso.utils.object = (function () {
+
+    /**
+     * Compares two objects and
+     * verify if they are equals
+     * @param {Object} obj2
+     * @return {Boolean}
+     * @public
+     */
+    var equals = function (obj1, obj2) {
+        var path;
+        for(path in obj1) {
+            if(typeof(obj2[path])=='undefined') {return false;}
+        }
+
+        for(path in obj1) {
+            if (obj1[path]) {
+                switch(typeof(obj1[path])) {
+                    case 'object':
+                        if (! obj1[path].equals(obj2[path])) { return false; }
+                        break;
+                    case 'function':
+                        if (typeof(obj2[path])=='undefined' ||
+                            (path != 'equals' && obj1[path].toString() != obj2[path].toString())
+                            ){ return false; }
+                        break;
+                    default:
+                        if (obj1[path] != obj2[path]) { return false; }
+                }
+            }
+            else {
+                if (obj2[path]){ return false; }
+            }
+        }
+
+        for(path in obj2) {
+            if(typeof(obj1[path])=='undefined') {return false;}
+        }
+
+        return true;
+    };
+
+    // Public API
+    return {
+        equals: equals
+    }
+
+}());

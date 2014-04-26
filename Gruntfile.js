@@ -10,7 +10,8 @@ module.exports = function(grunt) {
             },
             dist:{
                 src: [
-                    "src/module.js"
+                    "src/module.js",
+                    "src/utils/*.js"
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }

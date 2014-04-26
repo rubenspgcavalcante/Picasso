@@ -6,7 +6,7 @@
 Picasso.module("Picasso.utils.array");
 Picasso.utils.array = (function () {
 
-    // Dependences
+    // Depedences
     var objUtil = Picasso.module("Picasso.utils.object");
 
 
@@ -14,7 +14,7 @@ Picasso.utils.array = (function () {
      * Finds a element into the array
      * @param {Array} arr A array to search into
      * @param {*} element The element to find
-     * @return {boolean}
+     * @return {boolean} If the element was found
      * @public
      */
     var find = function (arr, element) {
@@ -35,11 +35,10 @@ Picasso.utils.array = (function () {
     };
 
     /**
-     * Compares two arrays of objects based
-     * on their objects equals methods
-     * @param {Array} arr1
-     * @param {Array} arr2
-     * @return {Boolean}
+     * Compares two arrays and verify if their are equals
+     * @param {Array} arr1 First array
+     * @param {Array} arr2 Second array
+     * @return {boolean} If they are equals
      * @public
      */
     var equals = function (arr1, arr2) {
