@@ -1,10 +1,4 @@
 /**
- * Main namespace
- * @namespace
- */
-var Picasso = Picasso || {};
-
-/**
  * Declares or loads already declared module
  * @example
  * // Declaring

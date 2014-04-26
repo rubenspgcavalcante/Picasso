@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/module.js</title>
+    <title>JSDoc: Source: defines.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/module.js</h1>
+    <h1 class="page-title">Source: defines.js</h1>
     
     
 
@@ -26,33 +26,20 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
- * Declares or loads already declared module
- * @example
- * // Declaring
- * Picasso.module("Picasso.Utils.Array");
- * // Using
- * var arrayUtils = Picasso.module("Picasso.Utils.Array");
- *
- * @param {String} namespace The module complete namespace
- * @return {Object} The loaded module
+ * Main namespace
+ * @namespace
  */
-Picasso.module = function (namespace) {
-    var parts = namespace.split('.');
-    var currentObj = Picasso;
+var Picasso = Picasso || {};
 
-    // strip redundant leading global
-    if (parts[0] === "Picasso") {
-        parts = parts.slice(1);
-    }
-
-    for (var i = 0; i &lt; parts.length; i++) {
-        if (typeof currentObj[parts[i]] === "undefined") {
-            currentObj[parts[i]] = {};
-        }
-        currentObj = currentObj[parts[i]];
-
-    }
-    return currentObj;
+/**
+ * Shows the information about the framework
+ * @type {{author: string, version: string, build: string, license: string}}
+ */
+Picasso.info = {
+    author: "%author%",
+    version: "%version%",
+    build: "%buildDate%",
+    license: "%license%"
 };</code></pre>
         </article>
     </section>

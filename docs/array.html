@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/module.js</title>
+    <title>JSDoc: Module: utils/array</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,45 +17,89 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/module.js</h1>
+    <h1 class="page-title">Module: utils/array</h1>
     
     
 
 
+
+<section>
     
-    <section>
-        <article>
-            <pre class="prettyprint source"><code>/**
- * Declares or loads already declared module
- * @example
- * // Declaring
- * Picasso.module("Picasso.Utils.Array");
- * // Using
- * var arrayUtils = Picasso.module("Picasso.Utils.Array");
- *
- * @param {String} namespace The module complete namespace
- * @return {Object} The loaded module
- */
-Picasso.module = function (namespace) {
-    var parts = namespace.split('.');
-    var currentObj = Picasso;
+<header>
+    <h2>
+    utils/array
+    </h2>
+    
+</header>  
 
-    // strip redundant leading global
-    if (parts[0] === "Picasso") {
-        parts = parts.slice(1);
-    }
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+            <div class="description">A set of array utils</div>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
 
-    for (var i = 0; i &lt; parts.length; i++) {
-        if (typeof currentObj[parts[i]] === "undefined") {
-            currentObj[parts[i]] = {};
-        }
-        currentObj = currentObj[parts[i]];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    }
-    return currentObj;
-};</code></pre>
-        </article>
-    </section>
+        
+        
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</article>
+
+</section>  
 
 
 

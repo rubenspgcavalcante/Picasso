@@ -10,10 +10,35 @@ module.exports = function(grunt) {
             },
             dist:{
                 src: [
-                    "src/module.js",
+                    "src/defines.js",
+                    "src/system/module.js",
                     "src/utils/*.js"
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
+            }
+        },
+
+        'string-replace': {
+            dist:{
+                files:{
+                    "dist/": "dist/<%=pkg.name %>.<%= pkg.version %>.js"
+                }
+            },
+
+            options:{
+                replacements: [{
+                    pattern: "%version%",
+                    replacement: "<%= pkg.version %>"
+                }, {
+                    pattern: "%author%",
+                    replacement: "<%= pkg.author %>"
+                }, {
+                    pattern: "%buildDate%",
+                    replacement: '<%= grunt.template.today("yyyy-mm-dd") %>'
+                }, {
+                    pattern: "%license%",
+                    replacement: "<%= pkg.license %>"
+                }]
             }
         },
 
@@ -50,13 +75,15 @@ module.exports = function(grunt) {
     });
 
     // Load the plugins
+    grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-jsdoc');
 
+
     // Default task(s).
-    grunt.registerTask('default', ['concat', 'uglify', "jsdoc"]);
+    grunt.registerTask('default', ['concat', 'string-replace', 'uglify', "jsdoc"]);
 
     //Use it only in dev
-    grunt.registerTask('refresh', ['concat']);
+    grunt.registerTask('refresh', ['concat', 'string-replace']);
 };

@@ -1,6 +1,6 @@
 /**
  * A set of array utils
- * @module {utils}
+ * @module utils/array
  */
 
 Picasso.module("Picasso.utils.array");
