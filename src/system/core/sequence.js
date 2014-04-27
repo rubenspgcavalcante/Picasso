@@ -20,12 +20,12 @@ Picasso.core.Sequence = (function () {
      * @return {boolean}
      * @private
      */
-    var _validateAndStartSequence = function(entityName){
-        if(typeof entityName == "undefined" || typeof entityName != "string"){
+    var _validateAndStartSequence = function (entityName) {
+        if (typeof entityName == "undefined" || typeof entityName != "string") {
             return false;
         }
 
-        if(!_registeredEntities.hasOwnProperty(entityName)){
+        if (!_registeredEntities.hasOwnProperty(entityName)) {
             _registeredEntities[entityName] = null;
         }
 
@@ -37,7 +37,7 @@ Picasso.core.Sequence = (function () {
      * @param {String} entity The entity name
      * @constructor
      */
-    var SeqConstructor = function(entity){
+    var SeqConstructor = function (entity) {
         var _entity = entity;
 
         /**
@@ -45,8 +45,8 @@ Picasso.core.Sequence = (function () {
          * @return {?number} The current sequence value or null
          * to a invalid entity name
          */
-        this.currentVal = function(){
-            if(_validateAndStartSequence(_entity)){
+        this.currentVal = function () {
+            if (_validateAndStartSequence(_entity)) {
                 return _registeredEntities[_entity];
             }
 
@@ -57,9 +57,9 @@ Picasso.core.Sequence = (function () {
          * Get the next val of a sequence and increments it
          * @return {number} The current sequence value
          */
-        this.nextVal = function(entity){
-            if(_validateAndStartSequence(_entity)){
-                if(_registeredEntities[_entity] == null){
+        this.nextVal = function (entity) {
+            if (_validateAndStartSequence(_entity)) {
+                if (_registeredEntities[_entity] == null) {
                     _registeredEntities[_entity] = 0;
                     return 0;
                 }

@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
@@ -8,7 +8,7 @@ module.exports = function(grunt) {
             options: {
                 separator: '\n'
             },
-            dist:{
+            dist: {
                 src: [
                     "src/defines.js",
                     "src/system/module.js",
@@ -19,33 +19,37 @@ module.exports = function(grunt) {
         },
 
         'string-replace': {
-            dist:{
-                files:{
+            dist: {
+                files: {
                     "dist/": "dist/<%=pkg.name %>.<%= pkg.version %>.js"
                 }
             },
 
-            options:{
-                replacements: [{
-                    pattern: "%version%",
-                    replacement: "<%= pkg.version %>"
-                }, {
-                    pattern: "%author%",
-                    replacement: "<%= pkg.author %>"
-                }, {
-                    pattern: "%buildDate%",
-                    replacement: '<%= grunt.template.today("yyyy-mm-dd") %>'
-                }, {
-                    pattern: "%license%",
-                    replacement: "<%= pkg.license %>"
-                }]
+            options: {
+                replacements: [
+                    {
+                        pattern: "%version%",
+                        replacement: "<%= pkg.version %>"
+                    },
+                    {
+                        pattern: "%author%",
+                        replacement: "<%= pkg.author %>"
+                    },
+                    {
+                        pattern: "%buildDate%",
+                        replacement: '<%= grunt.template.today("yyyy-mm-dd") %>'
+                    },
+                    {
+                        pattern: "%license%",
+                        replacement: "<%= pkg.license %>"
+                    }
+                ]
             }
         },
 
         uglify: {
             options: {
-                banner:
-                    '/**\n' +
+                banner: '/**\n' +
                     '* Picasso\n' +
                     '* A Framework to build dinamic forms using MVC\n' +
                     '* Build date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -54,7 +58,7 @@ module.exports = function(grunt) {
                     '* @license <%= pkg.license %>\n' +
                     '*/\n'
             },
-            dist:{
+            dist: {
                 src: "dist/<%= pkg.name %>.<%= pkg.version %>.js",
                 dest: "dist/<%= pkg.name %>.<%= pkg.version %>.min.js"
             }
@@ -64,8 +68,8 @@ module.exports = function(grunt) {
             all: ["tests/nodeunit/*.test.js"]
         },
 
-        jsdoc : {
-            dist : {
+        jsdoc: {
+            dist: {
                 src: ['src/**/*.js'],
                 options: {
                     destination: 'docs'
