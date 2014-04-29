@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defines.js</title>
+    <title>JSDoc: Source: system/core/Observer.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: defines.js</h1>
+    <h1 class="page-title">Source: system/core/Observer.js</h1>
     
     
 
@@ -25,46 +25,40 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/**
- * Main namespace
- * @namespace
- */
-var Picasso = Picasso || {};
-
-// -- Namespace virtual comments -- //
+            <pre class="prettyprint source"><code>Picasso.load("core.Observer");
 
 /**
- * Declares the plain javascript object constructors
- * @load {Object} Picasso.pjo
+ * The observer constructor
+ * @constructor
  */
+Picasso.core.Observer = function(){
 
-/**
- * All the system core objects
- * @load {Object} Picasso.core
- */
+    /**
+     * All the event listeners are stored here
+     * @type {Object&lt;String, Picasso.pjo.Listener[]>}
+     */
+    var listeners = {};
 
-/**
- * All the system errors objects
- * @load {Object} Picasso.error
- */
+    var _visit = function(action, eventType, arg, context){
+        var evListeners = listeners[eventType] || [];
 
-/**
- * All the utils modules
- * @load {Object} Picasso.utils
- */
 
-// -- End of load virtual comments -- //
+    };
 
-/**
- * Shows the information about the framework
- * @type {{author: string, version: string, build: string, license: string}}
- */
-Picasso.info = {
-    author: "%author%",
-    version: "%version%",
-    build: "%buildDate%",
-    license: "%license%"
-};</code></pre>
+
+    this.listen = function(eventType, callback, context){
+        if(typeof  eventType == "undefined"){
+            throw new Picasso.error.InvalidParameters("listen", {eventType: "obrigatory"}, this.listen);
+        }
+
+        if(listeners.hasOwnProperty(eventType)){
+            listeners[eventType] = [];
+        }
+
+        listeners[eventType].push()
+    }
+};
+</code></pre>
         </article>
     </section>
 

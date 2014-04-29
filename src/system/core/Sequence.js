@@ -1,9 +1,4 @@
-/**
- * The sequences utils
- * @module core/Sequence
- */
-
-Picasso.module("Picasso.core.Sequence");
+Picasso.load("core.Sequence");
 Picasso.core.Sequence = (function () {
     /**
      * Stores all the sequences
@@ -34,9 +29,19 @@ Picasso.core.Sequence = (function () {
     };
 
     /**
-     * The real constructor available to the caller
+     * Controls a sequence of the given entity. </br>
+     * Take note that this is the real Sequence constructor.
+     *
      * @param {String} entity The entity name
      * @constructor
+     * @alias Picasso.core.Sequence
+     * @example
+     * var userSeq = new Picasso.core.Sequence("User");
+     * var secUserSeq = new Picasso.core.Sequence("User");
+     *
+     * secUserSeq.currentVal(); // returns 0
+     * userSeq.nextVal(); // returns 1
+     * secUserSeq.currentVal(); // returns 1
      */
     var SeqConstructor = function (entity) {
         this._entity = entity;

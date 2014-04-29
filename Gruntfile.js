@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     "src/defines.js",
-                    "src/system/module.js",
+                    "src/system/load.js",
                     "src/system/pjo/*.js",
                     "src/system/error/*.js",
                     "src/utils/*.js"

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defines.js</title>
+    <title>JSDoc: Source: system/pjo/Listener.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: defines.js</h1>
+    <h1 class="page-title">Source: system/pjo/Listener.js</h1>
     
     
 
@@ -25,45 +25,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/**
- * Main namespace
- * @namespace
- */
-var Picasso = Picasso || {};
-
-// -- Namespace virtual comments -- //
+            <pre class="prettyprint source"><code>Picasso.load("pjo.Listener");
 
 /**
- * Declares the plain javascript object constructors
- * @load {Object} Picasso.pjo
+ * Default listener
+ * @param {String} eventName
+ * @param {Function} callback
+ * @param {Object} context
+ * @constructor
  */
+Picasso.pjo.Listener = function(eventName, callback, context){
+    /** @type String */
+    this.eventName = eventName || "";
 
-/**
- * All the system core objects
- * @load {Object} Picasso.core
- */
+    /** @type Function */
+    this.callback = callback || new Function();
 
-/**
- * All the system errors objects
- * @load {Object} Picasso.error
- */
-
-/**
- * All the utils modules
- * @load {Object} Picasso.utils
- */
-
-// -- End of load virtual comments -- //
-
-/**
- * Shows the information about the framework
- * @type {{author: string, version: string, build: string, license: string}}
- */
-Picasso.info = {
-    author: "%author%",
-    version: "%version%",
-    build: "%buildDate%",
-    license: "%license%"
+    /** @type Object */
+    this.context = context || null;
 };</code></pre>
         </article>
     </section>

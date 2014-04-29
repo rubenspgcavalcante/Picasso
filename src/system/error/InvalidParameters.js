@@ -1,9 +1,4 @@
-/**
- * The sequences utils
- * @module error/InvalidParameters
- */
-
-Picasso.module("Picasso.error.InvalidParameters");
+Picasso.load("error.InvalidParameters");
 
 /**
  * Invalid parameters error

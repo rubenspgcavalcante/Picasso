@@ -1,15 +1,15 @@
 /**
- * Declares or loads already declared module
+ * Declares or loads already declared module/namespace
  * @example
  * // Declaring
- * Picasso.module("Picasso.Utils.Array");
+ * Picasso.load("utils.array");
  * // Using
- * var arrayUtils = Picasso.module("Picasso.Utils.Array");
+ * var arrayUtils = Picasso.load("utils.array");
  *
  * @param {String} namespace The module complete namespace
  * @return {Object} The loaded module
  */
-Picasso.module = function (namespace) {
+Picasso.load = function (namespace) {
     var parts = namespace.split('.');
     var currentObj = Picasso;
 

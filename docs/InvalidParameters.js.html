@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defines.js</title>
+    <title>JSDoc: Source: system/error/InvalidParameters.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: defines.js</h1>
+    <h1 class="page-title">Source: system/error/InvalidParameters.js</h1>
     
     
 
@@ -25,46 +25,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/**
- * Main namespace
- * @namespace
- */
-var Picasso = Picasso || {};
-
-// -- Namespace virtual comments -- //
+            <pre class="prettyprint source"><code>Picasso.load("error.InvalidParameters");
 
 /**
- * Declares the plain javascript object constructors
- * @load {Object} Picasso.pjo
+ * Invalid parameters error
+ * @param {String} funcName The name of the function that are throwing this error
+ * @param {Object&lt;String, String>} errorParameters A map of parameter/error message type
+ * @param {*} context The context that the error occurred
+ * @extends Error
  */
+Picasso.error.InvalidParameters = function(funcName, errorParameters, context){
+    this.msg = "The function %funcName% has received invalid parameters";
+    this.errorParameters = errorParameters || null;
+    this.context = context || null;
+};
 
-/**
- * All the system core objects
- * @load {Object} Picasso.core
- */
-
-/**
- * All the system errors objects
- * @load {Object} Picasso.error
- */
-
-/**
- * All the utils modules
- * @load {Object} Picasso.utils
- */
-
-// -- End of load virtual comments -- //
-
-/**
- * Shows the information about the framework
- * @type {{author: string, version: string, build: string, license: string}}
- */
-Picasso.info = {
-    author: "%author%",
-    version: "%version%",
-    build: "%buildDate%",
-    license: "%license%"
-};</code></pre>
+Picasso.error.InvalidParameters.prototype = new Error();</code></pre>
         </article>
     </section>
 

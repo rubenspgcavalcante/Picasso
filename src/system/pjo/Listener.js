@@ -1,8 +1,4 @@
-/**
- * The sequences utils
- * @module pjo/Listener
- */
-Picasso.module("Picasso.pjo.Listener");
+Picasso.load("pjo.Listener");
 
 /**
  * Default listener
