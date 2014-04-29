@@ -11,10 +11,17 @@ Picasso.module("Picasso.core.Observer");
  */
 Picasso.core.Observer = function(){
 
+    /**
+     * All the event listeners are stored here
+     * @type {Object<String, Function[]>}
+     */
+    var listeners = {};
 
-    var listeners = {
-        any: []
-    };
+    this.listen = function(eventType, callback, context){
+        if(typeof  eventType == "undefined"){
+            throw new Picasso.error.InvalidParameters("listen", this.listen);
+        }
 
 
+    }
 };
