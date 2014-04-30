@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Event</title>
+    <title>JSDoc: Class: InvalidParameters</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Event</h1>
+    <h1 class="page-title">Class: InvalidParameters</h1>
     
     
 
@@ -27,9 +27,9 @@
     
 <header>
     <h2>
-        <span class="ancestors"><a href="Picasso.html">Picasso</a><a href="Picasso.pjo.html">.pjo</a>.</span>
+        <span class="ancestors"><a href="Picasso.html">Picasso</a><a href="Picasso.error.html">.error</a>.</span>
     
-    Event
+    InvalidParameters
     </h2>
     
 </header>  
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="Event"><span class="type-signature"></span>new Event<span class="signature">(name, data, target)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="InvalidParameters"><span class="type-signature"></span>new InvalidParameters<span class="signature">(funcName, errorParameters, context)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -49,7 +49,7 @@
     
     
     <div class="description">
-        The default event object
+        Invalid parameters error
     </div>
     
 
@@ -83,7 +83,7 @@
 	
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>funcName</code></td>
             
             
             <td class="type">
@@ -99,20 +99,20 @@
             
             
             
-            <td class="description last"></td>
+            <td class="description last">The name of the function that are throwing this error</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>errorParameters</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">Object.&lt;String, String></span>
 
 
             
@@ -122,14 +122,14 @@
             
             
             
-            <td class="description last"></td>
+            <td class="description last">A map of parameter/error message type</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>target</code></td>
+                <td class="name"><code>context</code></td>
             
             
             <td class="type">
@@ -145,7 +145,7 @@
             
             
             
-            <td class="description last"></td>
+            <td class="description last">The context that the error occurred</td>
         </tr>
 	
 	
@@ -176,7 +176,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line10">line 10</a>
+        <a href="InvalidParameters.js.html">system/error/InvalidParameters.js</a>, <a href="InvalidParameters.js.html#line11">line 11</a>
     </li></ul></dd>
     
     
@@ -205,199 +205,21 @@
     </div>
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Members</h3>
+        <h3 class="subsection-title">Extends</h3>
         
-        <dl>
-            
-<dt>
-    <h4 class="name" id="data"><span class="type-signature"></span>data<span class="type-signature"> :*</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    
-        <h5>Type:</h5>
         <ul>
-            <li>
-                
-<span class="param-type">*</span>
-
-
-            </li>
+            <li>Error</li>
         </ul>
     
-
     
-<dl class="details">
     
-        
     
     
     
-
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :String</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">String</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="target"><span class="type-signature"></span>target<span class="type-signature"> :Object</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        </dl>
     
     
     

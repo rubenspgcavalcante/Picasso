@@ -8,22 +8,22 @@ var Picasso = Picasso || {};
 
 /**
  * Declares the plain javascript object constructors
- * @load {Object} Picasso.pjo
+ * @namespace {Object} Picasso.pjo
  */
 
 /**
  * All the system core objects
- * @load {Object} Picasso.core
+ * @namespace {Object} Picasso.core
  */
 
 /**
  * All the system errors objects
- * @load {Object} Picasso.error
+ * @namespace {Object} Picasso.error
  */
 
 /**
  * All the utils modules
- * @load {Object} Picasso.utils
+ * @namespace {Object} Picasso.utils
  */
 
 // -- End of load virtual comments -- //

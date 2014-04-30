@@ -39,10 +39,11 @@ Picasso.core.Subject = function () {
      * @param {String} eventType
      * @param {Function} callback
      * @param {Object} context
+     * @throws Picasso.error.InvalidParameters
      */
     this.subscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("listen", {eventType: "obrigatory"}, this.listen);
+            throw new Picasso.error.InvalidParameters("subscribe", {eventType: "obrigatory"}, this.subscribe);
         }
 
         if (!handlers.hasOwnProperty(eventType)) {
@@ -57,13 +58,18 @@ Picasso.core.Subject = function () {
      * Removes a observer of a event.
      * If, only the eventType is given, removes all observers of
      * this event type. If callback is given, removes all observers
-     * that calls this callback. And finnaly, if context is giver too
+     * that calls this callback. And finnaly, if context is given too,
      * removes if match the eventType, callback and context.
      * @param {String} eventType
      * @param {Function} callback
      * @param {Object} context
+     * @throws {Picasso.error.InvalidParameters}
      */
     this.unsubscribe = function (eventType, callback, context) {
+        if (typeof  eventType == "undefined") {
+            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this.unsubscribe);
+        }
+
         if (typeof callback == "undefined" && typeof context == "undefined") {
             delete handlers[eventType];
         }
@@ -78,8 +84,13 @@ Picasso.core.Subject = function () {
      * @param {String} eventType
      * @param {*} eventData
      * @param {Object} context
+     * @throws {Picasso.error.InvalidParameters}
      */
     this.fire = function (eventType, eventData, context) {
+        if (typeof  eventType == "undefined") {
+            throw new Picasso.error.InvalidParameters("fire", {eventType: "obrigatory"}, this.fire);
+        }
+
         _visit("fire", new Picasso.pjo.Event(eventType, eventData, context || this));
     }
 };
