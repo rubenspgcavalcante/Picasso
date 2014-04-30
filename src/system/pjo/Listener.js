@@ -7,7 +7,7 @@ Picasso.load("pjo.Listener");
  * @param {Object} context
  * @constructor
  */
-Picasso.pjo.Listener = function(eventName, callback, context){
+Picasso.pjo.Listener = function (eventName, callback, context) {
     /** @type String */
     this.eventName = eventName || "";
 

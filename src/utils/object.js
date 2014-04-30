@@ -1,9 +1,9 @@
 Picasso.load("Picasso.utils.object");
 Picasso.utils.object = (
-    /**
-     * A set of object utils
-     * @exports utils/object
-     */
+/**
+ * A set of object utils
+ * @exports utils/object
+ */
     function () {
 
         /**
@@ -64,4 +64,4 @@ Picasso.utils.object = (
         }
 
     }()
-);
+    );

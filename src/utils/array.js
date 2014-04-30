@@ -1,10 +1,10 @@
 Picasso.load("Picasso.utils.array");
 Picasso.utils.array = (
 
-    /**
-     * A set of array utils
-     * @exports utils/array
-     */
+/**
+ * A set of array utils
+ * @exports utils/array
+ */
     function () {
 
         // Depedences
@@ -66,4 +66,4 @@ Picasso.utils.array = (
         }
 
     }()
-);
+    );
