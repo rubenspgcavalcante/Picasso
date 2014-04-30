@@ -9,7 +9,7 @@ Picasso.load("error.InvalidParameters");
  * @constructor
  */
 Picasso.error.InvalidParameters = function (funcName, errorParameters, context) {
-    this.msg = "The function %funcName% has received invalid parameters";
+    this.msg = "The function " + funcName + " has received invalid parameters";
     this.errorParameters = errorParameters || null;
     this.context = context || null;
 };
