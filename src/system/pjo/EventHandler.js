@@ -1,13 +1,13 @@
-Picasso.load("pjo.Listener");
+Picasso.load("pjo.EventHandler");
 
 /**
- * Default listener
+ * Default event handler
  * @param {String} eventName
  * @param {Function} callback
  * @param {Object} context
  * @constructor
  */
-Picasso.pjo.Listener = function (eventName, callback, context) {
+Picasso.pjo.EventHandler = function (eventName, callback, context) {
     /** @type String */
     this.eventName = eventName || "";
 

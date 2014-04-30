@@ -76,22 +76,26 @@ Picasso.load("pjo.Event");
  * @param {Object} target
  * @constructor
  */
-Picasso.pjo.Event = function(name, data, target){
+Picasso.pjo.Event = function PicassoEvent(name, data, target) {
+    /** @type String */
     this.name = name || "any";
+
+    /** @type * */
     this.data = data || null;
+
+    /** @type Object */
     this.target = target || null;
 };
-
-Picasso.load("pjo.Listener");
+Picasso.load("pjo.EventHandler");
 
 /**
- * Default listener
+ * Default event handler
  * @param {String} eventName
  * @param {Function} callback
  * @param {Object} context
  * @constructor
  */
-Picasso.pjo.Listener = function(eventName, callback, context){
+Picasso.pjo.EventHandler = function (eventName, callback, context) {
     /** @type String */
     this.eventName = eventName || "";
 
@@ -110,7 +114,7 @@ Picasso.load("error.InvalidParameters");
  * @param {*} context The context that the error occurred
  * @extends Error
  */
-Picasso.error.InvalidParameters = function(funcName, errorParameters, context){
+Picasso.error.InvalidParameters = function (funcName, errorParameters, context) {
     this.msg = "The function %funcName% has received invalid parameters";
     this.errorParameters = errorParameters || null;
     this.context = context || null;
@@ -120,10 +124,10 @@ Picasso.error.InvalidParameters.prototype = new Error();
 Picasso.load("Picasso.utils.array");
 Picasso.utils.array = (
 
-    /**
-     * A set of array utils
-     * @exports utils/array
-     */
+/**
+ * A set of array utils
+ * @exports utils/array
+ */
     function () {
 
         // Depedences
@@ -185,13 +189,13 @@ Picasso.utils.array = (
         }
 
     }()
-);
+    );
 Picasso.load("Picasso.utils.object");
 Picasso.utils.object = (
-    /**
-     * A set of object utils
-     * @exports utils/object
-     */
+/**
+ * A set of object utils
+ * @exports utils/object
+ */
     function () {
 
         /**
@@ -252,4 +256,4 @@ Picasso.utils.object = (
         }
 
     }()
-);
+    );

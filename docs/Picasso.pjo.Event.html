@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Listener</title>
+    <title>JSDoc: Class: Event</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Listener</h1>
+    <h1 class="page-title">Class: Event</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    Listener
+    Event
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="Listener"><span class="type-signature"></span>new Listener<span class="signature">(eventName, callback, context)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Event"><span class="type-signature"></span>new Event<span class="signature">(name, data, target)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -47,7 +47,7 @@
     
     
     <div class="description">
-        Default listener
+        The default event object
     </div>
     
 
@@ -81,7 +81,7 @@
 	
         <tr>
             
-                <td class="name"><code>eventName</code></td>
+                <td class="name"><code>name</code></td>
             
             
             <td class="type">
@@ -104,13 +104,13 @@
 	
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>data</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">*</span>
 
 
             
@@ -127,7 +127,7 @@
 	
         <tr>
             
-                <td class="name"><code>context</code></td>
+                <td class="name"><code>target</code></td>
             
             
             <td class="type">
@@ -174,7 +174,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Listener.js.html">system/pjo/EventHandler.js</a>, <a href="Listener.js.html#line10">line 10</a>
+        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line10">line 10</a>
     </li></ul></dd>
     
     
@@ -218,7 +218,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="callback"><span class="type-signature"></span>callback<span class="type-signature"> :function</span></h4>
+    <h4 class="name" id="data"><span class="type-signature"></span>data<span class="type-signature"> :*</span></h4>
     
     
 </dt>
@@ -230,7 +230,7 @@
         <ul>
             <li>
                 
-<span class="param-type">function</span>
+<span class="param-type">*</span>
 
 
             </li>
@@ -260,7 +260,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Listener.js.html">system/pjo/EventHandler.js</a>, <a href="Listener.js.html#line15">line 15</a>
+        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line15">line 15</a>
     </li></ul></dd>
     
     
@@ -278,67 +278,7 @@
         
             
 <dt>
-    <h4 class="name" id="context"><span class="type-signature"></span>context<span class="type-signature"> :Object</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Listener.js.html">system/pjo/EventHandler.js</a>, <a href="Listener.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="eventName"><span class="type-signature"></span>eventName<span class="type-signature"> :String</span></h4>
+    <h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :String</span></h4>
     
     
 </dt>
@@ -380,7 +320,67 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Listener.js.html">system/pjo/EventHandler.js</a>, <a href="Listener.js.html#line12">line 12</a>
+        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="target"><span class="type-signature"></span>target<span class="type-signature"> :Object</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Event.js.html">system/pjo/Event.js</a>, <a href="Event.js.html#line18">line 18</a>
     </li></ul></dd>
     
     
@@ -413,13 +413,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.Listener.html">Listener</a></li></ul><h3>Namespaces</h3><ul><li><a href="Picasso.html">Picasso</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li></ul><h3>Namespaces</h3><ul><li><a href="Picasso.html">Picasso</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 29 2014 21:34:09 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 29 2014 21:42:53 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

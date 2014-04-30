@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/load.js</title>
+    <title>JSDoc: Source: system/pjo/Event.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/load.js</h1>
+    <h1 class="page-title">Source: system/pjo/Event.js</h1>
     
     
 
@@ -25,34 +25,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/**
- * Declares or loads already declared module/namespace
- * @example
- * // Declaring
- * Picasso.load("utils.array");
- * // Using
- * var arrayUtils = Picasso.load("utils.array");
- *
- * @param {String} namespace The module complete namespace
- * @return {Object} The loaded module
+            <pre class="prettyprint source"><code>Picasso.load("pjo.Event");
+
+/**
+ * The default event object
+ * @param {String} name
+ * @param {*} data
+ * @param {Object} target
+ * @constructor
  */
-Picasso.load = function (namespace) {
-    var parts = namespace.split('.');
-    var currentObj = Picasso;
+Picasso.pjo.Event = function PicassoEvent(name, data, target) {
+    /** @type String */
+    this.name = name || "any";
 
-    // strip redundant leading global
-    if (parts[0] === "Picasso") {
-        parts = parts.slice(1);
-    }
+    /** @type * */
+    this.data = data || null;
 
-    for (var i = 0; i &lt; parts.length; i++) {
-        if (typeof currentObj[parts[i]] === "undefined") {
-            currentObj[parts[i]] = {};
-        }
-        currentObj = currentObj[parts[i]];
-
-    }
-    return currentObj;
+    /** @type Object */
+    this.target = target || null;
 };</code></pre>
         </article>
     </section>
