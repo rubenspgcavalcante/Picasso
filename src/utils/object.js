@@ -7,6 +7,23 @@ Picasso.utils.object = (
     function () {
 
         /**
+         * Extends a constructor
+         * @param {Function} Class The object constructor
+         * @param {Function} Parent The parent object constructor
+         * @returns {Function} The Class constructor
+         */
+        var extend = function(Class, Parent){
+            //Rent a prototype
+            var Rented = new Function();
+            Rented.prototype = Parent.prototype;
+            Class.prototype = new Rented();
+            Class._super = Parent.prototype;
+            Class.prototype.constructor = Class;
+
+            return Class;
+        };
+
+        /**
          * Compares two objects and
          * verify if they are equals
          * @param {Object} obj2
@@ -60,6 +77,7 @@ Picasso.utils.object = (
 
         // Public API
         return {
+            extend: extend,
             equals: equals
         }
 

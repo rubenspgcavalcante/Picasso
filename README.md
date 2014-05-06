@@ -14,7 +14,7 @@ If you want to build the sources, you will need first install all dependences an
 globally:
 ```shellscript
 npm install
-sudo install -g grunt-cli
+sudo npm install -g grunt-cli
 ```
 
 To run the tasks:

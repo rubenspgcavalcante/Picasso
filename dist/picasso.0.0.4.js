@@ -35,7 +35,7 @@ var Picasso = Picasso || {};
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.0.4",
-    build: "2014-04-29",
+    build: "2014-05-05",
     license: "GPLv3"
 };
 /**
@@ -116,7 +116,7 @@ Picasso.load("error.InvalidParameters");
  * @constructor
  */
 Picasso.error.InvalidParameters = function (funcName, errorParameters, context) {
-    this.msg = "The function %funcName% has received invalid parameters";
+    this.msg = "The function " + funcName + " has received invalid parameters";
     this.errorParameters = errorParameters || null;
     this.context = context || null;
 };
@@ -196,9 +196,22 @@ Picasso.utils.object = (
 /**
  * A set of object utils
  * @exports utils/object
- * @memberOf Picasso.utils
  */
     function () {
+
+        /**
+         * Extends a constructor
+         * @param {Function} Class The object constructor
+         * @param {Function} Parent The parent object constructor
+         */
+        var extend = function(Class, Parent){
+            //Rent a prototype
+            var Rented = new Function();
+            Rented.prototype = Parent.prototype;
+            Class.prototype = new Rented();
+            Class._super = Parent.prototype;
+            Class.prototype.constructor = Class;
+        };
 
         /**
          * Compares two objects and
@@ -254,8 +267,234 @@ Picasso.utils.object = (
 
         // Public API
         return {
+            extend: extend,
             equals: equals
         }
 
     }()
     );
+Picasso.load("core.Sequence");
+Picasso.core.Sequence = (function () {
+    /**
+     * Stores all the sequences
+     * @type {Object<String, number>}
+     * @private
+     * @static
+     */
+    var _registeredEntities = {};
+
+    /**
+     * Validates and if necessary starts a new sequence
+     * based on the given entity name
+     * @param {String} entityName The entity name
+     * @return {boolean}
+     * @private
+     * @static
+     */
+    var _validateAndStartSequence = function (entityName) {
+        if (typeof entityName == "undefined" || typeof entityName != "string") {
+            return false;
+        }
+
+        if (!_registeredEntities.hasOwnProperty(entityName)) {
+            _registeredEntities[entityName] = null;
+        }
+
+        return true;
+    };
+
+    /**
+     * Controls a sequence of the given entity. </br>
+     * Take note that this is the real Sequence constructor.
+     *
+     * @param {String} entity The entity name
+     * @constructor
+     * @alias Picasso.core.Sequence
+     * @example
+     * var userSeq = new Picasso.core.Sequence("User");
+     * var secUserSeq = new Picasso.core.Sequence("User");
+     *
+     * secUserSeq.currentVal(); // returns 0
+     * userSeq.nextVal(); // returns 1
+     * secUserSeq.currentVal(); // returns 1
+     */
+    var SeqConstructor = function (entity) {
+        this._entity = entity;
+    };
+
+
+    /**
+     * View the sequence current value
+     * @return {?number} The current sequence value or null
+     * to a invalid entity name
+     * @public
+     */
+    SeqConstructor.prototype.currentVal = function () {
+        if (_validateAndStartSequence(this._entity)) {
+            return _registeredEntities[this._entity];
+        }
+
+        return null;
+    };
+
+    /**
+     * Get the next val of a sequence and increments it
+     * @return {number} The current sequence value
+     * @public
+     */
+    SeqConstructor.prototype.nextVal = function () {
+        if (_validateAndStartSequence(this._entity)) {
+            if (_registeredEntities[this._entity] == null) {
+                _registeredEntities[this._entity] = 0;
+                return 0;
+            }
+            return ++_registeredEntities[this._entity];
+        }
+
+        return null;
+    };
+
+    return SeqConstructor
+
+}());
+
+Picasso.load("core.Subject");
+
+/**
+ * The subject constructor
+ * See the observer design pattern
+ * @constructor
+ */
+Picasso.core.Subject = function () {
+
+    /**
+     * All the event handlers (Observers) are stored here
+     * @type {Object<String, Picasso.pjo.EventHandler[]>}
+     */
+    var handlers = {};
+
+    /**
+     * Visits all the associated handlers to the given event
+     * and call it or remove it
+     * @param {String} action
+     * @param {Picasso.pjo.Event} event
+     * @private
+     */
+    var _visit = function (action, event, callback) {
+
+        var evListeners = handlers[event.name] || [];
+        for (var i = 0; i < evListeners.length; i++) {
+            if (action == "fire") {
+                evListeners[i].callback.call(evListeners.context, event);
+            }
+            else if (evListeners[i].callback === callback && (event.context == null || evListeners.context === event.context)) {
+                evListeners.splice(i, 1);
+            }
+        }
+
+    };
+
+    /**
+     * Subscribes a new observer
+     * @param {String} eventType
+     * @param {Function} callback
+     * @param {Object} context
+     * @throws Picasso.error.InvalidParameters
+     */
+    this.subscribe = function (eventType, callback, context) {
+        if (typeof  eventType == "undefined") {
+            throw new Picasso.error.InvalidParameters("subscribe", {eventType: "obrigatory"}, this.subscribe);
+        }
+
+        if (!handlers.hasOwnProperty(eventType)) {
+            handlers[eventType] = [];
+        }
+
+        var hanler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
+        handlers[eventType].push(hanler);
+    };
+
+    /**
+     * Removes a observer of a event.
+     * If, only the eventType is given, removes all observers of
+     * this event type. If callback is given, removes all observers
+     * that calls this callback. And finnaly, if context is given too,
+     * removes if match the eventType, callback and context.
+     * @param {String} eventType
+     * @param {Function} callback
+     * @param {Object} context
+     * @throws {Picasso.error.InvalidParameters}
+     */
+    this.unsubscribe = function (eventType, callback, context) {
+        if (typeof  eventType == "undefined") {
+            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this.unsubscribe);
+        }
+
+        if (typeof callback == "undefined" && typeof context == "undefined") {
+            delete handlers[eventType];
+        }
+        else {
+            _visit("unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
+        }
+    };
+
+    /**
+     * Fires a event, calling all the observers
+     * of this event
+     * @param {String} eventType
+     * @param {*} eventData
+     * @param {Object} context
+     * @throws {Picasso.error.InvalidParameters}
+     */
+    this.fire = function (eventType, eventData, context) {
+        if (typeof  eventType == "undefined") {
+            throw new Picasso.error.InvalidParameters("fire", {eventType: "obrigatory"}, this.fire);
+        }
+
+        _visit("fire", new Picasso.pjo.Event(eventType, eventData, context || this));
+    }
+};
+
+Picasso.load("Controller");
+
+/**
+ * The picasso Controller entity
+ * @constructor
+ */
+Picasso.Controller = function(){
+
+};
+
+Picasso.Controller.prototype.extend = Picasso.utils.object.extend;
+Picasso.load("Model");
+
+/**
+ * The picasso Model entity
+ * @constructor
+ * @extends Picasso.core,Subject
+ */
+Picasso.Model = function(){
+
+};
+
+Picasso.Model.extend = function(constructor){
+    Picasso.utils.object.extend(constructor, Picasso.Model);
+};
+
+Picasso.Model.prototype = new Picasso.core.Subject();
+Picasso.load("View");
+
+/**
+ * The picasso View entity
+ * @constructor
+ * @extends Picasso.core.Subject
+ */
+Picasso.View = function(){
+
+};
+
+Picasso.View.extend = function(constructor){
+    Picasso.utils.object.extend(constructor, Picasso.View);
+};
+
+Picasso.View.prototype = new Picasso.core.Subject();

@@ -14,7 +14,9 @@ module.exports = function (grunt) {
                     "src/system/load.js",
                     "src/system/pjo/*.js",
                     "src/system/error/*.js",
-                    "src/utils/*.js"
+                    "src/utils/*.js",
+                    "src/system/core/*.js",
+                    "src/system/mvc/*.js",
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }
