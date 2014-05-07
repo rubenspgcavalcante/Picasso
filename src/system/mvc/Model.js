@@ -11,6 +11,7 @@ Picasso.Model = function(){
 
 /**
  * Extends from a Model
+ * @static
  * @param {Function} constructor The constructor to extend
  * @returns {Function} The updated constructor
  */

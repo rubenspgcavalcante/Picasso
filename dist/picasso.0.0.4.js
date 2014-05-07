@@ -35,7 +35,7 @@ var Picasso = Picasso || {};
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.0.4",
-    build: "2014-05-05",
+    build: "2014-05-06",
     license: "GPLv3"
 };
 /**
@@ -91,7 +91,7 @@ Picasso.load("pjo.EventHandler");
 /**
  * Default event handler
  * @param {String} eventName
- * @param {Function} callback
+ * @param {Function||String} callback
  * @param {Object} context
  * @constructor
  */
@@ -203,6 +203,7 @@ Picasso.utils.object = (
          * Extends a constructor
          * @param {Function} Class The object constructor
          * @param {Function} Parent The parent object constructor
+         * @returns {Function} The Class constructor
          */
         var extend = function(Class, Parent){
             //Rent a prototype
@@ -211,6 +212,8 @@ Picasso.utils.object = (
             Class.prototype = new Rented();
             Class._super = Parent.prototype;
             Class.prototype.constructor = Class;
+
+            return Class;
         };
 
         /**
@@ -385,7 +388,13 @@ Picasso.core.Subject = function () {
         var evListeners = handlers[event.name] || [];
         for (var i = 0; i < evListeners.length; i++) {
             if (action == "fire") {
-                evListeners[i].callback.call(evListeners.context, event);
+                var cbk = evListeners[i].callback;
+                if(typeof cbk == "string" && evListeners[i].context.hasOwnProperty(cbk)){
+                    evListeners[i].context[cbk](event);
+                }
+                else{
+                    evListeners[i].callback.call(evListeners.context, event);
+                }
             }
             else if (evListeners[i].callback === callback && (event.context == null || evListeners.context === event.context)) {
                 evListeners.splice(i, 1);
@@ -410,8 +419,8 @@ Picasso.core.Subject = function () {
             handlers[eventType] = [];
         }
 
-        var hanler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
-        handlers[eventType].push(hanler);
+        var handler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
+        handlers[eventType].push(handler);
     };
 
     /**
@@ -459,13 +468,38 @@ Picasso.load("Controller");
 
 /**
  * The picasso Controller entity
+ * @param {Picasso.Model} model A model to associate to this controller
+ * @param {Picasso.View} view A view to associate to this controller
  * @constructor
  */
-Picasso.Controller = function(){
+Picasso.Controller = function (model, view) {};
+/**
+ * @type {Picasso.Model}
+ * @protected
+ */
+Picasso.Controller.prototype._model = null;
 
+/**
+ * @type {Picasso.View}
+ * @protected
+ */
+Picasso.Controller.prototype._view = null;
+
+Picasso.Controller.prototype.construct = function(model, view){
+    this._model = model;
+    this._view = view;
+    this._view.setModel(this._model);
 };
 
-Picasso.Controller.prototype.extend = Picasso.utils.object.extend;
+/**
+ * Extends from a Controller
+ * @static
+ * @param {Function} constructor The constructor to extend
+ * @returns {Function} The updated constructor
+ */
+Picasso.Controller.extend = function(constructor){
+    return Picasso.utils.object.extend(constructor, Picasso.Controller);
+};
 Picasso.load("Model");
 
 /**
@@ -477,8 +511,14 @@ Picasso.Model = function(){
 
 };
 
+/**
+ * Extends from a Model
+ * @static
+ * @param {Function} constructor The constructor to extend
+ * @returns {Function} The updated constructor
+ */
 Picasso.Model.extend = function(constructor){
-    Picasso.utils.object.extend(constructor, Picasso.Model);
+    return Picasso.utils.object.extend(constructor, Picasso.Model);
 };
 
 Picasso.Model.prototype = new Picasso.core.Subject();
@@ -489,12 +529,46 @@ Picasso.load("View");
  * @constructor
  * @extends Picasso.core.Subject
  */
-Picasso.View = function(){
-
-};
-
-Picasso.View.extend = function(constructor){
-    Picasso.utils.object.extend(constructor, Picasso.View);
-};
-
+Picasso.View = function () {};
 Picasso.View.prototype = new Picasso.core.Subject();
+
+/**
+ * @type {Picasso.Model}
+ * @protected
+ */
+Picasso.View.prototype._model = null;
+
+/**
+ * @type {Object<String, Function||String>}
+ * @protected
+ */
+Picasso.View.prototype._modelEvents = {};
+
+/**
+ * @type {Object}
+ * @protected
+ */
+Picasso.View.prototype._uiActions = {};
+
+Picasso.View.prototype.setModel = function(model){
+    this._model = model;
+    for(var i in this._modelEvents){
+        if(this._modelEvents.hasOwnProperty(i)){
+            this._model.subscribe(i, this._modelEvents[i], this);
+        }
+    }
+};
+
+Picasso.View.prototype.register = function(eventName, method){
+    this._modelEvents[eventName] = method;
+};
+
+/**
+ * Extends from a View
+ * @static
+ * @param {Function} constructor The constructor to extend
+ * @returns {Function} The updated constructor
+ */
+Picasso.View.extend = function(constructor){
+    return Picasso.utils.object.extend(constructor, Picasso.View);
+};

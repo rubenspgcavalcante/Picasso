@@ -25,7 +25,13 @@ Picasso.core.Subject = function () {
         var evListeners = handlers[event.name] || [];
         for (var i = 0; i < evListeners.length; i++) {
             if (action == "fire") {
-                evListeners[i].callback.call(evListeners.context, event);
+                var cbk = evListeners[i].callback;
+                if(typeof cbk == "string" && evListeners[i].context.hasOwnProperty(cbk)){
+                    evListeners[i].context[cbk](event);
+                }
+                else{
+                    evListeners[i].callback.call(evListeners.context, event);
+                }
             }
             else if (evListeners[i].callback === callback && (event.context == null || evListeners.context === event.context)) {
                 evListeners.splice(i, 1);
@@ -50,8 +56,8 @@ Picasso.core.Subject = function () {
             handlers[eventType] = [];
         }
 
-        var hanler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
-        handlers[eventType].push(hanler);
+        var handler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
+        handlers[eventType].push(handler);
     };
 
     /**
