@@ -26,6 +26,10 @@ Picasso.View.prototype._modelEvents = {};
  */
 Picasso.View.prototype._uiActions = {};
 
+/**
+ * Set a model to this view
+ * @param {Picasso.Model} model
+ */
 Picasso.View.prototype.setModel = function(model){
     this._model = model;
     for(var i in this._modelEvents){
@@ -35,6 +39,11 @@ Picasso.View.prototype.setModel = function(model){
     }
 };
 
+/**
+ * Registers a model event
+ * @param {String} eventName
+ * @param {Function} method
+ */
 Picasso.View.prototype.register = function(eventName, method){
     this._modelEvents[eventName] = method;
 };
