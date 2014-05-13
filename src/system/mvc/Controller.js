@@ -33,9 +33,9 @@ Picasso.Controller.prototype._views = {};
  * @private
  */
 Picasso.Controller.prototype._registerUIAction = function(view){
-    var l = this._uiActions.length;
+    var l = this._UIActions.length;
     for(var i = 0; i < l; i++){
-        var evHandler = this._uiActions[i];
+        var evHandler = this._UIActions[i];
         view.subscribe(evHandler.eventName, evHandler.callback);
     }
 };
@@ -43,10 +43,18 @@ Picasso.Controller.prototype._registerUIAction = function(view){
 /**
  * The Default Controller constructor
  * @param {Picasso.Model} model
+ * @param {...Picasso.View}
  */
 Picasso.Controller.prototype.construct = function(model){
     this._model = model;
-    this._view.setModel(this._model);
+    var l = arguments.length;
+    if(l > 1){
+        for(var i=1; i < l; i++){
+            if(arguments[i] instanceof Picasso.View){
+                this.registerView(arguments[i]);
+            }
+        }
+    }
 };
 
 /**
@@ -54,6 +62,7 @@ Picasso.Controller.prototype.construct = function(model){
  * @param {Picasso.View} view
  */
 Picasso.Controller.prototype.registerView = function(view){
+    view.setModel(this._model);
     this._views[view._seq] = view;
     this._registerUIAction(view);
 };
@@ -63,7 +72,7 @@ Picasso.Controller.prototype.registerView = function(view){
  * @param {String} uiActionName
  * @param {Function} callback
  */
-Picasso.Controller.listen = function(uiActionName, callback){
+Picasso.Controller.prototype.listen = function(uiActionName, callback){
     var uiAcion = new Picasso.pjo.EventHandler(uiActionName, callback, this);
     this._UIActions.push(uiAcion);
 

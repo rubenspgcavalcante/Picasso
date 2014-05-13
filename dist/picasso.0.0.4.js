@@ -35,7 +35,7 @@ var Picasso = Picasso || {};
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.0.4",
-    build: "2014-05-06",
+    build: "2014-05-12",
     license: "GPLv3"
 };
 /**
@@ -473,6 +473,14 @@ Picasso.load("Controller");
  * @constructor
  */
 Picasso.Controller = function (model, view) {};
+
+/**
+ * All the UI action events are stored here
+ * @type {Picasso.pjo.EventHandler[]}
+ * @private
+ */
+Picasso.Controller.prototype._UIActions = [];
+
 /**
  * @type {Picasso.Model}
  * @protected
@@ -480,15 +488,65 @@ Picasso.Controller = function (model, view) {};
 Picasso.Controller.prototype._model = null;
 
 /**
- * @type {Picasso.View}
+ * @type {Object<Number, String, Picasso.View>}
  * @protected
  */
-Picasso.Controller.prototype._view = null;
+Picasso.Controller.prototype._views = {};
 
-Picasso.Controller.prototype.construct = function(model, view){
+/**
+ * Listen all registered UIActions to a view
+ * @param {Picasso.View} view
+ * @private
+ */
+Picasso.Controller.prototype._registerUIAction = function(view){
+    var l = this._UIActions.length;
+    for(var i = 0; i < l; i++){
+        var evHandler = this._UIActions[i];
+        view.subscribe(evHandler.eventName, evHandler.callback);
+    }
+};
+
+/**
+ * The Default Controller constructor
+ * @param {Picasso.Model} model
+ * @param {...Picasso.View}
+ */
+Picasso.Controller.prototype.construct = function(model){
     this._model = model;
-    this._view = view;
-    this._view.setModel(this._model);
+    var l = arguments.length;
+    if(l > 1){
+        for(var i=1; i < l; i++){
+            if(arguments[i] instanceof Picasso.View){
+                this.registerView(arguments[i]);
+            }
+        }
+    }
+};
+
+/**
+ * Registers a view to this controller
+ * @param {Picasso.View} view
+ */
+Picasso.Controller.prototype.registerView = function(view){
+    view.setModel(this._model);
+    this._views[view._seq] = view;
+    this._registerUIAction(view);
+};
+
+/**
+ * Register a uiAction (event) to a controller callback
+ * @param {String} uiActionName
+ * @param {Function} callback
+ */
+Picasso.Controller.prototype.listen = function(uiActionName, callback){
+    var uiAcion = new Picasso.pjo.EventHandler(uiActionName, callback, this);
+    this._UIActions.push(uiAcion);
+
+    for(var i in this._views){
+        if(this._views.hasOwnProperty(i)){
+            this._views[i].subscribe(uiActionName, callback);
+        }
+    }
 };
 
 /**
@@ -507,8 +565,18 @@ Picasso.load("Model");
  * @constructor
  * @extends Picasso.core,Subject
  */
-Picasso.Model = function(){
+Picasso.Model = function () {};
 
+Picasso.Model.prototype = new Picasso.core.Subject();
+
+/**
+ * Default model constructor
+ */
+Picasso.Model.prototype.construct = function(){
+    if(!this.hasOwnProperty("_seq")){
+        var sequence = new Picasso.core.Sequence("Model");
+        this._seq = sequence.nextVal();
+    }
 };
 
 /**
@@ -517,11 +585,10 @@ Picasso.Model = function(){
  * @param {Function} constructor The constructor to extend
  * @returns {Function} The updated constructor
  */
-Picasso.Model.extend = function(constructor){
+Picasso.Model.extend = function (constructor) {
     return Picasso.utils.object.extend(constructor, Picasso.Model);
 };
 
-Picasso.Model.prototype = new Picasso.core.Subject();
 Picasso.load("View");
 
 /**
@@ -550,6 +617,10 @@ Picasso.View.prototype._modelEvents = {};
  */
 Picasso.View.prototype._uiActions = {};
 
+/**
+ * Set a model to this view
+ * @param {Picasso.Model} model
+ */
 Picasso.View.prototype.setModel = function(model){
     this._model = model;
     for(var i in this._modelEvents){
@@ -559,6 +630,11 @@ Picasso.View.prototype.setModel = function(model){
     }
 };
 
+/**
+ * Registers a model event
+ * @param {String} eventName
+ * @param {Function} method
+ */
 Picasso.View.prototype.register = function(eventName, method){
     this._modelEvents[eventName] = method;
 };
