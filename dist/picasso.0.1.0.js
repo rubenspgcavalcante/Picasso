@@ -34,7 +34,7 @@ var Picasso = Picasso || {};
  */
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
-    version: "0.0.4",
+    version: "0.1.0",
     build: "2014-05-12",
     license: "GPLv3"
 };
