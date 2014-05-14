@@ -94,7 +94,7 @@ Picasso.core.Subject = function () {
      */
     this.fire = function (eventType, eventData, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("fire", {eventType: "obrigatory"}, this.fire);
+            throw new Picasso.error.InvalidParameters("fire", {eventType: "String"}, this.fire);
         }
 
         _visit("fire", new Picasso.pjo.Event(eventType, eventData, context || this));
