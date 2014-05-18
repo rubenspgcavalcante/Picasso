@@ -3,7 +3,7 @@ Picasso.load("pjo.EventHandler");
 /**
  * Default event handler
  * @param {String} eventName
- * @param {Function||String} callback
+ * @param {Function|String} callback
  * @param {Object} context
  * @constructor
  */

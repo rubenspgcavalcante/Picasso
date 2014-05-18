@@ -4,6 +4,11 @@
  */
 var Picasso = Picasso || {};
 
+/**
+ * @alias Picasso
+ */
+var P = P || Picasso;
+
 // -- Namespace virtual comments -- //
 
 /**
@@ -26,6 +31,11 @@ var Picasso = Picasso || {};
  * @namespace {Object} Picasso.utils
  */
 
+/**
+ * The dynamic form builder namespace
+ * @namespace {Object} Picasso.form
+ */
+
 // -- End of load virtual comments -- //
 
 /**
@@ -35,7 +45,7 @@ var Picasso = Picasso || {};
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-05-17",
+    build: "2014-05-18",
     license: "GPLv3"
 };
 /**
@@ -66,44 +76,6 @@ Picasso.load = function (namespace) {
 
     }
     return currentObj;
-};
-Picasso.load("pjo.Event");
-
-/**
- * The default event object
- * @param {String} name
- * @param {*} data
- * @param {Object} target
- * @constructor
- */
-Picasso.pjo.Event = function PicassoEvent(name, data, target) {
-    /** @type String */
-    this.name = name || "any";
-
-    /** @type * */
-    this.data = data || null;
-
-    /** @type Object */
-    this.target = target || null;
-};
-Picasso.load("pjo.EventHandler");
-
-/**
- * Default event handler
- * @param {String} eventName
- * @param {Function||String} callback
- * @param {Object} context
- * @constructor
- */
-Picasso.pjo.EventHandler = function (eventName, callback, context) {
-    /** @type String */
-    this.eventName = eventName || "";
-
-    /** @type Function */
-    this.callback = callback || new Function();
-
-    /** @type Object */
-    this.context = context || null;
 };
 Picasso.load("error.InvalidParameters");
 
@@ -195,10 +167,34 @@ Picasso.utils.array = (
             return true;
         };
 
+        /**
+         * 'For each' callback
+         * @callback module:utils/array.eachCallback
+         * @param {*} element Current element of the iteration
+         * @param {Number} index The current index
+         */
+
+        /**
+         * Iterates over a array, executing a callback
+         * to each element
+         * @param {Array} arr
+         * @param {module:utils/array.eachCallback} call
+         * @public
+         */
+        var each = function (arr, call) {
+            var i, l;
+
+            l = arr.length;
+            for (i = 0; i < l; i++) {
+                call(arr[i], i);
+            }
+        };
+
         // Public API
         return {
             find: find,
-            equals: equals
+            equals: equals,
+            each: each
         }
 
     }()
@@ -622,16 +618,10 @@ Picasso.View = function () {
     this._model = null;
 
     /**
-     * @type {Object<String, Function||String>}
+     * @type {Object<String, Function>}
      * @protected
      */
     this._modelEvents = {};
-
-    /**
-     * @type {Object}
-     * @protected
-     */
-    this._uiActions = {};
 
     /**
      * The main object of the view
@@ -682,4 +672,63 @@ Picasso.View.prototype.register = function(eventName, method){
  */
 Picasso.View.extend = function(constructor){
     return Picasso.utils.object.extend(constructor, Picasso.View);
+};
+Picasso.load("form.Builder");
+
+Picasso.form.Builder = function () {
+};
+
+/**
+ * Set the given elements to the HTML object
+ * @param {Object} attrs
+ * @param {HTMLElement} element
+ * @private
+ */
+Picasso.form.Builder.prototype._setAttributes = function (attrs, element) {
+    for (var attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+            element.setAttribute(attr, attrs[attr]);
+        }
+    }
+};
+
+/**
+ * Translates a fieldSet object into a HTML element
+ * @param {Picasso.pjo.FieldSet} fieldSet
+ * @returns {HTMLFieldSetElement}
+ */
+Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
+    var fieldSetElement = document.createElement("fieldSet");
+    fieldSetElement.setAttribute("id", fieldSet.id);
+};
+
+/**
+ * Translates a serialized form to a HTML form
+ * @param {Picasso.pjo.Form} form
+ * @returns {HTMLFormElement}
+ */
+Picasso.form.Builder.prototype.buildForm = function (form) {
+    var formElement = document.createElement("form");
+    formElement.setIdAttribute("id", form.id);
+    this._setAttributes(form.attrs, formElement);
+
+    formElement.appendChild(this.buildFieldSet());
+};
+Picasso.load("form.Renderer");
+
+/**
+ * Manage the render of a dynamic form
+ * @param {HTMLElement} container
+ * @constructor
+ */
+Picasso.form.Renderer = function (container) {
+    this.container = container;
+};
+
+/**
+ * Builds and renders the given form
+ * @param {Picasso.pjo.Form} form
+ */
+Picasso.form.Renderer.prototype.render = function(form) {
+
 };

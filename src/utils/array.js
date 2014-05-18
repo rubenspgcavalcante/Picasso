@@ -59,10 +59,34 @@ Picasso.utils.array = (
             return true;
         };
 
+        /**
+         * 'For each' callback
+         * @callback module:utils/array.eachCallback
+         * @param {*} element Current element of the iteration
+         * @param {Number} index The current index
+         */
+
+        /**
+         * Iterates over a array, executing a callback
+         * to each element
+         * @param {Array} arr
+         * @param {module:utils/array.eachCallback} call
+         * @public
+         */
+        var each = function (arr, call) {
+            var i, l;
+
+            l = arr.length;
+            for (i = 0; i < l; i++) {
+                call(arr[i], i);
+            }
+        };
+
         // Public API
         return {
             find: find,
-            equals: equals
+            equals: equals,
+            each: each
         }
 
     }()

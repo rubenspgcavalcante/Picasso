@@ -14,16 +14,10 @@ Picasso.View = function () {
     this._model = null;
 
     /**
-     * @type {Object<String, Function||String>}
+     * @type {Object<String, Function>}
      * @protected
      */
     this._modelEvents = {};
-
-    /**
-     * @type {Object}
-     * @protected
-     */
-    this._uiActions = {};
 
     /**
      * The main object of the view

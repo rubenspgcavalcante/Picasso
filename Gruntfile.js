@@ -17,6 +17,7 @@ module.exports = function (grunt) {
                     "src/utils/*.js",
                     "src/system/core/*.js",
                     "src/system/mvc/*.js",
+                    "src/system/form/*.js"
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }

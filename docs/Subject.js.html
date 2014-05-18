@@ -52,7 +52,13 @@ Picasso.core.Subject = function () {
         var evListeners = handlers[event.name] || [];
         for (var i = 0; i &lt; evListeners.length; i++) {
             if (action == "fire") {
-                evListeners[i].callback.call(evListeners.context, event);
+                var cbk = evListeners[i].callback;
+                if(typeof cbk == "string" && evListeners[i].context.hasOwnProperty(cbk)){
+                    evListeners[i].context[cbk](event);
+                }
+                else{
+                    evListeners[i].callback.call(evListeners.context, event);
+                }
             }
             else if (evListeners[i].callback === callback && (event.context == null || evListeners.context === event.context)) {
                 evListeners.splice(i, 1);
@@ -67,18 +73,19 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws Picasso.error.InvalidParameters
+     * @protected
      */
-    this.subscribe = function (eventType, callback, context) {
+    this._subscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("subscribe", {eventType: "obrigatory"}, this.subscribe);
+            throw new Picasso.error.InvalidParameters("_subscribe", {eventType: "obrigatory"}, this._subscribe);
         }
 
         if (!handlers.hasOwnProperty(eventType)) {
             handlers[eventType] = [];
         }
 
-        var hanler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
-        handlers[eventType].push(hanler);
+        var handler = new Picasso.pjo.EventHandler(eventType, callback, context || this);
+        handlers[eventType].push(handler);
     };
 
     /**
@@ -91,17 +98,18 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
+     * @protected
      */
-    this.unsubscribe = function (eventType, callback, context) {
+    this._unsubscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this.unsubscribe);
+            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this._unsubscribe);
         }
 
         if (typeof callback == "undefined" && typeof context == "undefined") {
             delete handlers[eventType];
         }
         else {
-            _visit("unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
+            _visit("_unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
         }
     };
 
@@ -115,7 +123,7 @@ Picasso.core.Subject = function () {
      */
     this.fire = function (eventType, eventData, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("fire", {eventType: "obrigatory"}, this.fire);
+            throw new Picasso.error.InvalidParameters("fire", {eventType: "String"}, this.fire);
         }
 
         _visit("fire", new Picasso.pjo.Event(eventType, eventData, context || this));
@@ -131,13 +139,13 @@ Picasso.core.Subject = function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li></ul><h3>Namespaces</h3><ul><li><a href="Picasso.html">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldSet.html">FieldSet</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 29 2014 21:53:41 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 01:40:38 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -4,6 +4,11 @@
  */
 var Picasso = Picasso || {};
 
+/**
+ * @alias Picasso
+ */
+var P = P || Picasso;
+
 // -- Namespace virtual comments -- //
 
 /**
@@ -24,6 +29,11 @@ var Picasso = Picasso || {};
 /**
  * All the utils modules
  * @namespace {Object} Picasso.utils
+ */
+
+/**
+ * The dynamic form builder namespace
+ * @namespace {Object} Picasso.form
  */
 
 // -- End of load virtual comments -- //

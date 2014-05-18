@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Subject</title>
+    <title>JSDoc: Class: View</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Subject</h1>
+    <h1 class="page-title">Class: View</h1>
     
     
 
@@ -27,9 +27,9 @@
     
 <header>
     <h2>
-        <span class="ancestors"><a href="global.html#Picasso">Picasso</a><a href="Picasso.core.html">.core</a>.</span>
+        <span class="ancestors"><a href="global.html#Picasso">Picasso</a>.</span>
     
-    Subject
+    View
     </h2>
     
 </header>  
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="Subject"><span class="type-signature"></span>new Subject<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="View"><span class="type-signature"></span>new View<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -49,8 +49,7 @@
     
     
     <div class="description">
-        The subject constructor
-See the observer design pattern
+        The picasso View entity
     </div>
     
 
@@ -83,7 +82,7 @@ See the observer design pattern
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Subject.js.html">system/core/Subject.js</a>, <a href="Subject.js.html#line8">line 8</a>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line8">line 8</a>
     </li></ul></dd>
     
     
@@ -112,6 +111,12 @@ See the observer design pattern
     </div>
     
     
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li><a href="Picasso.core.Subject.html">Picasso.core.Subject</a></li>
+        </ul>
+    
     
     
     
@@ -127,15 +132,11 @@ See the observer design pattern
         <dl>
             
 <dt>
-    <h4 class="name" id="handlers"><span class="type-signature">&lt;inner> </span>handlers<span class="type-signature"> :Object.&lt;String, Array.&lt;<a href="Picasso.pjo.EventHandler.html">Picasso.pjo.EventHandler</a>>></span></h4>
+    <h4 class="name" id="_model"><span class="type-signature">&lt;protected> </span>_model<span class="type-signature"> :<a href="Picasso.Model.html">Picasso.Model</a></span></h4>
     
     
 </dt>
 <dd>
-    
-    <div class="description">
-        All the event handlers (Observers) are stored here
-    </div>
     
     
     
@@ -143,7 +144,7 @@ See the observer design pattern
         <ul>
             <li>
                 
-<span class="param-type">Object.&lt;String, Array.&lt;<a href="Picasso.pjo.EventHandler.html">Picasso.pjo.EventHandler</a>>></span>
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
 
 
             </li>
@@ -173,7 +174,131 @@ See the observer design pattern
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Subject.js.html">system/core/Subject.js</a>, <a href="Subject.js.html#line14">line 14</a>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="_modelEvents"><span class="type-signature">&lt;protected> </span>_modelEvents<span class="type-signature"> :Object.&lt;String, function()></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object.&lt;String, function()></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="dom"><span class="type-signature"></span>dom<span class="type-signature"> :HTMLObjectElement</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The main object of the view
+    </div>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">HTMLObjectElement</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line27">line 27</a>
     </li></ul></dd>
     
     
@@ -195,6 +320,145 @@ See the observer design pattern
         <h3 class="subsection-title">Methods</h3>
         
         <dl>
+            
+<dt>
+    <h4 class="name" id="extend"><span class="type-signature">&lt;static> </span>extend<span class="signature">(constructor)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Extends from a View
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>constructor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The constructor to extend</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The updated constructor
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">function</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="_subscribe"><span class="type-signature">&lt;protected> </span>_subscribe<span class="signature">(eventType, callback, context)</span><span class="type-signature"></span></h4>
@@ -317,6 +581,11 @@ See the observer design pattern
     
     
 
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Picasso.core.Subject.html#_subscribe">Picasso.core.Subject#_subscribe</a>
+    </li></dd>
     
     
     
@@ -497,6 +766,11 @@ removes if match the eventType, callback and context.
     
 
     
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Picasso.core.Subject.html#_unsubscribe">Picasso.core.Subject#_unsubscribe</a>
+    </li></dd>
+    
     
     
     
@@ -545,6 +819,123 @@ removes if match the eventType, callback and context.
 
 
         
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="construct"><span class="type-signature"></span>construct<span class="signature">(dom)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Default constructor of a view
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>dom</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">HTMLObjectElement</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
     
     
     
@@ -676,6 +1067,11 @@ of this event
     
 
     
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Picasso.core.Subject.html#fire">Picasso.core.Subject#fire</a>
+    </li></dd>
+    
     
     
     
@@ -733,7 +1129,7 @@ of this event
         
             
 <dt>
-    <h4 class="name" id="_visit"><span class="type-signature">&lt;private, inner> </span>_visit<span class="signature">(action, event)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="register"><span class="type-signature"></span>register<span class="signature">(eventName, method)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -741,8 +1137,7 @@ of this event
     
     
     <div class="description">
-        Visits all the associated handlers to the given event
-and call it or remove it
+        Registers a model event
     </div>
     
 
@@ -776,7 +1171,7 @@ and call it or remove it
 	
         <tr>
             
-                <td class="name"><code>action</code></td>
+                <td class="name"><code>eventName</code></td>
             
             
             <td class="type">
@@ -799,13 +1194,13 @@ and call it or remove it
 	
         <tr>
             
-                <td class="name"><code>event</code></td>
+                <td class="name"><code>method</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Picasso.pjo.Event.html">Picasso.pjo.Event</a></span>
+<span class="param-type">function</span>
 
 
             
@@ -846,7 +1241,124 @@ and call it or remove it
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Subject.js.html">system/core/Subject.js</a>, <a href="Subject.js.html#line23">line 23</a>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModel"><span class="type-signature"></span>setModel<span class="signature">(model)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set a model to this view
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">system/mvc/View.js</a>, <a href="View.js.html#line45">line 45</a>
     </li></ul></dd>
     
     

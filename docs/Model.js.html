@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Index</title>
+    <title>JSDoc: Source: system/mvc/Model.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,30 +17,47 @@
 
 <div id="main">
     
-    <h1 class="page-title">Index</h1>
+    <h1 class="page-title">Source: system/mvc/Model.js</h1>
     
     
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>Picasso.load("Model");
 
+/**
+ * The picasso Model entity
+ * @constructor
+ * @extends Picasso.core,Subject
+ */
+Picasso.Model = function () {};
 
-    <h3> </h3>
+Picasso.Model.prototype = new Picasso.core.Subject();
 
+/**
+ * Default model constructor
+ */
+Picasso.Model.prototype.construct = function(){
+    if(!this.hasOwnProperty("_seq")){
+        var sequence = new Picasso.core.Sequence("Model");
+        this._seq = sequence.nextVal();
+    }
+};
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Extends from a Model
+ * @static
+ * @param {Function} constructor The constructor to extend
+ * @returns {Function} The updated constructor
+ */
+Picasso.Model.extend = function (constructor) {
+    return Picasso.utils.object.extend(constructor, Picasso.Model);
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

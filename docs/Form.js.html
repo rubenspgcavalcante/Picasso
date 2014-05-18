@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Index</title>
+    <title>JSDoc: Source: system/pjo/form/Form.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,30 +17,33 @@
 
 <div id="main">
     
-    <h1 class="page-title">Index</h1>
+    <h1 class="page-title">Source: system/pjo/form/Form.js</h1>
     
     
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>Picasso.load("pjo.Form");
 
+/**
+ * A form object representation
+ * @constructor
+ */
+Picasso.pjo.Form = function(){
+    this.id = null;
+    this.attrs = {
+        action: "",
+        method: "",
+        name: ""
+    };
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    /** @type {Object&lt;String, Picasso.pjo.FieldSet>} */
+    this.fieldSets = {};
+};</code></pre>
+        </article>
+    </section>
 
 
 
