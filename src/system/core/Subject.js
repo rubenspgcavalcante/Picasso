@@ -46,10 +46,11 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws Picasso.error.InvalidParameters
+     * @protected
      */
-    this.subscribe = function (eventType, callback, context) {
+    this._subscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("subscribe", {eventType: "obrigatory"}, this.subscribe);
+            throw new Picasso.error.InvalidParameters("_subscribe", {eventType: "obrigatory"}, this._subscribe);
         }
 
         if (!handlers.hasOwnProperty(eventType)) {
@@ -70,17 +71,18 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
+     * @protected
      */
-    this.unsubscribe = function (eventType, callback, context) {
+    this._unsubscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this.unsubscribe);
+            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this._unsubscribe);
         }
 
         if (typeof callback == "undefined" && typeof context == "undefined") {
             delete handlers[eventType];
         }
         else {
-            _visit("unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
+            _visit("_unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
         }
     };
 

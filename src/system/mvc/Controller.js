@@ -36,7 +36,7 @@ Picasso.Controller.prototype._registerUIAction = function (view) {
     var l = this._UIActions.length;
     for (var i = 0; i < l; i++) {
         var evHandler = this._UIActions[i];
-        view.subscribe(evHandler.eventName, evHandler.callback);
+        view._subscribe(evHandler.eventName, evHandler.callback);
     }
 };
 
@@ -54,6 +54,7 @@ Picasso.Controller.prototype.construct = function (model) {
         for (var i = 1; i < l; i++) {
             if (arguments[i] instanceof Picasso.View) {
                 this.registerView(arguments[i]);
+                arguments[i].setModel(model);
             }
         }
     }
@@ -80,7 +81,7 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 
     for (var i in this._views) {
         if (this._views.hasOwnProperty(i)) {
-            this._views[i].subscribe(uiActionName, callback);
+            this._views[i]._subscribe(uiActionName, callback);
         }
     }
 };

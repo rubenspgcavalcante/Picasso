@@ -35,7 +35,7 @@ var Picasso = Picasso || {};
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-05-12",
+    build: "2014-05-17",
     license: "GPLv3"
 };
 /**
@@ -116,12 +116,24 @@ Picasso.load("error.InvalidParameters");
  * @constructor
  */
 Picasso.error.InvalidParameters = function (funcName, errorParameters, context) {
-    this.msg = "The function " + funcName + " has received invalid parameters";
+
+    this.name = "InvalidParameters";
+
+    this.message = "The function " + funcName + " has received invalid parameters\n";
+    var template = "\tparameter %param%: %dependence%;\n";
+
+    for(var i in errorParameters){
+        if(errorParameters.hasOwnProperty(i)){
+            this.message += template.replace("%param%", i).replace("%dependence%", errorParameters[i]);
+        }
+    }
+
     this.errorParameters = errorParameters || null;
     this.context = context || null;
 };
 
-Picasso.error.InvalidParameters.prototype = new Error();
+Picasso.error.InvalidParameters.prototype = Error.prototype;
+Picasso.error.InvalidParameters.constructor = Picasso.error.InvalidParameters;
 Picasso.load("Picasso.utils.array");
 Picasso.utils.array = (
 
@@ -409,10 +421,11 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws Picasso.error.InvalidParameters
+     * @protected
      */
-    this.subscribe = function (eventType, callback, context) {
+    this._subscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("subscribe", {eventType: "obrigatory"}, this.subscribe);
+            throw new Picasso.error.InvalidParameters("_subscribe", {eventType: "obrigatory"}, this._subscribe);
         }
 
         if (!handlers.hasOwnProperty(eventType)) {
@@ -433,17 +446,18 @@ Picasso.core.Subject = function () {
      * @param {Function} callback
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
+     * @protected
      */
-    this.unsubscribe = function (eventType, callback, context) {
+    this._unsubscribe = function (eventType, callback, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this.unsubscribe);
+            throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this._unsubscribe);
         }
 
         if (typeof callback == "undefined" && typeof context == "undefined") {
             delete handlers[eventType];
         }
         else {
-            _visit("unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
+            _visit("_unsubscribe", new Picasso.pjo.Event(eventType, [], context), callback);
         }
     };
 
@@ -457,7 +471,7 @@ Picasso.core.Subject = function () {
      */
     this.fire = function (eventType, eventData, context) {
         if (typeof  eventType == "undefined") {
-            throw new Picasso.error.InvalidParameters("fire", {eventType: "obrigatory"}, this.fire);
+            throw new Picasso.error.InvalidParameters("fire", {eventType: "String"}, this.fire);
         }
 
         _visit("fire", new Picasso.pjo.Event(eventType, eventData, context || this));
@@ -472,37 +486,37 @@ Picasso.load("Controller");
  * @param {Picasso.View} view A view to associate to this controller
  * @constructor
  */
-Picasso.Controller = function (model, view) {};
+Picasso.Controller = function (model, view) {
+    /**
+     * All the UI action events are stored here
+     * @type {Picasso.pjo.EventHandler[]}
+     * @private
+     */
+    this._UIActions = [];
 
-/**
- * All the UI action events are stored here
- * @type {Picasso.pjo.EventHandler[]}
- * @private
- */
-Picasso.Controller.prototype._UIActions = [];
+    /**
+     * @type {Picasso.Model}
+     * @protected
+     */
+    this._model = null;
 
-/**
- * @type {Picasso.Model}
- * @protected
- */
-Picasso.Controller.prototype._model = null;
-
-/**
- * @type {Object<Number, String, Picasso.View>}
- * @protected
- */
-Picasso.Controller.prototype._views = {};
+    /**
+     * @type {Object<Number, String, Picasso.View>}
+     * @protected
+     */
+    this._views = {};
+};
 
 /**
  * Listen all registered UIActions to a view
  * @param {Picasso.View} view
  * @private
  */
-Picasso.Controller.prototype._registerUIAction = function(view){
+Picasso.Controller.prototype._registerUIAction = function (view) {
     var l = this._UIActions.length;
-    for(var i = 0; i < l; i++){
+    for (var i = 0; i < l; i++) {
         var evHandler = this._UIActions[i];
-        view.subscribe(evHandler.eventName, evHandler.callback);
+        view._subscribe(evHandler.eventName, evHandler.callback);
     }
 };
 
@@ -511,13 +525,16 @@ Picasso.Controller.prototype._registerUIAction = function(view){
  * @param {Picasso.Model} model
  * @param {...Picasso.View}
  */
-Picasso.Controller.prototype.construct = function(model){
+Picasso.Controller.prototype.construct = function (model) {
+    Picasso.Controller.apply(this, arguments);
+
     this._model = model;
     var l = arguments.length;
-    if(l > 1){
-        for(var i=1; i < l; i++){
-            if(arguments[i] instanceof Picasso.View){
+    if (l > 1) {
+        for (var i = 1; i < l; i++) {
+            if (arguments[i] instanceof Picasso.View) {
                 this.registerView(arguments[i]);
+                arguments[i].setModel(model);
             }
         }
     }
@@ -527,7 +544,7 @@ Picasso.Controller.prototype.construct = function(model){
  * Registers a view to this controller
  * @param {Picasso.View} view
  */
-Picasso.Controller.prototype.registerView = function(view){
+Picasso.Controller.prototype.registerView = function (view) {
     view.setModel(this._model);
     this._views[view._seq] = view;
     this._registerUIAction(view);
@@ -538,13 +555,13 @@ Picasso.Controller.prototype.registerView = function(view){
  * @param {String} uiActionName
  * @param {Function} callback
  */
-Picasso.Controller.prototype.listen = function(uiActionName, callback){
+Picasso.Controller.prototype.listen = function (uiActionName, callback) {
     var uiAcion = new Picasso.pjo.EventHandler(uiActionName, callback, this);
     this._UIActions.push(uiAcion);
 
-    for(var i in this._views){
-        if(this._views.hasOwnProperty(i)){
-            this._views[i].subscribe(uiActionName, callback);
+    for (var i in this._views) {
+        if (this._views.hasOwnProperty(i)) {
+            this._views[i]._subscribe(uiActionName, callback);
         }
     }
 };
@@ -555,7 +572,7 @@ Picasso.Controller.prototype.listen = function(uiActionName, callback){
  * @param {Function} constructor The constructor to extend
  * @returns {Function} The updated constructor
  */
-Picasso.Controller.extend = function(constructor){
+Picasso.Controller.extend = function (constructor) {
     return Picasso.utils.object.extend(constructor, Picasso.Controller);
 };
 Picasso.load("Model");
@@ -596,26 +613,44 @@ Picasso.load("View");
  * @constructor
  * @extends Picasso.core.Subject
  */
-Picasso.View = function () {};
+Picasso.View = function () {
+
+    /**
+     * @type {Picasso.Model}
+     * @protected
+     */
+    this._model = null;
+
+    /**
+     * @type {Object<String, Function||String>}
+     * @protected
+     */
+    this._modelEvents = {};
+
+    /**
+     * @type {Object}
+     * @protected
+     */
+    this._uiActions = {};
+
+    /**
+     * The main object of the view
+     * @type {HTMLObjectElement}
+     * @public
+     */
+    this.dom = null;
+
+};
 Picasso.View.prototype = new Picasso.core.Subject();
 
 /**
- * @type {Picasso.Model}
- * @protected
+ * Default constructor of a view
+ * @param {HTMLObjectElement} dom
  */
-Picasso.View.prototype._model = null;
-
-/**
- * @type {Object<String, Function||String>}
- * @protected
- */
-Picasso.View.prototype._modelEvents = {};
-
-/**
- * @type {Object}
- * @protected
- */
-Picasso.View.prototype._uiActions = {};
+Picasso.View.prototype.construct = function(dom){
+    Picasso.View.apply(this, arguments);
+    this.dom = dom || document;
+};
 
 /**
  * Set a model to this view
@@ -625,7 +660,7 @@ Picasso.View.prototype.setModel = function(model){
     this._model = model;
     for(var i in this._modelEvents){
         if(this._modelEvents.hasOwnProperty(i)){
-            this._model.subscribe(i, this._modelEvents[i], this);
+            this._model._subscribe(i, this._modelEvents[i], this);
         }
     }
 };

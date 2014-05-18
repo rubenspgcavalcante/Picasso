@@ -5,26 +5,44 @@ Picasso.load("View");
  * @constructor
  * @extends Picasso.core.Subject
  */
-Picasso.View = function () {};
+Picasso.View = function () {
+
+    /**
+     * @type {Picasso.Model}
+     * @protected
+     */
+    this._model = null;
+
+    /**
+     * @type {Object<String, Function||String>}
+     * @protected
+     */
+    this._modelEvents = {};
+
+    /**
+     * @type {Object}
+     * @protected
+     */
+    this._uiActions = {};
+
+    /**
+     * The main object of the view
+     * @type {HTMLObjectElement}
+     * @public
+     */
+    this.dom = null;
+
+};
 Picasso.View.prototype = new Picasso.core.Subject();
 
 /**
- * @type {Picasso.Model}
- * @protected
+ * Default constructor of a view
+ * @param {HTMLObjectElement} dom
  */
-Picasso.View.prototype._model = null;
-
-/**
- * @type {Object<String, Function||String>}
- * @protected
- */
-Picasso.View.prototype._modelEvents = {};
-
-/**
- * @type {Object}
- * @protected
- */
-Picasso.View.prototype._uiActions = {};
+Picasso.View.prototype.construct = function(dom){
+    Picasso.View.apply(this, arguments);
+    this.dom = dom || document;
+};
 
 /**
  * Set a model to this view
@@ -34,7 +52,7 @@ Picasso.View.prototype.setModel = function(model){
     this._model = model;
     for(var i in this._modelEvents){
         if(this._modelEvents.hasOwnProperty(i)){
-            this._model.subscribe(i, this._modelEvents[i], this);
+            this._model._subscribe(i, this._modelEvents[i], this);
         }
     }
 };
