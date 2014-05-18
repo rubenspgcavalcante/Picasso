@@ -712,7 +712,14 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
     formElement.setIdAttribute("id", form.id);
     this._setAttributes(form.attrs, formElement);
 
-    formElement.appendChild(this.buildFieldSet());
+    var that = this;
+
+    var arr = Picasso.load("utils.array");
+    arr.each(form.fieldSets, function(fieldSet){
+        formElement.appendChild(that.buildFieldSet(fieldSet));
+    });
+
+    return formElement;
 };
 Picasso.load("form.Renderer");
 

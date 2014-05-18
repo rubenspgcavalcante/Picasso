@@ -1,8 +1,6 @@
 Picasso.load("form.Builder");
 
 Picasso.form.Builder = function () {
-    // Dependence
-    this.arr = Picasso.load("utils.array");
 };
 
 /**
@@ -36,11 +34,13 @@ Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
  */
 Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
-    formElement.setIdAttribute("id", form.id);
+    formElement.setAttribute("id", form.id);
     this._setAttributes(form.attrs, formElement);
 
     var that = this;
-    this.arr.each(form.fieldSets, function(fieldSet){
+
+    var arr = Picasso.load("utils.array");
+    arr.each(form.fieldSets, function(fieldSet){
         formElement.appendChild(that.buildFieldSet(fieldSet));
     });
 

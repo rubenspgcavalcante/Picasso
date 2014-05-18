@@ -74,6 +74,10 @@ Picasso.utils.array = (
          * @public
          */
         var each = function (arr, call) {
+            if(typeof arr === "undefined"){
+                return;
+            }
+
             var i, l;
 
             l = arr.length;

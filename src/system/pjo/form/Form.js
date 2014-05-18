@@ -5,7 +5,13 @@ Picasso.load("pjo.Form");
  * @constructor
  */
 Picasso.pjo.Form = function(){
+     /** @type {String|Number} */
     this.id = null;
+
+    /**
+     * The form attributes
+     * @type {{action: string, method: string, name: string}}
+     */
     this.attrs = {
         action: "",
         method: "",
