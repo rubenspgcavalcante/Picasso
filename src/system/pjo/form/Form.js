@@ -5,7 +5,7 @@ Picasso.load("pjo.Form");
  * @constructor
  */
 Picasso.pjo.Form = function(){
-     /** @type {String|Number} */
+     /** @type {string|number} */
     this.id = null;
 
     /**
@@ -18,6 +18,6 @@ Picasso.pjo.Form = function(){
         name: ""
     };
 
-    /** @type {Object<String, Picasso.pjo.FieldSet>} */
+    /** @type {Object<string, Picasso.pjo.FieldSet>} */
     this.fieldSets = {};
 };

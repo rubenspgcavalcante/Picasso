@@ -1,10 +1,10 @@
-Picasso.load("Picasso.utils.array");
+Picasso.load("utils.array");
 Picasso.utils.array = (
 
-/**
- * A set of array utils
- * @exports utils/array
- */
+    /**
+     * A set of array utils
+     * @exports utils/array
+     */
     function () {
 
         // Depedences
@@ -63,7 +63,7 @@ Picasso.utils.array = (
          * 'For each' callback
          * @callback module:utils/array.eachCallback
          * @param {*} element Current element of the iteration
-         * @param {Number} index The current index
+         * @param {number} index The current index
          */
 
         /**
@@ -94,4 +94,4 @@ Picasso.utils.array = (
         }
 
     }()
-    );
+);

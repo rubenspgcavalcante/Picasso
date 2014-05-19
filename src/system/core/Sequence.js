@@ -2,7 +2,7 @@ Picasso.load("core.Sequence");
 Picasso.core.Sequence = (function () {
     /**
      * Stores all the sequences
-     * @type {Object<String, number>}
+     * @type {Object<string, number>}
      * @private
      * @static
      */
@@ -11,7 +11,7 @@ Picasso.core.Sequence = (function () {
     /**
      * Validates and if necessary starts a new sequence
      * based on the given entity name
-     * @param {String} entityName The entity name
+     * @param {string} entityName The entity name
      * @return {boolean}
      * @private
      * @static
@@ -32,7 +32,7 @@ Picasso.core.Sequence = (function () {
      * Controls a sequence of the given entity. </br>
      * Take note that this is the real Sequence constructor.
      *
-     * @param {String} entity The entity name
+     * @param {string} entity The entity name
      * @constructor
      * @alias Picasso.core.Sequence
      * @example

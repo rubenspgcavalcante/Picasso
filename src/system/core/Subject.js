@@ -9,14 +9,14 @@ Picasso.core.Subject = function () {
 
     /**
      * All the event handlers (Observers) are stored here
-     * @type {Object<String, Picasso.pjo.EventHandler[]>}
+     * @type {Object<string, Picasso.pjo.EventHandler[]>}
      */
     var handlers = {};
 
     /**
      * Visits all the associated handlers to the given event
      * and call it or remove it
-     * @param {String} action
+     * @param {string} action
      * @param {Picasso.pjo.Event} event
      * @private
      */
@@ -42,7 +42,7 @@ Picasso.core.Subject = function () {
 
     /**
      * Subscribes a new observer
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {Function} callback
      * @param {Object} context
      * @throws Picasso.error.InvalidParameters
@@ -67,7 +67,7 @@ Picasso.core.Subject = function () {
      * this event type. If callback is given, removes all observers
      * that calls this callback. And finnaly, if context is given too,
      * removes if match the eventType, callback and context.
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {Function} callback
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
@@ -89,7 +89,7 @@ Picasso.core.Subject = function () {
     /**
      * Fires a event, calling all the observers
      * of this event
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {*} eventData
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}

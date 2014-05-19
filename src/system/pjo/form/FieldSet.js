@@ -5,12 +5,18 @@ Picasso.load("pjo.FieldSet");
  * @constructor
  */
 Picasso.pjo.FieldSet = function(){
-    /** @type {String|Number} */
+    /** @type {string|number} */
     this.id = null;
 
-    /** @type {String} */
+    /** @type {number} */
+    this.index = 0;
+
+    /** @type {string} */
     this.legend = "";
 
-    /** @type {Object<String, Picasso.pjo.Field>} */
-    this.fields = {};
+    /** @type {Object} */
+    this.attrs = {};
+
+    /** @type {Picasso.pjo.Field[]} */
+    this.fields = [];
 };

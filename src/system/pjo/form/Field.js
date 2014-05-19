@@ -5,8 +5,11 @@ Picasso.load("pjo.Field");
  * @constructor
  */
 Picasso.pjo.Field = function(){
-    /** @type {String|Number} */
+    /** @type {string|number} */
     this.id = null;
+
+    /** @type {string} */
+    this.label = "";
 
     /** @type {Picasso.pjo.Field.type} */
     this.type = null;
@@ -23,10 +26,14 @@ Picasso.pjo.Field = function(){
 /**
  * Available default field types
  * @readonly
- * @enum {String}
+ * @enum {string}
  */
 Picasso.pjo.Field.type = {
     TEXT: "text",
+    TEXTAREA: "textarea",
     NUMBER: "number",
-    EMAIL: "email"
+    EMAIL: "email",
+    PASSWORD: "password",
+    SUBMIT: "submit",
+    CANCEL: "cancel"
 };

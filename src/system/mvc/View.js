@@ -14,7 +14,7 @@ Picasso.View = function () {
     this._model = null;
 
     /**
-     * @type {Object<String, Function>}
+     * @type {Object<string, Function>}
      * @protected
      */
     this._modelEvents = {};
@@ -53,7 +53,7 @@ Picasso.View.prototype.setModel = function(model){
 
 /**
  * Registers a model event
- * @param {String} eventName
+ * @param {string} eventName
  * @param {Function} method
  */
 Picasso.View.prototype.register = function(eventName, method){

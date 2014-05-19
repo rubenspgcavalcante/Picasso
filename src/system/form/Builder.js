@@ -1,20 +1,21 @@
 Picasso.load("form.Builder");
 
-Picasso.form.Builder = function () {
-};
-
 /**
- * Set the given elements to the HTML object
- * @param {Object} attrs
- * @param {HTMLElement} element
- * @private
+ * Translates and builds a form from
+ * a object to HTML elements
+ * @constructor
  */
-Picasso.form.Builder.prototype._setAttributes = function (attrs, element) {
-    for (var attr in attrs) {
-        if (attrs.hasOwnProperty(attr)) {
-            element.setAttribute(attr, attrs[attr]);
-        }
-    }
+Picasso.form.Builder = function () {
+    //Load dependencies
+
+    /** @type {utils/array} */
+    this.arrayUtils = Picasso.load("utils.array");
+
+    /** @type {utils/html} */
+    this.htmlUtils = Picasso.load("utils.html");
+
+    /**@type {Picasso.form.FieldFactory} */
+    this.fieldFactory = new Picasso.form.FieldFactory();
 };
 
 /**
@@ -25,6 +26,15 @@ Picasso.form.Builder.prototype._setAttributes = function (attrs, element) {
 Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
     var fieldSetElement = document.createElement("fieldSet");
     fieldSetElement.setAttribute("id", fieldSet.id);
+    this.htmlUtils.setAttributes(fieldSet.attrs, fieldSetElement);
+
+    var that = this;
+    this.arrayUtils.each(fieldSet.fields, function(field){
+        var fieldElement = that.fieldFactory.create(field);
+        fieldSetElement.appendChild(fieldElement);
+    });
+
+    return fieldSetElement;
 };
 
 /**
@@ -35,12 +45,11 @@ Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
 Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
-    this._setAttributes(form.attrs, formElement);
+    this.htmlUtils.setAttributes(form.attrs, formElement);
 
     var that = this;
 
-    var arr = Picasso.load("utils.array");
-    arr.each(form.fieldSets, function(fieldSet){
+    this.arrayUtils.each(form.fieldSets, function(fieldSet){
         formElement.appendChild(that.buildFieldSet(fieldSet));
     });
 

@@ -56,7 +56,7 @@ Picasso.info = {
  * // Using
  * var arrayUtils = Picasso.load("utils.array");
  *
- * @param {String} namespace The module complete namespace
+ * @param {string} namespace The module complete namespace
  * @return {Object} The loaded module
  */
 Picasso.load = function (namespace) {
@@ -77,12 +77,27 @@ Picasso.load = function (namespace) {
     }
     return currentObj;
 };
+Picasso.load("error.InvalidFieldType");
+
+/**
+ * Invalid field type used
+ * @param {string} fieldType
+ * @constructor
+ * @extends Error
+ */
+Picasso.error.InvalidFieldType = function(fieldType){
+    this.name = "InvalidFieldType";
+    this.message = "Can't find a constructor. Invalid field type " + String(fieldType);
+};
+
+Picasso.error.InvalidFieldType.prototype = Error.prototype;
+Picasso.error.InvalidFieldType.constructor = Picasso.error.InvalidFieldType;
 Picasso.load("error.InvalidParameters");
 
 /**
  * Invalid parameters error
- * @param {String} funcName The name of the function that are throwing this error
- * @param {Object<String, String>} errorParameters A map of parameter/error message type
+ * @param {string} funcName The name of the function that are throwing this error
+ * @param {Object<string, String>} errorParameters A map of parameter/error message type
  * @param {Object} context The context that the error occurred
  * @extends {Error}
  * @constructor
@@ -106,13 +121,13 @@ Picasso.error.InvalidParameters = function (funcName, errorParameters, context) 
 
 Picasso.error.InvalidParameters.prototype = Error.prototype;
 Picasso.error.InvalidParameters.constructor = Picasso.error.InvalidParameters;
-Picasso.load("Picasso.utils.array");
+Picasso.load("utils.array");
 Picasso.utils.array = (
 
-/**
- * A set of array utils
- * @exports utils/array
- */
+    /**
+     * A set of array utils
+     * @exports utils/array
+     */
     function () {
 
         // Depedences
@@ -171,7 +186,7 @@ Picasso.utils.array = (
          * 'For each' callback
          * @callback module:utils/array.eachCallback
          * @param {*} element Current element of the iteration
-         * @param {Number} index The current index
+         * @param {number} index The current index
          */
 
         /**
@@ -182,6 +197,10 @@ Picasso.utils.array = (
          * @public
          */
         var each = function (arr, call) {
+            if(typeof arr === "undefined"){
+                return;
+            }
+
             var i, l;
 
             l = arr.length;
@@ -198,13 +217,44 @@ Picasso.utils.array = (
         }
 
     }()
-    );
-Picasso.load("Picasso.utils.object");
+);
+Picasso.load("utils.html");
+Picasso.utils.html = (
+
+    /**
+     * HTML and DOM utils
+     * @exports utils/html
+     */
+    function () {
+
+        /**
+         * Set the given elements to the HTML object
+         * @param {Object} attrs
+         * @param {HTMLElement} element
+         * @public
+         */
+        var setAttributes = function (attrs, element) {
+            for (var attr in attrs) {
+                if (attrs.hasOwnProperty(attr)) {
+                    element.setAttribute(attr, attrs[attr]);
+                }
+            }
+        };
+
+        // Public API
+        return {
+            setAttributes: setAttributes
+        };
+    }()
+);
+
+
+Picasso.load("utils.object");
 Picasso.utils.object = (
-/**
- * A set of object utils
- * @exports utils/object
- */
+    /**
+     * A set of object utils
+     * @exports utils/object
+     */
     function () {
 
         /**
@@ -222,6 +272,30 @@ Picasso.utils.object = (
             Class.prototype.constructor = Class;
 
             return Class;
+        };
+
+
+        /**
+         * 'For each' callback
+         * @callback utils/object.eachCallback
+         * @param {*} value
+         * @param {string} property
+         */
+
+        /**
+         * Iterates over a object properties
+         * @param {Object} obj
+         * @param {module:utils/object.eachCallback} call
+         */
+        var each = function(obj, call){
+            if(obj instanceof Object) {
+                var property;
+                for (property in obj) {
+                    if (obj.hasOwnProperty(property)) {
+                        call(obj[property], property);
+                    }
+                }
+            }
         };
 
         /**
@@ -279,16 +353,16 @@ Picasso.utils.object = (
         // Public API
         return {
             extend: extend,
-            equals: equals
+            equals: equals,
+            each: each
         }
-
     }()
-    );
+);
 Picasso.load("core.Sequence");
 Picasso.core.Sequence = (function () {
     /**
      * Stores all the sequences
-     * @type {Object<String, number>}
+     * @type {Object<string, number>}
      * @private
      * @static
      */
@@ -297,7 +371,7 @@ Picasso.core.Sequence = (function () {
     /**
      * Validates and if necessary starts a new sequence
      * based on the given entity name
-     * @param {String} entityName The entity name
+     * @param {string} entityName The entity name
      * @return {boolean}
      * @private
      * @static
@@ -318,7 +392,7 @@ Picasso.core.Sequence = (function () {
      * Controls a sequence of the given entity. </br>
      * Take note that this is the real Sequence constructor.
      *
-     * @param {String} entity The entity name
+     * @param {string} entity The entity name
      * @constructor
      * @alias Picasso.core.Sequence
      * @example
@@ -380,14 +454,14 @@ Picasso.core.Subject = function () {
 
     /**
      * All the event handlers (Observers) are stored here
-     * @type {Object<String, Picasso.pjo.EventHandler[]>}
+     * @type {Object<string, Picasso.pjo.EventHandler[]>}
      */
     var handlers = {};
 
     /**
      * Visits all the associated handlers to the given event
      * and call it or remove it
-     * @param {String} action
+     * @param {string} action
      * @param {Picasso.pjo.Event} event
      * @private
      */
@@ -413,7 +487,7 @@ Picasso.core.Subject = function () {
 
     /**
      * Subscribes a new observer
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {Function} callback
      * @param {Object} context
      * @throws Picasso.error.InvalidParameters
@@ -438,7 +512,7 @@ Picasso.core.Subject = function () {
      * this event type. If callback is given, removes all observers
      * that calls this callback. And finnaly, if context is given too,
      * removes if match the eventType, callback and context.
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {Function} callback
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
@@ -460,7 +534,7 @@ Picasso.core.Subject = function () {
     /**
      * Fires a event, calling all the observers
      * of this event
-     * @param {String} eventType
+     * @param {string} eventType
      * @param {*} eventData
      * @param {Object} context
      * @throws {Picasso.error.InvalidParameters}
@@ -497,7 +571,7 @@ Picasso.Controller = function (model, view) {
     this._model = null;
 
     /**
-     * @type {Object<Number, String, Picasso.View>}
+     * @type {Object<number, String, Picasso.View>}
      * @protected
      */
     this._views = {};
@@ -548,7 +622,7 @@ Picasso.Controller.prototype.registerView = function (view) {
 
 /**
  * Register a uiAction (event) to a controller callback
- * @param {String} uiActionName
+ * @param {string} uiActionName
  * @param {Function} callback
  */
 Picasso.Controller.prototype.listen = function (uiActionName, callback) {
@@ -618,7 +692,7 @@ Picasso.View = function () {
     this._model = null;
 
     /**
-     * @type {Object<String, Function>}
+     * @type {Object<string, Function>}
      * @protected
      */
     this._modelEvents = {};
@@ -657,7 +731,7 @@ Picasso.View.prototype.setModel = function(model){
 
 /**
  * Registers a model event
- * @param {String} eventName
+ * @param {string} eventName
  * @param {Function} method
  */
 Picasso.View.prototype.register = function(eventName, method){
@@ -675,21 +749,22 @@ Picasso.View.extend = function(constructor){
 };
 Picasso.load("form.Builder");
 
-Picasso.form.Builder = function () {
-};
-
 /**
- * Set the given elements to the HTML object
- * @param {Object} attrs
- * @param {HTMLElement} element
- * @private
+ * Translates and builds a form from
+ * a object to HTML elements
+ * @constructor
  */
-Picasso.form.Builder.prototype._setAttributes = function (attrs, element) {
-    for (var attr in attrs) {
-        if (attrs.hasOwnProperty(attr)) {
-            element.setAttribute(attr, attrs[attr]);
-        }
-    }
+Picasso.form.Builder = function () {
+    //Load dependencies
+
+    /** @type {utils/array} */
+    this.arrayUtils = Picasso.load("utils.array");
+
+    /** @type {utils/html} */
+    this.htmlUtils = Picasso.load("utils.html");
+
+    /**@type {Picasso.form.FieldFactory} */
+    this.fieldFactory = new Picasso.form.FieldFactory();
 };
 
 /**
@@ -700,6 +775,15 @@ Picasso.form.Builder.prototype._setAttributes = function (attrs, element) {
 Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
     var fieldSetElement = document.createElement("fieldSet");
     fieldSetElement.setAttribute("id", fieldSet.id);
+    this.htmlUtils.setAttributes(fieldSet.attrs, fieldSetElement);
+
+    var that = this;
+    this.arrayUtils.each(fieldSet.fields, function(field){
+        var fieldElement = that.fieldFactory.create(field);
+        fieldSetElement.appendChild(fieldElement);
+    });
+
+    return fieldSetElement;
 };
 
 /**
@@ -709,17 +793,95 @@ Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
  */
 Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
-    formElement.setIdAttribute("id", form.id);
-    this._setAttributes(form.attrs, formElement);
+    formElement.setAttribute("id", form.id);
+    this.htmlUtils.setAttributes(form.attrs, formElement);
 
     var that = this;
 
-    var arr = Picasso.load("utils.array");
-    arr.each(form.fieldSets, function(fieldSet){
+    this.arrayUtils.each(form.fieldSets, function(fieldSet){
         formElement.appendChild(that.buildFieldSet(fieldSet));
     });
 
     return formElement;
+};
+Picasso.load("form.FieldFactory");
+
+/**
+ * A field factory
+ * @constructor
+ */
+Picasso.form.FieldFactory = function(){
+};
+
+/**
+ * All the available field builders
+ * Can be a method name or the function itself
+ * @type {Object<string, string|Function>}
+ */
+Picasso.form.FieldFactory.prototype.builders =  {
+    text: "_constructField",
+    textArea: "_constructField",
+    email: "_constructField",
+    password: "_constructField",
+    submit: "_constructField",
+    cancel: "_constructField"
+};
+
+/**
+ * Constructs a simple field element
+ * @param {Picasso.pjo.Field} field
+ * @returns {HTMLFieldSetElement}
+ * @private
+ */
+Picasso.form.FieldFactory.prototype._constructField = function(field){
+    /** @type {utils/html} */
+    var htmlUtils = Picasso.load("utils.html");
+    var fieldElement = document.createElement("field");
+
+    fieldElement.setAttribute("id", field.id);
+    fieldElement.setAttribute("type", field.type);
+    htmlUtils.setAttributes(field.attrs, fieldElement);
+
+    return fieldElement;
+};
+
+/**
+ * The default interface of a field builder method
+ * @typedef Picasso.form.FieldFactory~fieldBuilderMethod
+ * @type {Function}
+ * @param {Picasso.pjo.Field} field
+ */
+
+/**
+ * Strategy pattern to choose the right
+ * field builder method
+ * @type {Object<string, fieldBuilderMethod>}
+ * @returns {Function}
+ * @throws {Picasso.error.InvalidFieldType}
+ * @private
+ */
+Picasso.form.FieldFactory.prototype._getBuilderByFieldType = function(fieldType){
+    if(this.builders.hasOwnProperty(fieldType)){
+        var builder = this.builders[fieldType];
+        if(typeof builder === 'string'){
+            return this[builder];
+        }
+        else{
+            return builder;
+        }
+    }
+
+    throw new Picasso.error.InvalidFieldType(fieldType);
+};
+
+/**
+ * Builds a field element
+ * @param {Picasso.pjo.Field} field
+ * @returns {HTMLFieldSetElement} A simple field, or a composed field
+ */
+Picasso.form.FieldFactory.prototype.create = function(field){
+    var builder = this._getBuilderByFieldType(field.type);
+    return  builder(field);
 };
 Picasso.load("form.Renderer");
 

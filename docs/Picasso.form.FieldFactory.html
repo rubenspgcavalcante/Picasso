@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils/object</title>
+    <title>JSDoc: Class: FieldFactory</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Module: utils/object</h1>
+    <h1 class="page-title">Class: FieldFactory</h1>
     
     
 
@@ -27,7 +27,9 @@
     
 <header>
     <h2>
-    utils/object
+        <span class="ancestors"><a href="global.html#Picasso">Picasso</a><a href="Picasso.form.html">.form</a>.</span>
+    
+    FieldFactory
     </h2>
     
 </header>  
@@ -38,67 +40,8 @@
     
     
         
-            <div class="description">A set of object utils</div>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object.js.html">utils/object.js</a>, <a href="object.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
 <dt>
-    <h4 class="name" id="each"><span class="type-signature">&lt;inner> </span>each<span class="signature">(obj, call)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="FieldFactory"><span class="type-signature"></span>new FieldFactory<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -106,7 +49,7 @@
     
     
     <div class="description">
-        Iterates over a object properties
+        A field factory
     </div>
     
 
@@ -114,77 +57,6 @@
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>call</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">module:utils/object.eachCallback</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -210,7 +82,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object.js.html">utils/object.js</a>, <a href="object.js.html#line39">line 39</a>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line7">line 7</a>
     </li></ul></dd>
     
     
@@ -235,10 +107,97 @@
     
 </dd>
 
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Members</h3>
         
+        <dl>
             
 <dt>
-    <h4 class="name" id="equals"><span class="type-signature">&lt;inner> </span>equals<span class="signature">(obj2)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="builders"><span class="type-signature"></span>builders<span class="type-signature"> :Object.&lt;string, (string|function())></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        All the available field builders
+Can be a method name or the function itself
+    </div>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object.&lt;string, (string|function())></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="_constructField"><span class="type-signature">&lt;private> </span>_constructField<span class="signature">(field)</span><span class="type-signature"> &rarr; {HTMLFieldSetElement}</span></h4>
     
     
 </dt>
@@ -246,8 +205,7 @@
     
     
     <div class="description">
-        Compares two objects and
-verify if they are equals
+        Constructs a simple field element
     </div>
     
 
@@ -281,13 +239,13 @@ verify if they are equals
 	
         <tr>
             
-                <td class="name"><code>obj2</code></td>
+                <td class="name"><code>field</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Picasso.pjo.Field.html">Picasso.pjo.Field</a></span>
 
 
             
@@ -328,7 +286,7 @@ verify if they are equals
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object.js.html">utils/object.js</a>, <a href="object.js.html#line57">line 57</a>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line30">line 30</a>
     </li></ul></dd>
     
     
@@ -360,7 +318,7 @@ verify if they are equals
 	</dt>
 	<dd>
 		
-<span class="param-type">Boolean</span>
+<span class="param-type">HTMLFieldSetElement</span>
 
 
 	</dd>
@@ -374,7 +332,7 @@ verify if they are equals
         
             
 <dt>
-    <h4 class="name" id="extend"><span class="type-signature">&lt;inner> </span>extend<span class="signature">(Class, Parent)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="_getBuilderByFieldType"><span class="type-signature">&lt;private> </span>_getBuilderByFieldType<span class="signature">()</span><span class="type-signature"> &rarr; {function}</span></h4>
     
     
 </dt>
@@ -382,7 +340,110 @@ verify if they are equals
     
     
     <div class="description">
-        Extends a constructor
+        Strategy pattern to choose the right
+field builder method
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        
+<span class="param-type"><a href="Picasso.error.InvalidFieldType.html">Picasso.error.InvalidFieldType</a></span>
+
+
+    
+    </div>
+
+
+        
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">function</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(field)</span><span class="type-signature"> &rarr; {HTMLFieldSetElement}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Builds a field element
     </div>
     
 
@@ -416,13 +477,13 @@ verify if they are equals
 	
         <tr>
             
-                <td class="name"><code>Class</code></td>
+                <td class="name"><code>field</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type"><a href="Picasso.pjo.Field.html">Picasso.pjo.Field</a></span>
 
 
             
@@ -432,30 +493,7 @@ verify if they are equals
             
             
             
-            <td class="description last">The object constructor</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>Parent</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The parent object constructor</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -486,7 +524,7 @@ verify if they are equals
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object.js.html">utils/object.js</a>, <a href="object.js.html#line15">line 15</a>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line76">line 76</a>
     </li></ul></dd>
     
     
@@ -511,7 +549,7 @@ verify if they are equals
     
             
 <div class="param-desc">
-    The Class constructor
+    A simple field, or a composed field
 </div>
 
 
@@ -522,7 +560,7 @@ verify if they are equals
 	</dt>
 	<dd>
 		
-<span class="param-type">function</span>
+<span class="param-type">HTMLFieldSetElement</span>
 
 
 	</dd>
@@ -536,6 +574,127 @@ verify if they are equals
         </dl>
     
     
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl>
+                
+<dt>
+    <h4 class="name" id="fieldBuilderMethod"><span class="type-signature"></span>fieldBuilderMethod<span class="signature">(field)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        The default interface of a field builder method
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>field</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.pjo.Field.html">Picasso.pjo.Field</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+            </dl>
     
     
     
@@ -555,7 +714,7 @@ verify if they are equals
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 23:33:03 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 23:33:04 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

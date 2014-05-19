@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/event/Event.js</title>
+    <title>JSDoc: Source: utils/html.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/event/Event.js</h1>
+    <h1 class="page-title">Source: utils/html.js</h1>
     
     
 
@@ -25,25 +25,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.Event");
+            <pre class="prettyprint source"><code>Picasso.load("utils.html");
+Picasso.utils.html = (
 
-/**
- * The default event object
- * @param {string} name
- * @param {*} data
- * @param {Object} target
- * @constructor
- */
-Picasso.pjo.Event = function PicassoEvent(name, data, target) {
-    /** @type String */
-    this.name = name || "any";
+    /**
+     * HTML and DOM utils
+     * @exports utils/html
+     */
+    function () {
 
-    /** @type * */
-    this.data = data || null;
+        /**
+         * Set the given elements to the HTML object
+         * @param {Object} attrs
+         * @param {HTMLElement} element
+         * @public
+         */
+        var setAttributes = function (attrs, element) {
+            for (var attr in attrs) {
+                if (attrs.hasOwnProperty(attr)) {
+                    element.setAttribute(attr, attrs[attr]);
+                }
+            }
+        };
 
-    /** @type Object */
-    this.target = target || null;
-};</code></pre>
+        // Public API
+        return {
+            setAttributes: setAttributes
+        };
+    }()
+);
+
+</code></pre>
         </article>
     </section>
 

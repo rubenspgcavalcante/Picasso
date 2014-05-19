@@ -6,7 +6,7 @@
  * // Using
  * var arrayUtils = Picasso.load("utils.array");
  *
- * @param {String} namespace The module complete namespace
+ * @param {string} namespace The module complete namespace
  * @return {Object} The loaded module
  */
 Picasso.load = function (namespace) {

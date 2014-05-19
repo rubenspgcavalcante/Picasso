@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/event/Event.js</title>
+    <title>JSDoc: Source: system/error/InvalidFieldType.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/event/Event.js</h1>
+    <h1 class="page-title">Source: system/error/InvalidFieldType.js</h1>
     
     
 
@@ -25,25 +25,21 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.Event");
+            <pre class="prettyprint source"><code>Picasso.load("error.InvalidFieldType");
 
 /**
- * The default event object
- * @param {string} name
- * @param {*} data
- * @param {Object} target
+ * Invalid field type used
+ * @param {string} fieldType
  * @constructor
+ * @extends Error
  */
-Picasso.pjo.Event = function PicassoEvent(name, data, target) {
-    /** @type String */
-    this.name = name || "any";
+Picasso.error.InvalidFieldType = function(fieldType){
+    this.name = "InvalidFieldType";
+    this.message = "Can't find a constructor. Invalid field type " + String(fieldType);
+};
 
-    /** @type * */
-    this.data = data || null;
-
-    /** @type Object */
-    this.target = target || null;
-};</code></pre>
+Picasso.error.InvalidFieldType.prototype = Error.prototype;
+Picasso.error.InvalidFieldType.constructor = Picasso.error.InvalidFieldType;</code></pre>
         </article>
     </section>
 

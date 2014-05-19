@@ -2,7 +2,7 @@ Picasso.load("pjo.Event");
 
 /**
  * The default event object
- * @param {String} name
+ * @param {string} name
  * @param {*} data
  * @param {Object} target
  * @constructor

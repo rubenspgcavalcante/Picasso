@@ -1,9 +1,9 @@
-Picasso.load("Picasso.utils.object");
+Picasso.load("utils.object");
 Picasso.utils.object = (
-/**
- * A set of object utils
- * @exports utils/object
- */
+    /**
+     * A set of object utils
+     * @exports utils/object
+     */
     function () {
 
         /**
@@ -21,6 +21,30 @@ Picasso.utils.object = (
             Class.prototype.constructor = Class;
 
             return Class;
+        };
+
+
+        /**
+         * 'For each' callback
+         * @callback utils/object.eachCallback
+         * @param {*} value
+         * @param {string} property
+         */
+
+        /**
+         * Iterates over a object properties
+         * @param {Object} obj
+         * @param {module:utils/object.eachCallback} call
+         */
+        var each = function(obj, call){
+            if(obj instanceof Object) {
+                var property;
+                for (property in obj) {
+                    if (obj.hasOwnProperty(property)) {
+                        call(obj[property], property);
+                    }
+                }
+            }
         };
 
         /**
@@ -78,8 +102,8 @@ Picasso.utils.object = (
         // Public API
         return {
             extend: extend,
-            equals: equals
+            equals: equals,
+            each: each
         }
-
     }()
-    );
+);

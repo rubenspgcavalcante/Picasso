@@ -21,7 +21,7 @@ Picasso.Controller = function (model, view) {
     this._model = null;
 
     /**
-     * @type {Object<Number, String, Picasso.View>}
+     * @type {Object<number, String, Picasso.View>}
      * @protected
      */
     this._views = {};
@@ -72,7 +72,7 @@ Picasso.Controller.prototype.registerView = function (view) {
 
 /**
  * Register a uiAction (event) to a controller callback
- * @param {String} uiActionName
+ * @param {string} uiActionName
  * @param {Function} callback
  */
 Picasso.Controller.prototype.listen = function (uiActionName, callback) {
