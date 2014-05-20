@@ -769,10 +769,10 @@ Picasso.form.Builder = function () {
 
 /**
  * Translates a fieldSet object into a HTML element
- * @param {Picasso.pjo.FieldSet} fieldSet
+ * @param {Picasso.pjo.FormGroup} fieldSet
  * @returns {HTMLFieldSetElement}
  */
-Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
+Picasso.form.Builder.prototype.buildFormGroup = function (fieldSet) {
     var fieldSetElement = document.createElement("fieldSet");
     fieldSetElement.setAttribute("id", fieldSet.id);
     this.htmlUtils.setAttributes(fieldSet.attrs, fieldSetElement);
@@ -799,7 +799,7 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
     var that = this;
 
     this.arrayUtils.each(form.fieldSets, function(fieldSet){
-        formElement.appendChild(that.buildFieldSet(fieldSet));
+        formElement.appendChild(that.buildFormGroup(fieldSet));
     });
 
     return formElement;

@@ -20,21 +20,23 @@ Picasso.form.Builder = function () {
 
 /**
  * Translates a fieldSet object into a HTML element
- * @param {Picasso.pjo.FieldSet} fieldSet
+ * @param {Picasso.pjo.FormGroup} formGroup
  * @returns {HTMLFieldSetElement}
  */
-Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
-    var fieldSetElement = document.createElement("fieldSet");
-    fieldSetElement.setAttribute("id", fieldSet.id);
-    this.htmlUtils.setAttributes(fieldSet.attrs, fieldSetElement);
+Picasso.form.Builder.prototype.buildFormGroup = function (formGroup) {
+    var formGroupElement = document.createElement("div");
+    formGroupElement.setAttribute("id", formGroup.id);
+    formGroupElement.setAttribute("class", "form-group");
+
+    this.htmlUtils.setAttributes(formGroup.attrs, formGroupElement);
 
     var that = this;
-    this.arrayUtils.each(fieldSet.fields, function(field){
+    this.arrayUtils.each(formGroup.fields, function(field){
         var fieldElement = that.fieldFactory.create(field);
-        fieldSetElement.appendChild(fieldElement);
+        formGroupElement.appendChild(fieldElement);
     });
 
-    return fieldSetElement;
+    return formGroupElement;
 };
 
 /**
@@ -45,12 +47,14 @@ Picasso.form.Builder.prototype.buildFieldSet = function (fieldSet) {
 Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
+    formElement.setAttribute("class", "form-horizontal");
+    formElement.setAttribute("role", "form");
+
     this.htmlUtils.setAttributes(form.attrs, formElement);
 
     var that = this;
-
     this.arrayUtils.each(form.fieldSets, function(fieldSet){
-        formElement.appendChild(that.buildFieldSet(fieldSet));
+        formElement.appendChild(that.buildFormGroup(fieldSet));
     });
 
     return formElement;

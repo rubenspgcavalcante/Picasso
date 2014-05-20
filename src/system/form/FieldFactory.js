@@ -30,7 +30,7 @@ Picasso.form.FieldFactory.prototype.builders =  {
 Picasso.form.FieldFactory.prototype._constructField = function(field){
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
-    var fieldElement = document.createElement("field");
+    var fieldElement = document.createElement("input");
 
     fieldElement.setAttribute("id", field.id);
     fieldElement.setAttribute("type", field.type);

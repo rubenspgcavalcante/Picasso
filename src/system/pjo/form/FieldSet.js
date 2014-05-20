@@ -1,10 +1,10 @@
-Picasso.load("pjo.FieldSet");
+Picasso.load("pjo.FormGroup");
 
 /**
  * An form fieldset
  * @constructor
  */
-Picasso.pjo.FieldSet = function(){
+Picasso.pjo.FormGroup = function(){
     /** @type {string|number} */
     this.id = null;
 
