@@ -24,19 +24,32 @@ Picasso.form.FieldFactory.prototype.builders =  {
 /**
  * Constructs a simple field element
  * @param {Picasso.pjo.Field} field
- * @returns {HTMLFieldSetElement}
+ * @returns {HTMLDivElement}
  * @private
  */
 Picasso.form.FieldFactory.prototype._constructField = function(field){
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
+
+    var formGroup = document.createElement("div");
+    formGroup.setAttribute("class", "form-group");
+
     var fieldElement = document.createElement("input");
+    htmlUtils.setAttributes(fieldElement, {
+        id: field.id,
+        type: field.type
+    });
+    htmlUtils.setAttributes(fieldElement, field.attrs);
+    htmlUtils.addClass(fieldElement, "form-control");
 
-    fieldElement.setAttribute("id", field.id);
-    fieldElement.setAttribute("type", field.type);
-    htmlUtils.setAttributes(field.attrs, fieldElement);
+    var labelElement = document.createElement("label");
+    labelElement.setAttribute("class", "control-label");
+    labelElement.innerHTML = field.label;
 
-    return fieldElement;
+    formGroup.appendChild(labelElement);
+    formGroup.appendChild(fieldElement);
+
+    return formGroup;
 };
 
 /**

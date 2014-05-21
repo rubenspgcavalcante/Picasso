@@ -45,7 +45,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-05-18",
+    build: "2014-05-21",
     license: "GPLv3"
 };
 /**
@@ -229,11 +229,11 @@ Picasso.utils.html = (
 
         /**
          * Set the given elements to the HTML object
-         * @param {Object} attrs
          * @param {HTMLElement} element
+         * @param {Object} attrs
          * @public
          */
-        var setAttributes = function (attrs, element) {
+        var setAttributes = function (element, attrs) {
             for (var attr in attrs) {
                 if (attrs.hasOwnProperty(attr)) {
                     element.setAttribute(attr, attrs[attr]);
@@ -241,9 +241,33 @@ Picasso.utils.html = (
             }
         };
 
+        /**
+         * Add a class to a element
+         * @param {HTMLElement} element An HTML element to add the classes
+         * @param {string} _class One or more classes separated by space
+         */
+        var addClass = function (element, _class){
+            var classes = element.classList;
+            var toAppend, i;
+
+            if(_class.indexOf(' ') != -1){
+                toAppend = _class.split(' ');
+            }
+            else{
+                toAppend = [_class]
+            }
+
+            for(i = 0; i < toAppend.length; i++){
+                if(!classes.contains(toAppend[i])){
+                    classes.add(toAppend[i]);
+                }
+            }
+        };
+
         // Public API
         return {
-            setAttributes: setAttributes
+            setAttributes: setAttributes,
+            addClass: addClass
         };
     }()
 );
@@ -768,22 +792,26 @@ Picasso.form.Builder = function () {
 };
 
 /**
- * Translates a fieldSet object into a HTML element
- * @param {Picasso.pjo.FormGroup} fieldSet
- * @returns {HTMLFieldSetElement}
+ * Translates a fieldGrid object into a set of HTML elements
+ * @param {Picasso.pjo.FieldGrid} fieldGrid
+ * @returns {HTMLDivElement}
  */
-Picasso.form.Builder.prototype.buildFormGroup = function (fieldSet) {
-    var fieldSetElement = document.createElement("fieldSet");
-    fieldSetElement.setAttribute("id", fieldSet.id);
-    this.htmlUtils.setAttributes(fieldSet.attrs, fieldSetElement);
+Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
+    var fieldGridElement = document.createElement("div");
+    this.htmlUtils.setAttributes(fieldGridElement, fieldGrid.attrs);
+    fieldGridElement.setAttribute("id", fieldGrid.id);
+    var colSizeClass = "col-xs-";
+    colSizeClass += fieldGrid.colXSize || Picasso.pjo.FieldGrid.colSize.MEDIUM;
+
+    this.htmlUtils.addClass(fieldGridElement, "column " + colSizeClass);
 
     var that = this;
-    this.arrayUtils.each(fieldSet.fields, function(field){
+    this.arrayUtils.each(fieldGrid.fields, function(field){
         var fieldElement = that.fieldFactory.create(field);
-        fieldSetElement.appendChild(fieldElement);
+        fieldGridElement.appendChild(fieldElement);
     });
 
-    return fieldSetElement;
+    return fieldGridElement;
 };
 
 /**
@@ -794,12 +822,13 @@ Picasso.form.Builder.prototype.buildFormGroup = function (fieldSet) {
 Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
-    this.htmlUtils.setAttributes(form.attrs, formElement);
+    formElement.setAttribute("role", "form");
+
+    this.htmlUtils.setAttributes(formElement, form.attrs);
 
     var that = this;
-
-    this.arrayUtils.each(form.fieldSets, function(fieldSet){
-        formElement.appendChild(that.buildFormGroup(fieldSet));
+    this.arrayUtils.each(form.fieldGrid, function(fieldSet){
+        formElement.appendChild(that.buildFieldGrid(fieldSet));
     });
 
     return formElement;
@@ -830,19 +859,32 @@ Picasso.form.FieldFactory.prototype.builders =  {
 /**
  * Constructs a simple field element
  * @param {Picasso.pjo.Field} field
- * @returns {HTMLFieldSetElement}
+ * @returns {HTMLDivElement}
  * @private
  */
 Picasso.form.FieldFactory.prototype._constructField = function(field){
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
-    var fieldElement = document.createElement("field");
 
-    fieldElement.setAttribute("id", field.id);
-    fieldElement.setAttribute("type", field.type);
-    htmlUtils.setAttributes(field.attrs, fieldElement);
+    var formGroup = document.createElement("div");
+    formGroup.setAttribute("class", "form-group");
 
-    return fieldElement;
+    var fieldElement = document.createElement("input");
+    htmlUtils.setAttributes(fieldElement, {
+        id: field.id,
+        type: field.type
+    });
+    htmlUtils.setAttributes(fieldElement, field.attrs);
+    htmlUtils.addClass(fieldElement, "form-control");
+
+    var labelElement = document.createElement("label");
+    labelElement.setAttribute("class", "control-label");
+    labelElement.innerHTML = field.label;
+
+    formGroup.appendChild(labelElement);
+    formGroup.appendChild(fieldElement);
+
+    return formGroup;
 };
 
 /**

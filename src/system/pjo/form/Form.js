@@ -18,6 +18,6 @@ Picasso.pjo.Form = function(){
         name: ""
     };
 
-    /** @type {Object<string, Picasso.pjo.FormGroup>} */
-    this.fieldSets = {};
+    /** @type {Picasso.pjo.FieldGrid[]} */
+    this.fieldGrid = [];
 };

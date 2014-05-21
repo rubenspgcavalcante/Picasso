@@ -9,11 +9,11 @@ Picasso.utils.html = (
 
         /**
          * Set the given elements to the HTML object
-         * @param {Object} attrs
          * @param {HTMLElement} element
+         * @param {Object} attrs
          * @public
          */
-        var setAttributes = function (attrs, element) {
+        var setAttributes = function (element, attrs) {
             for (var attr in attrs) {
                 if (attrs.hasOwnProperty(attr)) {
                     element.setAttribute(attr, attrs[attr]);
@@ -21,9 +21,33 @@ Picasso.utils.html = (
             }
         };
 
+        /**
+         * Add a class to a element
+         * @param {HTMLElement} element An HTML element to add the classes
+         * @param {string} _class One or more classes separated by space
+         */
+        var addClass = function (element, _class){
+            var classes = element.classList;
+            var toAppend, i;
+
+            if(_class.indexOf(' ') != -1){
+                toAppend = _class.split(' ');
+            }
+            else{
+                toAppend = [_class]
+            }
+
+            for(i = 0; i < toAppend.length; i++){
+                if(!classes.contains(toAppend[i])){
+                    classes.add(toAppend[i]);
+                }
+            }
+        };
+
         // Public API
         return {
-            setAttributes: setAttributes
+            setAttributes: setAttributes,
+            addClass: addClass
         };
     }()
 );
