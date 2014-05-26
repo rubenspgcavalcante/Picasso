@@ -1,0 +1,41 @@
+Picasso.load("form.field.InputField");
+
+/**
+ * The default 'input' builder
+ * @constructor
+ * @extends {Picasso.form.field.PicassoField}
+ */
+Picasso.form.field.InputField = function(){
+
+    /**
+     * The HTMLElement builder
+     * @param {Picasso.pjo.Field} field
+     * @return {HTMLElement}
+     */
+    this.build = function(field){
+        /** @type {utils/html} */
+        var htmlUtils = Picasso.load("utils.html");
+
+        var formGroup = document.createElement("div");
+        formGroup.setAttribute("class", "form-group");
+
+        var fieldElement = document.createElement("input");
+        htmlUtils.setAttributes(fieldElement, {
+            id: field.id,
+            type: field.type
+        });
+        htmlUtils.setAttributes(fieldElement, field.attrs);
+        htmlUtils.addClass(fieldElement, "form-control");
+
+        var labelElement = document.createElement("label");
+        labelElement.setAttribute("class", "control-label");
+        labelElement.innerHTML = field.label;
+
+        formGroup.appendChild(labelElement);
+        formGroup.appendChild(fieldElement);
+
+        this.setHTMLElement(formGroup);
+    };
+};
+
+Picasso.form.field.InputField.prototype = new Picasso.form.field.PicassoField();

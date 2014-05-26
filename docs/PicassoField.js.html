@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/form/FieldGrid.js</title>
+    <title>JSDoc: Source: system/form/fields/PicassoField.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/form/FieldGrid.js</h1>
+    <h1 class="page-title">Source: system/form/fields/PicassoField.js</h1>
     
     
 
@@ -25,38 +25,68 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.FieldGrid");
+            <pre class="prettyprint source"><code>Picasso.load("form.field.PicassoField");
 
 /**
- * An form fieldset
+ * The default field implementation
  * @constructor
  */
-Picasso.pjo.FieldGrid = function(){
-    /** @type {string|number} */
-    this.id = null;
+Picasso.form.field.PicassoField = function(){
 
-    /** @type {number} */
-    this.index = 0;
+    /**
+     * The html of the field
+     * @type {HTMLElement}
+     * @protected
+     */
+    this._element = null;
 
-    /** @type {Picasso.pjo.FieldGrid.colSize} */
-    this.colXSize = 3;
+    /**
+     * Builds the field
+     * @param {Picasso.pjo.Field} field
+     * @abstract
+     * @throws {Picasso.error.NotImplementedError}
+     */
+    this.build = function(field){
+        throw new Picasso.error.NotImplementedError("PicassoField", "build");
+    };
 
-    /** @type {string} */
-    this.legend = "";
+    /**
+     * Returns or sets the value of a field
+     * @param {*} val
+     * @abstract
+     * @throws {Picasso.error.NotImplementedError}
+     */
+    this.value = function(val){
+        throw new Picasso.error.NotImplementedError("PicassoField", "value");
+    };
 
-    /** @type {Picasso.pjo.Field[]} */
-    this.fields = [];
-};
+    /**
+     * Resets the field
+     * @abstract
+     * @throws {Picasso.error.NotImplementedError}
+     */
+    this.reset = function(){
+        throw new Picasso.error.NotImplementedError("PicassoField", "reset");
+    };
 
-/**
- * The size of the grid columns
- * @enum {string}
- * @readonly
- */
-Picasso.pjo.FieldGrid.colSize = {
-    SMALL: 2,
-    MEDIUM: 3,
-    LARGE: 4
+    /**
+     * Get the HTMLElement of this field
+     * @return {HTMLElement}
+     */
+    this.getHTMLElement = function(){
+        return this._element;
+    };
+
+    /**
+     * Sets the HTMLElement of this field
+     * @param {HTMLElement} element
+     */
+    this.setHTMLElement = function(element){
+        if(element instanceof HTMLElement){
+            this._element = element;
+        }
+    };
+
 };</code></pre>
         </article>
     </section>

@@ -36,6 +36,11 @@ var P = P || Picasso;
  * @namespace {Object} Picasso.form
  */
 
+/**
+ * All the field constructors are stores here
+ * @namespace {Object} Picasso.form.field
+ */
+
 // -- End of load virtual comments -- //
 
 /**

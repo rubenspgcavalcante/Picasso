@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/form/FieldGrid.js</title>
+    <title>JSDoc: Source: system/error/NotImplementedError.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/form/FieldGrid.js</h1>
+    <h1 class="page-title">Source: system/error/NotImplementedError.js</h1>
     
     
 
@@ -25,39 +25,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.FieldGrid");
+            <pre class="prettyprint source"><code>Picasso.load("error.NotImplementedError");
 
 /**
- * An form fieldset
+ * Invalid field type used
+ * @param {string} constructor
+ * @param {string} method
  * @constructor
+ * @extends Error
  */
-Picasso.pjo.FieldGrid = function(){
-    /** @type {string|number} */
-    this.id = null;
-
-    /** @type {number} */
-    this.index = 0;
-
-    /** @type {Picasso.pjo.FieldGrid.colSize} */
-    this.colXSize = 3;
-
-    /** @type {string} */
-    this.legend = "";
-
-    /** @type {Picasso.pjo.Field[]} */
-    this.fields = [];
+Picasso.error.NotImplementedError = function(constructor, method){
+    this.name = "NotImplementedError";
+    this.message = constructor + "child must implement the " +  method;
 };
 
-/**
- * The size of the grid columns
- * @enum {string}
- * @readonly
- */
-Picasso.pjo.FieldGrid.colSize = {
-    SMALL: 2,
-    MEDIUM: 3,
-    LARGE: 4
-};</code></pre>
+Picasso.error.NotImplementedError.prototype = Error.prototype;
+Picasso.error.NotImplementedError.constructor = Picasso.error.NotImplementedError;
+</code></pre>
         </article>
     </section>
 

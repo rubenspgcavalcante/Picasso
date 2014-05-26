@@ -34,8 +34,8 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
 
     var that = this;
     this.arrayUtils.each(fieldGrid.fields, function(field){
-        var fieldElement = that.fieldFactory.create(field);
-        fieldGridElement.appendChild(fieldElement);
+        var picassoField = that.fieldFactory.create(field);
+        fieldGridElement.appendChild(picassoField.getHTMLElement());
     });
 
     return fieldGridElement;

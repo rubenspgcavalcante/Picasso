@@ -2,7 +2,6 @@ Picasso.load("form.field.PicassoField");
 
 /**
  * The default field implementation
- * @abstract
  * @constructor
  */
 Picasso.form.field.PicassoField = function(){
@@ -12,7 +11,17 @@ Picasso.form.field.PicassoField = function(){
      * @type {HTMLElement}
      * @protected
      */
-    this._dom = null;
+    this._element = null;
+
+    /**
+     * Builds the field
+     * @param {Picasso.pjo.Field} field
+     * @abstract
+     * @throws {Picasso.error.NotImplementedError}
+     */
+    this.build = function(field){
+        throw new Picasso.error.NotImplementedError("PicassoField", "build");
+    };
 
     /**
      * Returns or sets the value of a field
@@ -31,6 +40,24 @@ Picasso.form.field.PicassoField = function(){
      */
     this.reset = function(){
         throw new Picasso.error.NotImplementedError("PicassoField", "reset");
+    };
+
+    /**
+     * Get the HTMLElement of this field
+     * @return {HTMLElement}
+     */
+    this.getHTMLElement = function(){
+        return this._element;
+    };
+
+    /**
+     * Sets the HTMLElement of this field
+     * @param {HTMLElement} element
+     */
+    this.setHTMLElement = function(element){
+        if(element instanceof HTMLElement){
+            this._element = element;
+        }
     };
 
 };
