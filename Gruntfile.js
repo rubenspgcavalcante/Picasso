@@ -12,7 +12,8 @@ module.exports = function (grunt) {
                 src: [
                     "src/defines.js",
                     "src/system/load.js",
-                    "src/system/pjo/*.js",
+                    "src/system/pjo/event/*.js",
+                    "src/system/pjo/form/*.js",
                     "src/system/error/*.js",
                     "src/utils/*.js",
                     "src/system/core/*.js",

@@ -45,7 +45,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-05-21",
+    build: "2014-05-26",
     license: "GPLv3"
 };
 /**
@@ -76,6 +76,139 @@ Picasso.load = function (namespace) {
 
     }
     return currentObj;
+};
+Picasso.load("pjo.Event");
+
+/**
+ * The default event object
+ * @param {string} name
+ * @param {*} data
+ * @param {Object} target
+ * @constructor
+ */
+Picasso.pjo.Event = function PicassoEvent(name, data, target) {
+    /** @type String */
+    this.name = name || "any";
+
+    /** @type * */
+    this.data = data || null;
+
+    /** @type Object */
+    this.target = target || null;
+};
+Picasso.load("pjo.EventHandler");
+
+/**
+ * Default event handler
+ * @param {string} eventName
+ * @param {Function|String} callback
+ * @param {Object} context
+ * @constructor
+ */
+Picasso.pjo.EventHandler = function (eventName, callback, context) {
+    /** @type String */
+    this.eventName = eventName || "";
+
+    /** @type Function */
+    this.callback = callback || new Function();
+
+    /** @type Object */
+    this.context = context || null;
+};
+Picasso.load("pjo.Field");
+
+/**
+ * A form field
+ * @constructor
+ */
+Picasso.pjo.Field = function(){
+    /** @type {string|number} */
+    this.id = null;
+
+    /** @type {string} */
+    this.label = "";
+
+    /** @type {Picasso.pjo.Field.type} */
+    this.type = null;
+
+    /**
+     * The field attributes
+     * @type {{name: string}}
+     */
+    this.attrs = {
+        name: ""
+    };
+};
+
+/**
+ * Available default field types
+ * @readonly
+ * @enum {string}
+ */
+Picasso.pjo.Field.type = {
+    TEXT: "text",
+    TEXTAREA: "textarea",
+    NUMBER: "number",
+    EMAIL: "email",
+    PASSWORD: "password",
+    SUBMIT: "submit",
+    CANCEL: "cancel"
+};
+Picasso.load("pjo.FieldGrid");
+
+/**
+ * An form fieldset
+ * @constructor
+ */
+Picasso.pjo.FieldGrid = function(){
+    /** @type {string|number} */
+    this.id = null;
+
+    /** @type {number} */
+    this.index = 0;
+
+    /** @type {Picasso.pjo.FieldGrid.colSize} */
+    this.colXSize = 3;
+
+    /** @type {string} */
+    this.legend = "";
+
+    /** @type {Picasso.pjo.Field[]} */
+    this.fields = [];
+};
+
+/**
+ * The size of the grid columns
+ * @enum {string}
+ * @readonly
+ */
+Picasso.pjo.FieldGrid.colSize = {
+    SMALL: 2,
+    MEDIUM: 3,
+    LARGE: 4
+};
+Picasso.load("pjo.Form");
+
+/**
+ * A form object representation
+ * @constructor
+ */
+Picasso.pjo.Form = function(){
+     /** @type {string|number} */
+    this.id = null;
+
+    /**
+     * The form attributes
+     * @type {{action: string, method: string, name: string}}
+     */
+    this.attrs = {
+        action: "",
+        method: "",
+        name: ""
+    };
+
+    /** @type {Picasso.pjo.FieldGrid[]} */
+    this.fieldGrid = [];
 };
 Picasso.load("error.InvalidFieldType");
 
@@ -121,6 +254,23 @@ Picasso.error.InvalidParameters = function (funcName, errorParameters, context) 
 
 Picasso.error.InvalidParameters.prototype = Error.prototype;
 Picasso.error.InvalidParameters.constructor = Picasso.error.InvalidParameters;
+Picasso.load("error.NotImplementedError");
+
+/**
+ * Invalid field type used
+ * @param {string} constructor
+ * @param {string} method
+ * @constructor
+ * @extends Error
+ */
+Picasso.error.NotImplementedError = function(constructor, method){
+    this.name = "NotImplementedError";
+    this.message = constructor + "child must implement the " +  method;
+};
+
+Picasso.error.NotImplementedError.prototype = Error.prototype;
+Picasso.error.NotImplementedError.constructor = Picasso.error.NotImplementedError;
+
 Picasso.load("utils.array");
 Picasso.utils.array = (
 
@@ -840,21 +990,47 @@ Picasso.load("form.FieldFactory");
  * @constructor
  */
 Picasso.form.FieldFactory = function(){
+    var _constructField = function(field){
+        /** @type {utils/html} */
+        var htmlUtils = Picasso.load("utils.html");
+
+        var formGroup = document.createElement("div");
+        formGroup.setAttribute("class", "form-group");
+
+        var fieldElement = document.createElement("input");
+        htmlUtils.setAttributes(fieldElement, {
+            id: field.id,
+            type: field.type
+        });
+        htmlUtils.setAttributes(fieldElement, field.attrs);
+        htmlUtils.addClass(fieldElement, "form-control");
+
+        var labelElement = document.createElement("label");
+        labelElement.setAttribute("class", "control-label");
+        labelElement.innerHTML = field.label;
+
+        formGroup.appendChild(labelElement);
+        formGroup.appendChild(fieldElement);
+
+        return formGroup;
+    };
+
+    /**
+     * All the available field builders
+     * Can be a method name or the function itself
+     * @type {Object<string, string|Function>}
+     */
+    this.builders =  {
+        text: _constructField,
+        textArea: _constructField,
+        email: _constructField,
+        password: _constructField,
+        submit: _constructField,
+        cancel: _constructField
+    };
 };
 
-/**
- * All the available field builders
- * Can be a method name or the function itself
- * @type {Object<string, string|Function>}
- */
-Picasso.form.FieldFactory.prototype.builders =  {
-    text: "_constructField",
-    textArea: "_constructField",
-    email: "_constructField",
-    password: "_constructField",
-    submit: "_constructField",
-    cancel: "_constructField"
-};
+
 
 /**
  * Constructs a simple field element

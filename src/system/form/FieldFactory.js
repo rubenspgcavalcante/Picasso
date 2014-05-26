@@ -5,21 +5,47 @@ Picasso.load("form.FieldFactory");
  * @constructor
  */
 Picasso.form.FieldFactory = function(){
+    var _constructField = function(field){
+        /** @type {utils/html} */
+        var htmlUtils = Picasso.load("utils.html");
+
+        var formGroup = document.createElement("div");
+        formGroup.setAttribute("class", "form-group");
+
+        var fieldElement = document.createElement("input");
+        htmlUtils.setAttributes(fieldElement, {
+            id: field.id,
+            type: field.type
+        });
+        htmlUtils.setAttributes(fieldElement, field.attrs);
+        htmlUtils.addClass(fieldElement, "form-control");
+
+        var labelElement = document.createElement("label");
+        labelElement.setAttribute("class", "control-label");
+        labelElement.innerHTML = field.label;
+
+        formGroup.appendChild(labelElement);
+        formGroup.appendChild(fieldElement);
+
+        return formGroup;
+    };
+
+    /**
+     * All the available field builders
+     * Can be a method name or the function itself
+     * @type {Object<string, string|Function>}
+     */
+    this.builders =  {
+        text: _constructField,
+        textArea: _constructField,
+        email: _constructField,
+        password: _constructField,
+        submit: _constructField,
+        cancel: _constructField
+    };
 };
 
-/**
- * All the available field builders
- * Can be a method name or the function itself
- * @type {Object<string, string|Function>}
- */
-Picasso.form.FieldFactory.prototype.builders =  {
-    text: "_constructField",
-    textArea: "_constructField",
-    email: "_constructField",
-    password: "_constructField",
-    submit: "_constructField",
-    cancel: "_constructField"
-};
+
 
 /**
  * Constructs a simple field element
