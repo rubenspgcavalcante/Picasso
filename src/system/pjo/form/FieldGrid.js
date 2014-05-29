@@ -14,9 +14,6 @@ Picasso.pjo.FieldGrid = function(){
     /** @type {Picasso.pjo.FieldGrid.colSize} */
     this.colXSize = 3;
 
-    /** @type {string} */
-    this.legend = "";
-
     /** @type {Picasso.pjo.Field[]} */
     this.fields = [];
 };

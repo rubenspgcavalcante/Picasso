@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/form/fields/InputField.js</title>
+    <title>JSDoc: Source: system/pjo/form/GridBlock.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/form/fields/InputField.js</h1>
+    <h1 class="page-title">Source: system/pjo/form/GridBlock.js</h1>
     
     
 
@@ -25,47 +25,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("form.field.InputField");
+            <pre class="prettyprint source"><code>Picasso.load("pjo.GridBlock");
 
-/**
- * The default 'input' builder
- * @constructor
- * @extends {Picasso.form.field.PicassoField}
- */
-Picasso.form.field.InputField = function(){
-    /** @type {utils/html} */
-    var htmlUtils = Picasso.load("utils.html");
+Picasso.pjo.GridBlock = function(){
+    /** @type {string|number} */
+    this.id = null;
+
+    /** @type {string} */
+    this.legend = null;
 
     /**
-     * The HTMLElement builder
-     * @param {Picasso.pjo.Field} field
-     * @return {HTMLElement}
+     * The element attributes
+     * @type {{name: string}}
      */
-    this.build = function(field){
+    this.attrs = {};
 
-        var formGroup = document.createElement("div");
-        formGroup.setAttribute("class", "form-group");
-
-        var fieldElement = document.createElement("input");
-        htmlUtils.setAttributes(fieldElement, {
-            id: field.id || "",
-            type: field.type || "text"
-        });
-        htmlUtils.setAttributes(fieldElement, field.attrs);
-        htmlUtils.addClass(fieldElement, "form-control");
-
-        var labelElement = document.createElement("label");
-        labelElement.setAttribute("class", "control-label");
-        labelElement.innerHTML = field.label;
-
-        formGroup.appendChild(labelElement);
-        formGroup.appendChild(fieldElement);
-
-        this.setHTMLElement(formGroup);
-    };
-};
-
-Picasso.form.field.InputField.prototype = new Picasso.form.field.PicassoField();</code></pre>
+    /** @type {Picasso.pjo.FieldGrid[]} */
+    this.fieldGrid = [];
+};</code></pre>
         </article>
     </section>
 

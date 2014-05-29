@@ -9,7 +9,7 @@ Picasso.load("error.NotImplementedError");
  */
 Picasso.error.NotImplementedError = function(constructor, method){
     this.name = "NotImplementedError";
-    this.message = constructor + "child must implement the " +  method;
+    this.message = constructor + " object child must implement the " +  method + " method";
 };
 
 Picasso.error.NotImplementedError.prototype = Error.prototype;

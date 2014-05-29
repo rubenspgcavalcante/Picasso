@@ -6,6 +6,8 @@ Picasso.load("form.field.InputField");
  * @extends {Picasso.form.field.PicassoField}
  */
 Picasso.form.field.InputField = function(){
+    /** @type {utils/html} */
+    var htmlUtils = Picasso.load("utils.html");
 
     /**
      * The HTMLElement builder
@@ -13,16 +15,14 @@ Picasso.form.field.InputField = function(){
      * @return {HTMLElement}
      */
     this.build = function(field){
-        /** @type {utils/html} */
-        var htmlUtils = Picasso.load("utils.html");
 
         var formGroup = document.createElement("div");
         formGroup.setAttribute("class", "form-group");
 
         var fieldElement = document.createElement("input");
         htmlUtils.setAttributes(fieldElement, {
-            id: field.id,
-            type: field.type
+            id: field.id || "",
+            type: field.type || "text"
         });
         htmlUtils.setAttributes(fieldElement, field.attrs);
         htmlUtils.addClass(fieldElement, "form-control");

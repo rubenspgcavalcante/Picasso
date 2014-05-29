@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
                     // All the default fields
                     "src/system/form/fields/PicassoField.js",
-                    "src/system/form/fields/InputField.js"
+                    "src/system/form/fields/*"
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }

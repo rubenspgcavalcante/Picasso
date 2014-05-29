@@ -14,6 +14,9 @@ Picasso.form.Builder = function () {
     /** @type {utils/html} */
     this.htmlUtils = Picasso.load("utils.html");
 
+    /** @type {utils/object} */
+    this.objUtils = Picasso.load("utils.object");
+
     /**@type {Picasso.form.FieldFactory} */
     this.fieldFactory = new Picasso.form.FieldFactory();
 };
@@ -24,6 +27,8 @@ Picasso.form.Builder = function () {
  * @returns {HTMLDivElement}
  */
 Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
+    fieldGrid = this.objUtils.deserialize(fieldGrid, Picasso.pjo.FieldGrid);
+
     var fieldGridElement = document.createElement("div");
     this.htmlUtils.setAttributes(fieldGridElement, fieldGrid.attrs);
     fieldGridElement.setAttribute("id", fieldGrid.id);
@@ -33,7 +38,7 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
     this.htmlUtils.addClass(fieldGridElement, "column " + colSizeClass);
 
     var that = this;
-    this.arrayUtils.each(fieldGrid.fields, function(field){
+    this.arrayUtils.each(fieldGrid.fields, function (field) {
         var picassoField = that.fieldFactory.create(field);
         fieldGridElement.appendChild(picassoField.getHTMLElement());
     });
@@ -42,11 +47,41 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
 };
 
 /**
+ * Translates a serialized gridBlock into a HTML div
+ * @param {Picasso.pjo.GridBlock} gridBlock
+ */
+Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
+    gridBlock = this.objUtils.deserialize(gridBlock, Picasso.pjo.GridBlock);
+
+    var that = this;
+    var divElement = document.createElement("div");
+
+    if (gridBlock.legend != null || gridBlock.legend != "") {
+        var legend = document.createElement("p");
+        legend.innerHTML = gridBlock.legend;
+        this.htmlUtils.addClass(legend, "bg-info");
+        divElement.appendChild(legend);
+    }
+
+    this.htmlUtils.setAttributes(divElement, gridBlock.attrs);
+    divElement.setAttribute('id', gridBlock.id);
+    this.htmlUtils.addClass(divElement, "grid-block");
+
+    this.arrayUtils.each(gridBlock.fieldGrid, function (fieldSet) {
+        divElement.appendChild(that.buildFieldGrid(fieldSet));
+    });
+
+    return divElement;
+};
+
+/**
  * Translates a serialized form to a HTML form
  * @param {Picasso.pjo.Form} form
  * @returns {HTMLFormElement}
  */
 Picasso.form.Builder.prototype.buildForm = function (form) {
+    form = this.objUtils.deserialize(form, Picasso.pjo.Form);
+
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
     formElement.setAttribute("role", "form");
@@ -54,9 +89,10 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
     this.htmlUtils.setAttributes(formElement, form.attrs);
 
     var that = this;
-    this.arrayUtils.each(form.fieldGrid, function(fieldSet){
-        formElement.appendChild(that.buildFieldGrid(fieldSet));
+    this.arrayUtils.each(form.gridBlocks, function (block) {
+        formElement.appendChild(that.buildGridBlock(block));
     });
+
 
     return formElement;
 };

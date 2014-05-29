@@ -18,6 +18,6 @@ Picasso.pjo.Form = function(){
         name: ""
     };
 
-    /** @type {Picasso.pjo.FieldGrid[]} */
-    this.fieldGrid = [];
+    /** @type {Picasso.pjo.GridBlock} */
+    this.gridBlocks = [];
 };

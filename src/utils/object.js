@@ -1,9 +1,9 @@
 Picasso.load("utils.object");
 Picasso.utils.object = (
-    /**
-     * A set of object utils
-     * @exports utils/object
-     */
+/**
+ * A set of object utils
+ * @exports utils/object
+ */
     function () {
 
         /**
@@ -12,7 +12,7 @@ Picasso.utils.object = (
          * @param {Function} Parent The parent object constructor
          * @returns {Function} The Class constructor
          */
-        var extend = function(Class, Parent){
+        var extend = function (Class, Parent) {
             //Rent a prototype
             var Rented = new Function();
             Rented.prototype = Parent.prototype;
@@ -36,8 +36,8 @@ Picasso.utils.object = (
          * @param {Object} obj
          * @param {module:utils/object.eachCallback} call
          */
-        var each = function(obj, call){
-            if(obj instanceof Object) {
+        var each = function (obj, call) {
+            if (obj instanceof Object) {
                 var property;
                 for (property in obj) {
                     if (obj.hasOwnProperty(property)) {
@@ -50,6 +50,7 @@ Picasso.utils.object = (
         /**
          * Compares two objects and
          * verify if they are equals
+         * @param {Object} obj1
          * @param {Object} obj2
          * @return {Boolean}
          * @public
@@ -99,11 +100,29 @@ Picasso.utils.object = (
             return true;
         };
 
+        /**
+         * Converts the given object to the strict properties of
+         * the plain object constructor
+         * @param {Object} obj
+         * @param {Object.constructor} plainObjectConstructor
+         */
+        var deserialize = function (obj, plainObjectConstructor) {
+            var pjo = new plainObjectConstructor();
+            for(var property in pjo){
+                if(pjo.hasOwnProperty(property) && obj.hasOwnProperty(property)){
+                    pjo[property] = obj[property];
+                }
+            }
+
+            return pjo;
+        };
+
         // Public API
         return {
             extend: extend,
             equals: equals,
-            each: each
+            each: each,
+            deserialize: deserialize
         }
     }()
 );

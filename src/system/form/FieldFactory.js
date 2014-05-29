@@ -8,15 +8,16 @@ Picasso.form.FieldFactory = function(){
     /**
      * All the available field constructors
      * Can be a method name or the function itself
-     * @type {Object<string, string|Picasso.form.field.PicassoField>}
+     * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
      */
     this.constructors =  {
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
         password: Picasso.form.field.InputField,
-        submit: Picasso.form.field.InputField,
-        cancel: Picasso.form.field.InputField
+        submit: Picasso.form.field.ButtonField,
+        cancel: Picasso.form.field.ButtonField,
+        button: Picasso.form.field.ButtonField
     };
 };
 
