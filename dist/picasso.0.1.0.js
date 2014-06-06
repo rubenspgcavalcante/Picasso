@@ -50,7 +50,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-05-29",
+    build: "2014-06-05",
     license: "GPLv3"
 };
 /**
@@ -135,6 +135,12 @@ Picasso.pjo.Field = function(){
 
     /** @type {Picasso.pjo.Field.type} */
     this.type = null;
+
+    /** @type {boolean} */
+    this.required = false;
+
+    /** @type {boolean} */
+    this.formIgnore = false;
 
     /** @type {*} */
     this.value = null;
@@ -446,6 +452,23 @@ Picasso.utils.html = (
 );
 
 
+Picasso.load("utils.log");
+
+Picasso.utils.log = (function () {
+
+    /**
+     * All the logging function utilities
+     * @export utils/log
+     */
+    var warn = function (msg, context) {
+        console.log(msg, context);
+    };
+
+    return {
+        warn: warn
+    };
+}());
+
 Picasso.load("utils.object");
 Picasso.utils.object = (
 /**
@@ -453,6 +476,19 @@ Picasso.utils.object = (
  * @exports utils/object
  */
     function () {
+
+        /**
+         * Transforms a string delimited by "-"
+         * to a camel case notation
+         * @param {string} property
+         * @returns {string}
+         * @private
+         */
+        var _toCamelCase = function (property) {
+            return property.toLowerCase().replace(/-(.)/g, function (match, g1) {
+                return g1.toUpperCase();
+            });
+        };
 
         /**
          * Extends a constructor
@@ -556,9 +592,22 @@ Picasso.utils.object = (
          */
         var deserialize = function (obj, plainObjectConstructor) {
             var pjo = new plainObjectConstructor();
-            for(var property in pjo){
-                if(pjo.hasOwnProperty(property) && obj.hasOwnProperty(property)){
-                    pjo[property] = obj[property];
+            var formattedObj = {};
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    if (i.indexOf("-") != -1) {
+                        formattedObj[_toCamelCase(i)] = obj[i];
+                    }
+                    else {
+                        formattedObj[i] = obj[i];
+                    }
+                }
+            }
+
+            for (var property in pjo) {
+                if (pjo.hasOwnProperty(property) && formattedObj.hasOwnProperty(property)) {
+                    pjo[property] = formattedObj[property];
                 }
             }
 
@@ -573,7 +622,7 @@ Picasso.utils.object = (
             deserialize: deserialize
         }
     }()
-);
+    );
 Picasso.load("core.Sequence");
 Picasso.core.Sequence = (function () {
     /**
@@ -989,9 +1038,10 @@ Picasso.form.Builder = function () {
 /**
  * Translates a fieldGrid object into a set of HTML elements
  * @param {Picasso.pjo.FieldGrid} fieldGrid
+ * @param {Picasso.form.PicassoForm} pForm
  * @returns {HTMLDivElement}
  */
-Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
+Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid, pForm) {
     fieldGrid = this.objUtils.deserialize(fieldGrid, Picasso.pjo.FieldGrid);
 
     var fieldGridElement = document.createElement("div");
@@ -1005,6 +1055,8 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
     var that = this;
     this.arrayUtils.each(fieldGrid.fields, function (field) {
         var picassoField = that.fieldFactory.create(field);
+        pForm.addField(picassoField);
+
         fieldGridElement.appendChild(picassoField.getHTMLElement());
     });
 
@@ -1014,8 +1066,9 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
 /**
  * Translates a serialized gridBlock into a HTML div
  * @param {Picasso.pjo.GridBlock} gridBlock
+ * @param {Picasso.form.PicassoForm} pForm
  */
-Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
+Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock, pForm) {
     gridBlock = this.objUtils.deserialize(gridBlock, Picasso.pjo.GridBlock);
 
     var that = this;
@@ -1033,7 +1086,7 @@ Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
     this.htmlUtils.addClass(divElement, "grid-block");
 
     this.arrayUtils.each(gridBlock.fieldGrid, function (fieldSet) {
-        divElement.appendChild(that.buildFieldGrid(fieldSet));
+        divElement.appendChild(that.buildFieldGrid(fieldSet, pForm));
     });
 
     return divElement;
@@ -1042,10 +1095,11 @@ Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
 /**
  * Translates a serialized form to a HTML form
  * @param {Picasso.pjo.Form} form
- * @returns {HTMLFormElement}
+ * @returns {Picasso.form.PicassoForm}
  */
 Picasso.form.Builder.prototype.buildForm = function (form) {
     form = this.objUtils.deserialize(form, Picasso.pjo.Form);
+    var pForm = new Picasso.form.PicassoForm();
 
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
@@ -1055,11 +1109,11 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
 
     var that = this;
     this.arrayUtils.each(form.gridBlocks, function (block) {
-        formElement.appendChild(that.buildGridBlock(block));
+        formElement.appendChild(that.buildGridBlock(block, pForm));
     });
 
-
-    return formElement;
+    pForm.setHTMLElement(formElement);
+    return pForm;
 };
 Picasso.load("form.FieldFactory");
 
@@ -1067,13 +1121,13 @@ Picasso.load("form.FieldFactory");
  * A field factory
  * @constructor
  */
-Picasso.form.FieldFactory = function(){
+Picasso.form.FieldFactory = function () {
     /**
      * All the available field constructors
      * Can be a method name or the function itself
      * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
      */
-    this.constructors =  {
+    this.constructors = {
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
@@ -1085,36 +1139,22 @@ Picasso.form.FieldFactory = function(){
 };
 
 
-
 /**
- * Constructs a simple field element
- * @param {Picasso.pjo.Field} field
- * @returns {HTMLDivElement}
+ * Sets some picasso attributes to the html field element
+ * @param {Picasso.form.field.PicassoField} pField
  * @private
  */
-Picasso.form.FieldFactory.prototype._constructField = function(field){
+Picasso.form.FieldFactory.prototype._setPicassoAttributes = function (pField) {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
 
-    var formGroup = document.createElement("div");
-    formGroup.setAttribute("class", "form-group");
+    if (pField.required) {
+        htmlUtils.addClass(pField.getHTMLElement(), "prequired");
+    }
 
-    var fieldElement = document.createElement("input");
-    htmlUtils.setAttributes(fieldElement, {
-        id: field.id,
-        type: field.type
-    });
-    htmlUtils.setAttributes(fieldElement, field.attrs);
-    htmlUtils.addClass(fieldElement, "form-control");
-
-    var labelElement = document.createElement("label");
-    labelElement.setAttribute("class", "control-label");
-    labelElement.innerHTML = field.label;
-
-    formGroup.appendChild(labelElement);
-    formGroup.appendChild(fieldElement);
-
-    return formGroup;
+    if (pField.formIgnore) {
+        htmlUtils.addClass(pField.getHTMLElement(), "pform-ignore");
+    }
 };
 
 /**
@@ -1125,13 +1165,13 @@ Picasso.form.FieldFactory.prototype._constructField = function(field){
  * @throws {Picasso.error.InvalidFieldType}
  * @private
  */
-Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function(fieldType){
-    if(this.constructors.hasOwnProperty(fieldType)){
+Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function (fieldType) {
+    if (this.constructors.hasOwnProperty(fieldType)) {
         var fieldConstructor = this.constructors[fieldType];
-        if(typeof fieldConstructor === 'string'){
+        if (typeof fieldConstructor === 'string') {
             return this[fieldConstructor];
         }
-        else{
+        else {
             return fieldConstructor;
         }
     }
@@ -1144,13 +1184,81 @@ Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function(f
  * @param {Picasso.pjo.Field} field
  * @returns {Picasso.form.field.PicassoField} The picasso field object
  */
-Picasso.form.FieldFactory.prototype.create = function(field){
+Picasso.form.FieldFactory.prototype.create = function (field) {
+    var objUtils = Picasso.load("utils.object");
+    field = objUtils.deserialize(field, Picasso.pjo.Field);
+
     var FieldConstructor = this._getFieldConstructorByFieldType(field.type);
     var picassoField = new FieldConstructor();
     picassoField.build(field);
+    picassoField.type = field.type;
+    picassoField.formIgnore = field.formIgnore;
+    picassoField.required = field.required;
 
+    if (field.hasOwnProperty("id")) {
+        picassoField.setId(field.id);
+    }
+
+    this._setPicassoAttributes(picassoField);
     return picassoField;
 };
+Picasso.load("form.PicassoForm");
+
+Picasso.form.PicassoForm = function () {
+
+    /**
+     * The form fields
+     * @type {Object<string, Picasso.form.field.PicassoField>}
+     * @private
+     */
+    var fields = {};
+
+    /**
+     * The HTML representation of this object
+     * @type {HTMLFormElement}
+     * @private
+     */
+    var element = null;
+
+    /**
+     * Adds a field to the form
+     * @param {Picasso.form.field.PicassoField} pField
+     */
+    this.addField = function (pField) {
+        fields[pField.getId()] = pField;
+    };
+
+    /**
+     * Gets the form fields
+     * @returns {Object.<string, Picasso.form.field.PicassoField>}
+     */
+    this.getFields = function () {
+        var res = [];
+        for (var i in fields) {
+            if (fields.hasOwnProperty(i)) {
+                res.push(fields[i]);
+            }
+        }
+        return res;
+    };
+
+    /**
+     * Sets the html element
+     * @param {HTMLFormElement} htmlForm
+     */
+    this.setHTMLElement = function(htmlForm){
+        element = htmlForm;
+    };
+
+    /**
+     * Gets the html element
+     * @returns {HTMLFormElement}
+     */
+    this.getHTMLElement = function(){
+        return element;
+    }
+};
+
 Picasso.load("form.Renderer");
 
 /**
@@ -1169,13 +1277,52 @@ Picasso.form.Renderer = function (container) {
 Picasso.form.Renderer.prototype.render = function(form) {
 
 };
+Picasso.load("form.Validator");
+
+/**
+ * Validates fields
+ * @param {Picasso.form.Form} _form
+ * @constructor
+ */
+Picasso.Validator = function (_form) {
+
+    var log = Picasso.load("utils.log");
+    var form = _form;
+
+    /**
+     * Validates a field
+     * @param {Picasso.form.field.PicassoField} pField
+     * @returns {boolean}
+     */
+    this.validate = function (pField) {
+        if (pfield.required && !pfield.isEmpty()) {
+            if (Picasso.validators.hasOwnProperty(pField.type)) {
+                return Picasso.validators[pField.type](pField);
+            }
+            else {
+                log.warn("No validator found to the field type " + pField.type, pField);
+                return true;
+            }
+        }
+
+        return false;
+    };
+};
 Picasso.load("form.field.PicassoField");
 
 /**
  * The default field implementation
  * @constructor
  */
-Picasso.form.field.PicassoField = function(){
+Picasso.form.field.PicassoField = function () {
+    var Sequence = Picasso.load("core.Sequence");
+
+    /**
+     * The id of the field
+     * @type {string|number}
+     * @protected
+     */
+    this._id = null;
 
     /**
      * The html of the field
@@ -1185,13 +1332,45 @@ Picasso.form.field.PicassoField = function(){
     this._element = null;
 
     /**
+     * The type of this field
+     * @type {string}
+     * @public
+     */
+    this.type = "";
+
+
+    /**
+     * If this field is ignored in
+     * a form final value
+     * @type {boolean}
+     */
+    this.formIgnore = false;
+
+    /**
+     * The flag to mark this field as required
+     * @type {boolean}
+     * @public
+     */
+    this.required = false;
+
+    /**
      * Builds the field
      * @param {Picasso.pjo.Field} field
      * @abstract
      * @throws {Picasso.error.NotImplementedError}
      */
-    this.build = function(field){
+    this.build = function (field) {
         throw new Picasso.error.NotImplementedError("PicassoField", "build");
+    };
+
+    /**
+     * Verifies if the field is empty or not
+     * @returns {boolean}
+     * @abstract
+     * @throws {Picasso.error.NotImplementedError}
+     */
+    this.isEmpty = function () {
+        throw new Picasso.error.NotImplementedError("PicassoField", "isEmpty");
     };
 
     /**
@@ -1200,7 +1379,7 @@ Picasso.form.field.PicassoField = function(){
      * @abstract
      * @throws {Picasso.error.NotImplementedError}
      */
-    this.value = function(val){
+    this.value = function (val) {
         throw new Picasso.error.NotImplementedError("PicassoField", "value");
     };
 
@@ -1209,15 +1388,43 @@ Picasso.form.field.PicassoField = function(){
      * @abstract
      * @throws {Picasso.error.NotImplementedError}
      */
-    this.reset = function(){
+    this.reset = function () {
         throw new Picasso.error.NotImplementedError("PicassoField", "reset");
+    };
+
+    /**
+     * Get this field id
+     * @returns {string|number}
+     */
+    this.getId = function () {
+        return this._id;
+    };
+
+    /**
+     * Sets this field id, if not is given
+     * generates the id based on a sequence
+     * @param {string|number} id
+     */
+    this.setId = function (id) {
+        if (id == null || id == "") {
+            var entity = this.type || "PicassoField";
+            this._id = new Sequence(entity).nextVal();
+        }
+        else {
+            if (this._element != null) {
+                this._element.setAttribute("id", String(id));
+            }
+
+            this._id = id;
+        }
+
     };
 
     /**
      * Get the HTMLElement of this field
      * @return {HTMLElement}
      */
-    this.getHTMLElement = function(){
+    this.getHTMLElement = function () {
         return this._element;
     };
 
@@ -1225,8 +1432,8 @@ Picasso.form.field.PicassoField = function(){
      * Sets the HTMLElement of this field
      * @param {HTMLElement} element
      */
-    this.setHTMLElement = function(element){
-        if(element instanceof HTMLElement){
+    this.setHTMLElement = function (element) {
+        if (element instanceof HTMLElement) {
             this._element = element;
         }
     };
@@ -1239,24 +1446,43 @@ Picasso.load("form.field.ButtonField");
  * @constructor
  * @extends {Picasso.form.field.PicassoField}
  */
-Picasso.form.field.ButtonField = function(){
+Picasso.form.field.ButtonField = function () {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
+
+    /**
+     * Verify if the button is empty
+     * @returns {boolean}
+     */
+    this.isEmpty = function () {
+        return false;
+    };
+
+    /**
+     * Gets the value of the button
+     * @returns {*}
+     */
+    this.value = function () {
+        return this._element.value;
+    };
 
     /**
      * Builds the button field
      * @param {Picasso.pjo.Field} field
      */
-    this.build = function(field){
+    this.build = function (field) {
+        this.setId(field.id);
+
         var buttomElement = document.createElement("button");
         htmlUtils.setAttributes(buttomElement, {
-            id: field.id || "",
+            id: this.getId(),
             type: field.type || "button",
             class: "btn btn-default"
         });
 
         htmlUtils.setAttributes(buttomElement, field.attrs);
         buttomElement.innerHTML = field.value;
+        this.formIgnore = true;
 
         this.setHTMLElement(buttomElement);
     };

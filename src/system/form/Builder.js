@@ -24,9 +24,10 @@ Picasso.form.Builder = function () {
 /**
  * Translates a fieldGrid object into a set of HTML elements
  * @param {Picasso.pjo.FieldGrid} fieldGrid
+ * @param {Picasso.form.PicassoForm} pForm
  * @returns {HTMLDivElement}
  */
-Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
+Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid, pForm) {
     fieldGrid = this.objUtils.deserialize(fieldGrid, Picasso.pjo.FieldGrid);
 
     var fieldGridElement = document.createElement("div");
@@ -40,6 +41,8 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
     var that = this;
     this.arrayUtils.each(fieldGrid.fields, function (field) {
         var picassoField = that.fieldFactory.create(field);
+        pForm.addField(picassoField);
+
         fieldGridElement.appendChild(picassoField.getHTMLElement());
     });
 
@@ -49,8 +52,9 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid) {
 /**
  * Translates a serialized gridBlock into a HTML div
  * @param {Picasso.pjo.GridBlock} gridBlock
+ * @param {Picasso.form.PicassoForm} pForm
  */
-Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
+Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock, pForm) {
     gridBlock = this.objUtils.deserialize(gridBlock, Picasso.pjo.GridBlock);
 
     var that = this;
@@ -68,7 +72,7 @@ Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
     this.htmlUtils.addClass(divElement, "grid-block");
 
     this.arrayUtils.each(gridBlock.fieldGrid, function (fieldSet) {
-        divElement.appendChild(that.buildFieldGrid(fieldSet));
+        divElement.appendChild(that.buildFieldGrid(fieldSet, pForm));
     });
 
     return divElement;
@@ -77,10 +81,11 @@ Picasso.form.Builder.prototype.buildGridBlock = function (gridBlock) {
 /**
  * Translates a serialized form to a HTML form
  * @param {Picasso.pjo.Form} form
- * @returns {HTMLFormElement}
+ * @returns {Picasso.form.PicassoForm}
  */
 Picasso.form.Builder.prototype.buildForm = function (form) {
     form = this.objUtils.deserialize(form, Picasso.pjo.Form);
+    var pForm = new Picasso.form.PicassoForm();
 
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
@@ -90,9 +95,9 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
 
     var that = this;
     this.arrayUtils.each(form.gridBlocks, function (block) {
-        formElement.appendChild(that.buildGridBlock(block));
+        formElement.appendChild(that.buildGridBlock(block, pForm));
     });
 
-
-    return formElement;
+    pForm.setHTMLElement(formElement);
+    return pForm;
 };

@@ -31,13 +31,13 @@
  * A field factory
  * @constructor
  */
-Picasso.form.FieldFactory = function(){
+Picasso.form.FieldFactory = function () {
     /**
      * All the available field constructors
      * Can be a method name or the function itself
      * @type {Object&lt;string, string|Picasso.form.field.PicassoField.constructor>}
      */
-    this.constructors =  {
+    this.constructors = {
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
@@ -49,36 +49,22 @@ Picasso.form.FieldFactory = function(){
 };
 
 
-
 /**
- * Constructs a simple field element
- * @param {Picasso.pjo.Field} field
- * @returns {HTMLDivElement}
+ * Sets some picasso attributes to the html field element
+ * @param {Picasso.form.field.PicassoField} pField
  * @private
  */
-Picasso.form.FieldFactory.prototype._constructField = function(field){
+Picasso.form.FieldFactory.prototype._setPicassoAttributes = function (pField) {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
 
-    var formGroup = document.createElement("div");
-    formGroup.setAttribute("class", "form-group");
+    if (pField.required) {
+        htmlUtils.addClass(pField.getHTMLElement(), "prequired");
+    }
 
-    var fieldElement = document.createElement("input");
-    htmlUtils.setAttributes(fieldElement, {
-        id: field.id,
-        type: field.type
-    });
-    htmlUtils.setAttributes(fieldElement, field.attrs);
-    htmlUtils.addClass(fieldElement, "form-control");
-
-    var labelElement = document.createElement("label");
-    labelElement.setAttribute("class", "control-label");
-    labelElement.innerHTML = field.label;
-
-    formGroup.appendChild(labelElement);
-    formGroup.appendChild(fieldElement);
-
-    return formGroup;
+    if (pField.formIgnore) {
+        htmlUtils.addClass(pField.getHTMLElement(), "pform-ignore");
+    }
 };
 
 /**
@@ -89,13 +75,13 @@ Picasso.form.FieldFactory.prototype._constructField = function(field){
  * @throws {Picasso.error.InvalidFieldType}
  * @private
  */
-Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function(fieldType){
-    if(this.constructors.hasOwnProperty(fieldType)){
+Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function (fieldType) {
+    if (this.constructors.hasOwnProperty(fieldType)) {
         var fieldConstructor = this.constructors[fieldType];
-        if(typeof fieldConstructor === 'string'){
+        if (typeof fieldConstructor === 'string') {
             return this[fieldConstructor];
         }
-        else{
+        else {
             return fieldConstructor;
         }
     }
@@ -108,11 +94,22 @@ Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function(f
  * @param {Picasso.pjo.Field} field
  * @returns {Picasso.form.field.PicassoField} The picasso field object
  */
-Picasso.form.FieldFactory.prototype.create = function(field){
+Picasso.form.FieldFactory.prototype.create = function (field) {
+    var objUtils = Picasso.load("utils.object");
+    field = objUtils.deserialize(field, Picasso.pjo.Field);
+
     var FieldConstructor = this._getFieldConstructorByFieldType(field.type);
     var picassoField = new FieldConstructor();
     picassoField.build(field);
+    picassoField.type = field.type;
+    picassoField.formIgnore = field.formIgnore;
+    picassoField.required = field.required;
 
+    if (field.hasOwnProperty("id")) {
+        picassoField.setId(field.id);
+    }
+
+    this._setPicassoAttributes(picassoField);
     return picassoField;
 };</code></pre>
         </article>
@@ -124,13 +121,13 @@ Picasso.form.FieldFactory.prototype.create = function(field){
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.Validator.html">Validator</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu May 29 2014 10:26:46 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 05 2014 23:52:17 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

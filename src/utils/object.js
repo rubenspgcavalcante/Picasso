@@ -7,6 +7,19 @@ Picasso.utils.object = (
     function () {
 
         /**
+         * Transforms a string delimited by "-"
+         * to a camel case notation
+         * @param {string} property
+         * @returns {string}
+         * @private
+         */
+        var _toCamelCase = function (property) {
+            return property.toLowerCase().replace(/-(.)/g, function (match, g1) {
+                return g1.toUpperCase();
+            });
+        };
+
+        /**
          * Extends a constructor
          * @param {Function} Class The object constructor
          * @param {Function} Parent The parent object constructor
@@ -108,9 +121,22 @@ Picasso.utils.object = (
          */
         var deserialize = function (obj, plainObjectConstructor) {
             var pjo = new plainObjectConstructor();
-            for(var property in pjo){
-                if(pjo.hasOwnProperty(property) && obj.hasOwnProperty(property)){
-                    pjo[property] = obj[property];
+            var formattedObj = {};
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    if (i.indexOf("-") != -1) {
+                        formattedObj[_toCamelCase(i)] = obj[i];
+                    }
+                    else {
+                        formattedObj[i] = obj[i];
+                    }
+                }
+            }
+
+            for (var property in pjo) {
+                if (pjo.hasOwnProperty(property) && formattedObj.hasOwnProperty(property)) {
+                    pjo[property] = formattedObj[property];
                 }
             }
 
@@ -125,4 +151,4 @@ Picasso.utils.object = (
             deserialize: deserialize
         }
     }()
-);
+    );
