@@ -1496,16 +1496,33 @@ Picasso.load("form.field.InputField");
  * @constructor
  * @extends {Picasso.form.field.PicassoField}
  */
-Picasso.form.field.InputField = function(){
+Picasso.form.field.InputField = function () {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
+
+
+    /**
+     * Verify if the input is empty
+     * @returns {boolean}
+     */
+    this.isEmpty = function () {
+        return this._element.value == "";
+    };
+
+    /**
+     * Gets the value of the input
+     * @returns {*}
+     */
+    this.value = function () {
+        return this._element.value;
+    };
 
     /**
      * The HTMLElement builder
      * @param {Picasso.pjo.Field} field
      * @return {HTMLElement}
      */
-    this.build = function(field){
+    this.build = function (field) {
 
         var formGroup = document.createElement("div");
         formGroup.setAttribute("class", "form-group");
