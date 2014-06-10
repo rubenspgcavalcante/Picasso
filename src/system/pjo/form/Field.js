@@ -14,6 +14,15 @@ Picasso.pjo.Field = function(){
     /** @type {Picasso.pjo.Field.type} */
     this.type = null;
 
+    /** @type {boolean} */
+    this.required = false;
+
+    /** @type {boolean} */
+    this.formIgnore = false;
+
+    /** @type {*} */
+    this.value = null;
+
     /**
      * The field attributes
      * @type {{name: string}}

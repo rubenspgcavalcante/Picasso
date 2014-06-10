@@ -1,5 +1,6 @@
 Picasso Framework
 ===========
+[![Build Status](https://travis-ci.org/rubenspgcavalcante/Picasso.svg?branch=master)](https://travis-ci.org/rubenspgcavalcante/Picasso)
 ##About
 *Picasso* is a javascript Framework to build dinamic html forms
 
@@ -27,6 +28,6 @@ Rubens Pinheiro Gonçalves Cavalcante
 email: [rubenspgcavalcante@gmail.com](mailto:rubenspgcavalcante@gmail.com)
 
 ##License & Rights
-
+![GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
 Using GNU GENERAL PUBLIC LICENSE *Version 3, 29 June 2007*
 [gnu.org](http://www.gnu.org/copyleft/gpl.html)  

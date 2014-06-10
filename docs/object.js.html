@@ -27,11 +27,24 @@
         <article>
             <pre class="prettyprint source"><code>Picasso.load("utils.object");
 Picasso.utils.object = (
-    /**
-     * A set of object utils
-     * @exports utils/object
-     */
+/**
+ * A set of object utils
+ * @exports utils/object
+ */
     function () {
+
+        /**
+         * Transforms a string delimited by "-"
+         * to a camel case notation
+         * @param {string} property
+         * @returns {string}
+         * @private
+         */
+        var _toCamelCase = function (property) {
+            return property.toLowerCase().replace(/-(.)/g, function (match, g1) {
+                return g1.toUpperCase();
+            });
+        };
 
         /**
          * Extends a constructor
@@ -39,7 +52,7 @@ Picasso.utils.object = (
          * @param {Function} Parent The parent object constructor
          * @returns {Function} The Class constructor
          */
-        var extend = function(Class, Parent){
+        var extend = function (Class, Parent) {
             //Rent a prototype
             var Rented = new Function();
             Rented.prototype = Parent.prototype;
@@ -63,8 +76,8 @@ Picasso.utils.object = (
          * @param {Object} obj
          * @param {module:utils/object.eachCallback} call
          */
-        var each = function(obj, call){
-            if(obj instanceof Object) {
+        var each = function (obj, call) {
+            if (obj instanceof Object) {
                 var property;
                 for (property in obj) {
                     if (obj.hasOwnProperty(property)) {
@@ -77,6 +90,7 @@ Picasso.utils.object = (
         /**
          * Compares two objects and
          * verify if they are equals
+         * @param {Object} obj1
          * @param {Object} obj2
          * @return {Boolean}
          * @public
@@ -126,14 +140,45 @@ Picasso.utils.object = (
             return true;
         };
 
+        /**
+         * Converts the given object to the strict properties of
+         * the plain object constructor
+         * @param {Object} obj
+         * @param {Object.constructor} plainObjectConstructor
+         */
+        var deserialize = function (obj, plainObjectConstructor) {
+            var pjo = new plainObjectConstructor();
+            var formattedObj = {};
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    if (i.indexOf("-") != -1) {
+                        formattedObj[_toCamelCase(i)] = obj[i];
+                    }
+                    else {
+                        formattedObj[i] = obj[i];
+                    }
+                }
+            }
+
+            for (var property in pjo) {
+                if (pjo.hasOwnProperty(property) && formattedObj.hasOwnProperty(property)) {
+                    pjo[property] = formattedObj[property];
+                }
+            }
+
+            return pjo;
+        };
+
         // Public API
         return {
             extend: extend,
             equals: equals,
-            each: each
+            each: each,
+            deserialize: deserialize
         }
     }()
-);</code></pre>
+    );</code></pre>
         </article>
     </section>
 
@@ -143,13 +188,13 @@ Picasso.utils.object = (
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldSet.html">FieldSet</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.Validator.html">Validator</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 23:33:03 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 05 2014 23:55:52 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

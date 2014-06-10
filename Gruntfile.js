@@ -12,12 +12,17 @@ module.exports = function (grunt) {
                 src: [
                     "src/defines.js",
                     "src/system/load.js",
-                    "src/system/pjo/*.js",
+                    "src/system/pjo/event/*.js",
+                    "src/system/pjo/form/*.js",
                     "src/system/error/*.js",
                     "src/utils/*.js",
                     "src/system/core/*.js",
                     "src/system/mvc/*.js",
-                    "src/system/form/*.js"
+                    "src/system/form/*.js",
+
+                    // All the default fields
+                    "src/system/form/fields/PicassoField.js",
+                    "src/system/form/fields/*"
                 ],
                 dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
             }

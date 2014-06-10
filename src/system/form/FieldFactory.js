@@ -4,64 +4,58 @@ Picasso.load("form.FieldFactory");
  * A field factory
  * @constructor
  */
-Picasso.form.FieldFactory = function(){
+Picasso.form.FieldFactory = function () {
+    /**
+     * All the available field constructors
+     * Can be a method name or the function itself
+     * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
+     */
+    this.constructors = {
+        text: Picasso.form.field.InputField,
+        textArea: Picasso.form.field.InputField,
+        email: Picasso.form.field.InputField,
+        password: Picasso.form.field.InputField,
+        submit: Picasso.form.field.ButtonField,
+        cancel: Picasso.form.field.ButtonField,
+        button: Picasso.form.field.ButtonField
+    };
 };
 
-/**
- * All the available field builders
- * Can be a method name or the function itself
- * @type {Object<string, string|Function>}
- */
-Picasso.form.FieldFactory.prototype.builders =  {
-    text: "_constructField",
-    textArea: "_constructField",
-    email: "_constructField",
-    password: "_constructField",
-    submit: "_constructField",
-    cancel: "_constructField"
-};
 
 /**
- * Constructs a simple field element
- * @param {Picasso.pjo.Field} field
- * @returns {HTMLFieldSetElement}
+ * Sets some picasso attributes to the html field element
+ * @param {Picasso.form.field.PicassoField} pField
  * @private
  */
-Picasso.form.FieldFactory.prototype._constructField = function(field){
+Picasso.form.FieldFactory.prototype._setPicassoAttributes = function (pField) {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
-    var fieldElement = document.createElement("field");
 
-    fieldElement.setAttribute("id", field.id);
-    fieldElement.setAttribute("type", field.type);
-    htmlUtils.setAttributes(field.attrs, fieldElement);
+    if (pField.required) {
+        htmlUtils.addClass(pField.getHTMLElement(), "prequired");
+    }
 
-    return fieldElement;
+    if (pField.formIgnore) {
+        htmlUtils.addClass(pField.getHTMLElement(), "pform-ignore");
+    }
 };
-
-/**
- * The default interface of a field builder method
- * @typedef Picasso.form.FieldFactory~fieldBuilderMethod
- * @type {Function}
- * @param {Picasso.pjo.Field} field
- */
 
 /**
  * Strategy pattern to choose the right
  * field builder method
- * @type {Object<string, fieldBuilderMethod>}
- * @returns {Function}
+ * @param {string} fieldType
+ * @returns {Picasso.form.field.PicassoField.constructor}
  * @throws {Picasso.error.InvalidFieldType}
  * @private
  */
-Picasso.form.FieldFactory.prototype._getBuilderByFieldType = function(fieldType){
-    if(this.builders.hasOwnProperty(fieldType)){
-        var builder = this.builders[fieldType];
-        if(typeof builder === 'string'){
-            return this[builder];
+Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function (fieldType) {
+    if (this.constructors.hasOwnProperty(fieldType)) {
+        var fieldConstructor = this.constructors[fieldType];
+        if (typeof fieldConstructor === 'string') {
+            return this[fieldConstructor];
         }
-        else{
-            return builder;
+        else {
+            return fieldConstructor;
         }
     }
 
@@ -71,9 +65,23 @@ Picasso.form.FieldFactory.prototype._getBuilderByFieldType = function(fieldType)
 /**
  * Builds a field element
  * @param {Picasso.pjo.Field} field
- * @returns {HTMLFieldSetElement} A simple field, or a composed field
+ * @returns {Picasso.form.field.PicassoField} The picasso field object
  */
-Picasso.form.FieldFactory.prototype.create = function(field){
-    var builder = this._getBuilderByFieldType(field.type);
-    return  builder(field);
+Picasso.form.FieldFactory.prototype.create = function (field) {
+    var objUtils = Picasso.load("utils.object");
+    field = objUtils.deserialize(field, Picasso.pjo.Field);
+
+    var FieldConstructor = this._getFieldConstructorByFieldType(field.type);
+    var picassoField = new FieldConstructor();
+    picassoField.build(field);
+    picassoField.type = field.type;
+    picassoField.formIgnore = field.formIgnore;
+    picassoField.required = field.required;
+
+    if (field.hasOwnProperty("id")) {
+        picassoField.setId(field.id);
+    }
+
+    this._setPicassoAttributes(picassoField);
+    return picassoField;
 };

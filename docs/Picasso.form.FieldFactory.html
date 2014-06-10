@@ -126,14 +126,14 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="builders"><span class="type-signature"></span>builders<span class="type-signature"> :Object.&lt;string, (string|function())></span></h4>
+    <h4 class="name" id="constructors"><span class="type-signature"></span>constructors<span class="type-signature"> :Object.&lt;string, (string|Picasso.form.field.PicassoField.constructor)></span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        All the available field builders
+        All the available field constructors
 Can be a method name or the function itself
     </div>
     
@@ -143,7 +143,7 @@ Can be a method name or the function itself
         <ul>
             <li>
                 
-<span class="param-type">Object.&lt;string, (string|function())></span>
+<span class="param-type">Object.&lt;string, (string|Picasso.form.field.PicassoField.constructor)></span>
 
 
             </li>
@@ -173,7 +173,7 @@ Can be a method name or the function itself
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line15">line 15</a>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line13">line 13</a>
     </li></ul></dd>
     
     
@@ -197,7 +197,7 @@ Can be a method name or the function itself
         <dl>
             
 <dt>
-    <h4 class="name" id="_constructField"><span class="type-signature">&lt;private> </span>_constructField<span class="signature">(field)</span><span class="type-signature"> &rarr; {HTMLFieldSetElement}</span></h4>
+    <h4 class="name" id="_getFieldConstructorByFieldType"><span class="type-signature">&lt;private> </span>_getFieldConstructorByFieldType<span class="signature">(fieldType)</span><span class="type-signature"> &rarr; {Picasso.form.field.PicassoField.constructor}</span></h4>
     
     
 </dt>
@@ -205,7 +205,8 @@ Can be a method name or the function itself
     
     
     <div class="description">
-        Constructs a simple field element
+        Strategy pattern to choose the right
+field builder method
     </div>
     
 
@@ -239,13 +240,163 @@ Can be a method name or the function itself
 	
         <tr>
             
-                <td class="name"><code>field</code></td>
+                <td class="name"><code>fieldType</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Picasso.pjo.Field.html">Picasso.pjo.Field</a></span>
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        
+<span class="param-type"><a href="Picasso.error.InvalidFieldType.html">Picasso.error.InvalidFieldType</a></span>
+
+
+    
+    </div>
+
+
+        
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Picasso.form.field.PicassoField.constructor</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="_setPicassoAttributes"><span class="type-signature">&lt;private> </span>_setPicassoAttributes<span class="signature">(pField)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets some picasso attributes to the html field element
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>pField</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a></span>
 
 
             
@@ -307,24 +458,6 @@ Can be a method name or the function itself
     
     
     
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">HTMLFieldSetElement</span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -332,110 +465,7 @@ Can be a method name or the function itself
         
             
 <dt>
-    <h4 class="name" id="_getBuilderByFieldType"><span class="type-signature">&lt;private> </span>_getBuilderByFieldType<span class="signature">()</span><span class="type-signature"> &rarr; {function}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Strategy pattern to choose the right
-field builder method
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        
-<span class="param-type"><a href="Picasso.error.InvalidFieldType.html">Picasso.error.InvalidFieldType</a></span>
-
-
-    
-    </div>
-
-
-        
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">function</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(field)</span><span class="type-signature"> &rarr; {HTMLFieldSetElement}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(field)</span><span class="type-signature"> &rarr; {<a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a>}</span></h4>
     
     
 </dt>
@@ -524,7 +554,7 @@ field builder method
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line76">line 76</a>
+        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line70">line 70</a>
     </li></ul></dd>
     
     
@@ -549,7 +579,7 @@ field builder method
     
             
 <div class="param-desc">
-    A simple field, or a composed field
+    The picasso field object
 </div>
 
 
@@ -560,7 +590,7 @@ field builder method
 	</dt>
 	<dd>
 		
-<span class="param-type">HTMLFieldSetElement</span>
+<span class="param-type"><a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a></span>
 
 
 	</dd>
@@ -575,127 +605,6 @@ field builder method
     
     
     
-        <h3 class="subsection-title">Type Definitions</h3>
-        
-        <dl>
-                
-<dt>
-    <h4 class="name" id="fieldBuilderMethod"><span class="type-signature"></span>fieldBuilderMethod<span class="signature">(field)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        The default interface of a field builder method
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>field</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Picasso.pjo.Field.html">Picasso.pjo.Field</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="FieldFactory.js.html">system/form/FieldFactory.js</a>, <a href="FieldFactory.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-            </dl>
-    
     
     
 </article>
@@ -708,13 +617,13 @@ field builder method
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldSet.html">FieldSet</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.Validator.html">Validator</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 23:33:04 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 05 2014 23:55:54 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

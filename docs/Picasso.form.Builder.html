@@ -229,7 +229,7 @@ a object to HTML elements
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line18">line 18</a>
+        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line21">line 21</a>
     </li></ul></dd>
     
     
@@ -304,6 +304,66 @@ a object to HTML elements
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="objUtils"><span class="type-signature"></span>objUtils<span class="type-signature"> :<a href="object_.html">utils/object</a></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="object_.html">utils/object</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
         </dl>
     
     
@@ -313,7 +373,7 @@ a object to HTML elements
         <dl>
             
 <dt>
-    <h4 class="name" id="buildFieldSet"><span class="type-signature"></span>buildFieldSet<span class="signature">(fieldSet)</span><span class="type-signature"> &rarr; {HTMLFieldSetElement}</span></h4>
+    <h4 class="name" id="buildFieldGrid"><span class="type-signature"></span>buildFieldGrid<span class="signature">(fieldGrid, pForm)</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
     
     
 </dt>
@@ -321,7 +381,7 @@ a object to HTML elements
     
     
     <div class="description">
-        Translates a fieldSet object into a HTML element
+        Translates a fieldGrid object into a set of HTML elements
     </div>
     
 
@@ -355,13 +415,36 @@ a object to HTML elements
 	
         <tr>
             
-                <td class="name"><code>fieldSet</code></td>
+                <td class="name"><code>fieldGrid</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Picasso.pjo.FieldSet.html">Picasso.pjo.FieldSet</a></span>
+<span class="param-type"><a href="Picasso.pjo.FieldGrid.html">Picasso.pjo.FieldGrid</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pForm</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.form.PicassoForm.html">Picasso.form.PicassoForm</a></span>
 
 
             
@@ -402,7 +485,7 @@ a object to HTML elements
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line26">line 26</a>
+        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line30">line 30</a>
     </li></ul></dd>
     
     
@@ -434,7 +517,7 @@ a object to HTML elements
 	</dt>
 	<dd>
 		
-<span class="param-type">HTMLFieldSetElement</span>
+<span class="param-type">HTMLDivElement</span>
 
 
 	</dd>
@@ -448,7 +531,7 @@ a object to HTML elements
         
             
 <dt>
-    <h4 class="name" id="buildForm"><span class="type-signature"></span>buildForm<span class="signature">(form)</span><span class="type-signature"> &rarr; {HTMLFormElement}</span></h4>
+    <h4 class="name" id="buildForm"><span class="type-signature"></span>buildForm<span class="signature">(form)</span><span class="type-signature"> &rarr; {<a href="Picasso.form.PicassoForm.html">Picasso.form.PicassoForm</a>}</span></h4>
     
     
 </dt>
@@ -537,7 +620,7 @@ a object to HTML elements
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line45">line 45</a>
+        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line86">line 86</a>
     </li></ul></dd>
     
     
@@ -569,13 +652,153 @@ a object to HTML elements
 	</dt>
 	<dd>
 		
-<span class="param-type">HTMLFormElement</span>
+<span class="param-type"><a href="Picasso.form.PicassoForm.html">Picasso.form.PicassoForm</a></span>
 
 
 	</dd>
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="buildGridBlock"><span class="type-signature"></span>buildGridBlock<span class="signature">(gridBlock, pForm)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Translates a serialized gridBlock into a HTML div
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>gridBlock</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Picasso.pjo.GridBlock</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pForm</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.form.PicassoForm.html">Picasso.form.PicassoForm</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Builder.js.html">system/form/Builder.js</a>, <a href="Builder.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>
@@ -596,13 +819,13 @@ a object to HTML elements
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldSet.html">FieldSet</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.Validator.html">Validator</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun May 18 2014 23:33:04 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 05 2014 23:55:53 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

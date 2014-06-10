@@ -1,10 +1,23 @@
 Picasso.load("utils.object");
 Picasso.utils.object = (
-    /**
-     * A set of object utils
-     * @exports utils/object
-     */
+/**
+ * A set of object utils
+ * @exports utils/object
+ */
     function () {
+
+        /**
+         * Transforms a string delimited by "-"
+         * to a camel case notation
+         * @param {string} property
+         * @returns {string}
+         * @private
+         */
+        var _toCamelCase = function (property) {
+            return property.toLowerCase().replace(/-(.)/g, function (match, g1) {
+                return g1.toUpperCase();
+            });
+        };
 
         /**
          * Extends a constructor
@@ -12,7 +25,7 @@ Picasso.utils.object = (
          * @param {Function} Parent The parent object constructor
          * @returns {Function} The Class constructor
          */
-        var extend = function(Class, Parent){
+        var extend = function (Class, Parent) {
             //Rent a prototype
             var Rented = new Function();
             Rented.prototype = Parent.prototype;
@@ -36,8 +49,8 @@ Picasso.utils.object = (
          * @param {Object} obj
          * @param {module:utils/object.eachCallback} call
          */
-        var each = function(obj, call){
-            if(obj instanceof Object) {
+        var each = function (obj, call) {
+            if (obj instanceof Object) {
                 var property;
                 for (property in obj) {
                     if (obj.hasOwnProperty(property)) {
@@ -50,6 +63,7 @@ Picasso.utils.object = (
         /**
          * Compares two objects and
          * verify if they are equals
+         * @param {Object} obj1
          * @param {Object} obj2
          * @return {Boolean}
          * @public
@@ -99,11 +113,42 @@ Picasso.utils.object = (
             return true;
         };
 
+        /**
+         * Converts the given object to the strict properties of
+         * the plain object constructor
+         * @param {Object} obj
+         * @param {Object.constructor} plainObjectConstructor
+         */
+        var deserialize = function (obj, plainObjectConstructor) {
+            var pjo = new plainObjectConstructor();
+            var formattedObj = {};
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    if (i.indexOf("-") != -1) {
+                        formattedObj[_toCamelCase(i)] = obj[i];
+                    }
+                    else {
+                        formattedObj[i] = obj[i];
+                    }
+                }
+            }
+
+            for (var property in pjo) {
+                if (pjo.hasOwnProperty(property) && formattedObj.hasOwnProperty(property)) {
+                    pjo[property] = formattedObj[property];
+                }
+            }
+
+            return pjo;
+        };
+
         // Public API
         return {
             extend: extend,
             equals: equals,
-            each: each
+            each: each,
+            deserialize: deserialize
         }
     }()
-);
+    );
