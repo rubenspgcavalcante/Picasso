@@ -90,6 +90,7 @@ Picasso.form.Builder.prototype.buildForm = function (form) {
     var formElement = document.createElement("form");
     formElement.setAttribute("id", form.id);
     formElement.setAttribute("role", "form");
+    formElement.setAttribute("novalidate", "novalidate");
 
     this.htmlUtils.setAttributes(formElement, form.attrs);
 

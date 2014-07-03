@@ -13,7 +13,7 @@ Picasso.Validator = function (_form) {
     /**
      * Validates a field
      * @param {Picasso.form.field.PicassoField} pField
-     * @returns {boolean}
+     * @returns {?boolean}
      */
     this.validate = function (pField) {
         if (pfield.required && !pfield.isEmpty()) {
@@ -22,7 +22,7 @@ Picasso.Validator = function (_form) {
             }
             else {
                 log.warn("No validator found to the field type " + pField.type, pField);
-                return true;
+                return null;
             }
         }
 

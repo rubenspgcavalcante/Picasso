@@ -1,0 +1,79 @@
+{
+    "id": "myform",
+    "attrs": {
+        "method": "POST",
+        "class": "form"
+    },
+
+
+    "gridBlocks": [{
+        "id": "block1",
+        "legend": "Options",
+        "fieldGrid": [{
+            "id": "buttonsGrid",
+            "fields": [{
+                    "type": "submit",
+                    "value": "submit",
+                    "form-ignore": true
+                },
+                {
+                    "type": "cancel",
+                    "value": "cancel",
+                    "form-ignore": true
+                }]
+        }]
+    },
+
+    {
+        "id": "block2",
+        "legend": "Personal Data",
+
+        "fieldGrid": [{
+            "id": "section1",
+            "attrs": {
+                "class": "teste"
+            },
+            "fields": [{
+                    "id": "name",
+                    "type": "text",
+                    "label": "nome",
+                    "attrs": {
+                        "name": "name"
+                    }
+                },
+
+                {
+                    "id": "email",
+                    "type": "text",
+                    "label": "email",
+                    "attrs": {
+                        "name": "email"
+                    }
+                }]
+        },
+
+        {
+            "id": "section2",
+            "attrs": {
+                "class": "teste"
+            },
+            "fields": [{
+                "id": "password",
+                "type": "password",
+                "label": "senha",
+                "attrs": {
+                    "name": "password"
+                }
+            },
+
+            {
+                "id": "passwordConfirmation",
+                "type": "password",
+                "label": "confirme a senha",
+                "attrs": {
+                    "name": "passwordConfirmation"
+                }
+            }]
+        }]
+    }]
+}

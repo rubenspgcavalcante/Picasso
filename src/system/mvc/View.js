@@ -20,6 +20,13 @@ Picasso.View = function () {
     this._modelEvents = {};
 
     /**
+     * The dynamic form builder
+     * @type {Picasso.form.Builder}
+     * @protected
+     */
+    this._formBuilder = new Picasso.form.Builder();
+
+    /**
      * The main object of the view
      * @type {HTMLObjectElement}
      * @public
@@ -49,6 +56,15 @@ Picasso.View.prototype.setModel = function(model){
             this._model._subscribe(i, this._modelEvents[i], this);
         }
     }
+};
+
+/**
+ * Builds a picasso form object from the given JSON
+ * @param {Object} formJSON
+ * @returns {Picasso.form.PicassoForm}
+ */
+Picasso.View.prototype.buildForm = function(formJSON){
+    return this._formBuilder.buildForm(formJSON);
 };
 
 /**
