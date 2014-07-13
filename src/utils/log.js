@@ -7,7 +7,7 @@ Picasso.utils.log = (function () {
      * @export utils/log
      */
     var warn = function (msg, context) {
-        console.log(msg, context);
+        console.warn(msg, context);
     };
 
     return {

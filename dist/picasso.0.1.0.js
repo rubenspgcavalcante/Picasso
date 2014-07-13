@@ -50,7 +50,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-07-03",
+    build: "2014-07-12",
     license: "GPLv3"
 };
 /**
@@ -461,7 +461,7 @@ Picasso.utils.log = (function () {
      * @export utils/log
      */
     var warn = function (msg, context) {
-        console.log(msg, context);
+        console.warn(msg, context);
     };
 
     return {
@@ -840,6 +840,13 @@ Picasso.Controller = function (model, view) {
      * @protected
      */
     this._views = {};
+
+    /**
+     * Autowired form validator
+     * @type {Picasso.form.Validator}
+     * @public
+     */
+    this.validator = new Picasso.form.Validator();
 };
 
 /**
@@ -1247,7 +1254,7 @@ Picasso.form.PicassoForm = function () {
 
     /**
      * Gets the form fields
-     * @returns {Object.<string, Picasso.form.field.PicassoField>}
+     * @returns {Picasso.form.field.PicassoField[]}
      */
     this.getFields = function () {
         var res = [];
@@ -1273,7 +1280,25 @@ Picasso.form.PicassoForm = function () {
      */
     this.getHTMLElement = function(){
         return element;
-    }
+    };
+
+    /**
+     * Gets the form value
+     * returns {Object}
+     */
+    this.value = function(){
+        var fields = this.getFields();
+        var val = {};
+
+        for(var i=0; i < fields.length; i++){
+            var id = fields[i].getId();
+            if(typeof id != "undefined" && !fields[i].formIgnore){
+                val[id] = fields[i].value();
+            }
+        }
+
+        return val;
+    };
 };
 
 Picasso.load("form.Renderer");
@@ -1301,7 +1326,7 @@ Picasso.load("form.Validator");
  * @param {Picasso.form.Form} _form
  * @constructor
  */
-Picasso.Validator = function (_form) {
+Picasso.form.Validator = function (_form) {
 
     var log = Picasso.load("utils.log");
     var form = _form;
@@ -1312,9 +1337,9 @@ Picasso.Validator = function (_form) {
      * @returns {?boolean}
      */
     this.validate = function (pField) {
-        if (pfield.required && !pfield.isEmpty()) {
-            if (Picasso.validators.hasOwnProperty(pField.type)) {
-                return Picasso.validators[pField.type](pField);
+        if (!pField.required || !pField.isEmpty()) {
+            if (Picasso.form.validators.hasOwnProperty(pField.type)) {
+                return Picasso.form.validators[pField.type](pField);
             }
             else {
                 log.warn("No validator found to the field type " + pField.type, pField);
@@ -1324,6 +1349,56 @@ Picasso.Validator = function (_form) {
 
         return false;
     };
+
+    /**
+     * Validates a entire form, returning the id
+     * and the validation value
+     * @param {Picasso.form.PicassoForm} pForm
+     * @returns {{string: boolean}}
+     */
+    this.validateForm = function (pForm) {
+        var fields = pForm.getFields();
+        var validation = {};
+        for (var i = 0; i < fields.length; i++) {
+            var f = fields[i];
+            if(!f.formIgnore){
+                validation[f.getId()] = this.validate(f);
+            }
+        }
+
+        return validation;
+    };
+};
+Picasso.load("form.validators.number");
+
+/**
+ * Default validation for number fields
+ * @param {Picasso.form.field.PicassoField} numberField
+ * @returns {boolean}
+ */
+Picasso.form.validators.number = function(numberField){
+    var val = numberField.value();
+    return !isNaN(Number(val));
+};
+Picasso.load("form.validators.password");
+
+/**
+ * Default validation for password fields
+ * @param {Picasso.form.field.PicassoField} passwordField
+ * @returns {boolean}
+ */
+Picasso.form.validators.password = function(passwordField){
+    return typeof passwordField.value() != "undefined";
+};
+Picasso.load("form.validators.text");
+
+/**
+ * Default validation for text fields
+ * @param {Picasso.form.field.PicassoField} textField
+ * @returns {boolean}
+ */
+Picasso.form.validators.text = function(textField){
+    return typeof textField.value() != "undefined";
 };
 Picasso.load("form.field.PicassoField");
 
@@ -1523,7 +1598,7 @@ Picasso.form.field.InputField = function () {
      * @returns {boolean}
      */
     this.isEmpty = function () {
-        return this._element.value == "";
+        return this.value() == "";
     };
 
     /**
@@ -1531,7 +1606,7 @@ Picasso.form.field.InputField = function () {
      * @returns {*}
      */
     this.value = function () {
-        return this._element.value;
+        return this._element.getElementsByTagName("input")[0].value;
     };
 
     /**
@@ -1546,9 +1621,10 @@ Picasso.form.field.InputField = function () {
 
         var fieldElement = document.createElement("input");
         htmlUtils.setAttributes(fieldElement, {
-            id: field.id || "",
+            name: field.id || "",
             type: field.type || "text"
         });
+
         htmlUtils.setAttributes(fieldElement, field.attrs);
         htmlUtils.addClass(fieldElement, "form-control");
 

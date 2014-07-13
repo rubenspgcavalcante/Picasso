@@ -1,7 +1,9 @@
 var CRUDController = Picasso.Controller.extend(function (model, lView, cView, eView) {
     this.construct(model, lView, cView, eView);
+    var self = this;
 
     this.listen("create", function (event) {
-        console.log(event.data);
+        var form = event.data;
+        console.log(self.validator.validateForm(form));
     });
 });

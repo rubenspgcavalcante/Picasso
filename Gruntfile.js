@@ -19,6 +19,7 @@ module.exports = function (grunt) {
                     "src/system/core/*.js",
                     "src/system/mvc/*.js",
                     "src/system/form/*.js",
+                    "src/system/form/validators/*.js",
 
                     // All the default fields
                     "src/system/form/fields/PicassoField.js",

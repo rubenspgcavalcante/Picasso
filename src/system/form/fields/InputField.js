@@ -15,7 +15,7 @@ Picasso.form.field.InputField = function () {
      * @returns {boolean}
      */
     this.isEmpty = function () {
-        return this._element.value == "";
+        return this.value() == "";
     };
 
     /**
@@ -23,7 +23,7 @@ Picasso.form.field.InputField = function () {
      * @returns {*}
      */
     this.value = function () {
-        return this._element.value;
+        return this._element.getElementsByTagName("input")[0].value;
     };
 
     /**
@@ -38,9 +38,10 @@ Picasso.form.field.InputField = function () {
 
         var fieldElement = document.createElement("input");
         htmlUtils.setAttributes(fieldElement, {
-            id: field.id || "",
+            name: field.id || "",
             type: field.type || "text"
         });
+
         htmlUtils.setAttributes(fieldElement, field.attrs);
         htmlUtils.addClass(fieldElement, "form-control");
 

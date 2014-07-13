@@ -26,7 +26,7 @@ Picasso.form.PicassoForm = function () {
 
     /**
      * Gets the form fields
-     * @returns {Object.<string, Picasso.form.field.PicassoField>}
+     * @returns {Picasso.form.field.PicassoField[]}
      */
     this.getFields = function () {
         var res = [];
@@ -52,5 +52,23 @@ Picasso.form.PicassoForm = function () {
      */
     this.getHTMLElement = function(){
         return element;
-    }
+    };
+
+    /**
+     * Gets the form value
+     * returns {Object}
+     */
+    this.value = function(){
+        var fields = this.getFields();
+        var val = {};
+
+        for(var i=0; i < fields.length; i++){
+            var id = fields[i].getId();
+            if(typeof id != "undefined" && !fields[i].formIgnore){
+                val[id] = fields[i].value();
+            }
+        }
+
+        return val;
+    };
 };

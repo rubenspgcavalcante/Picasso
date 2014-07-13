@@ -25,6 +25,13 @@ Picasso.Controller = function (model, view) {
      * @protected
      */
     this._views = {};
+
+    /**
+     * Autowired form validator
+     * @type {Picasso.form.Validator}
+     * @public
+     */
+    this.validator = new Picasso.form.Validator();
 };
 
 /**
