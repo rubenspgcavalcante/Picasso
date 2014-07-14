@@ -143,12 +143,28 @@ Picasso.utils.object = (
             return pjo;
         };
 
+        /**
+         * Tests if a object is empty
+         * @param {Object} obj
+         * @returns {boolean}
+         */
+        var isEmpty = function(obj){
+            for(var key in obj){
+                if(obj.hasOwnProperty(key)){
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         // Public API
         return {
             extend: extend,
             equals: equals,
             each: each,
-            deserialize: deserialize
+            deserialize: deserialize,
+            isEmpty: isEmpty
         }
     }()
     );

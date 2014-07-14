@@ -32,6 +32,11 @@ var P = P || Picasso;
  */
 
 /**
+ * Reunites functions to augment Picasso functionality
+ * @namespace {Object} Picasso.extend
+ */
+
+/**
  * The dynamic form builder namespace
  * @namespace {Object} Picasso.form
  */
@@ -50,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.1.0",
-    build: "2014-07-12",
+    build: "2014-07-14",
     license: "GPLv3"
 };
 /**
@@ -454,20 +459,24 @@ Picasso.utils.html = (
 
 Picasso.load("utils.log");
 
-Picasso.utils.log = (function () {
-
+Picasso.utils.log = (
     /**
-     * All the logging function utilities
-     * @export utils/log
+     * Defines a set of functions to log messages
+     * @exports utils/log
      */
-    var warn = function (msg, context) {
-        console.warn(msg, context);
-    };
+    function () {
+        /**
+         * All the logging function utilities
+         * @export utils/log
+         */
+        var warn = function (msg, context) {
+            console.warn(msg, context);
+        };
 
-    return {
-        warn: warn
-    };
-}());
+        return {
+            warn: warn
+        };
+    }());
 
 Picasso.load("utils.object");
 Picasso.utils.object = (
@@ -614,12 +623,28 @@ Picasso.utils.object = (
             return pjo;
         };
 
+        /**
+         * Tests if a object is empty
+         * @param {Object} obj
+         * @returns {boolean}
+         */
+        var isEmpty = function(obj){
+            for(var key in obj){
+                if(obj.hasOwnProperty(key)){
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         // Public API
         return {
             extend: extend,
             equals: equals,
             each: each,
-            deserialize: deserialize
+            deserialize: deserialize,
+            isEmpty: isEmpty
         }
     }()
     );
@@ -1228,6 +1253,10 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 };
 Picasso.load("form.PicassoForm");
 
+/**
+ * The Picasso representation of a form
+ * @constructor
+ */
 Picasso.form.PicassoForm = function () {
 
     /**

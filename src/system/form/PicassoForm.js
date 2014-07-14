@@ -1,5 +1,9 @@
 Picasso.load("form.PicassoForm");
 
+/**
+ * The Picasso representation of a form
+ * @constructor
+ */
 Picasso.form.PicassoForm = function () {
 
     /**

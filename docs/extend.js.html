@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/form/fields/ButtonField.js</title>
+    <title>JSDoc: Source: system/extend.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/form/fields/ButtonField.js</h1>
+    <h1 class="page-title">Source: system/extend.js</h1>
     
     
 
@@ -25,56 +25,40 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("form.field.ButtonField");
+            <pre class="prettyprint source"><code>Picasso.load("extend");
 
 /**
- * Default buttons constructor
- * @constructor
- * @extends {Picasso.form.field.PicassoField}
+ * Adds a extra field to the Picasso form
+ * @param {string} fieldName The name to access this type of field
+ * @param {function} Field Constructor of the field
  */
-Picasso.form.field.ButtonField = function () {
-    /** @type {utils/html} */
-    var htmlUtils = Picasso.load("utils.html");
+Picasso.extend.field = function (fieldName, Field) {
+    var objUtil = Picasso.load("utils.object");
+    var log = Picasso.load("utils.log");
 
-    /**
-     * Verify if the button is empty
-     * @returns {boolean}
-     */
-    this.isEmpty = function () {
-        return false;
-    };
+    if (typeof Field != "function") {
+        if (objUtil.isEmpty(Field.prototype)) {
+            log.warn("Overriding the field prototype", Field);
+        }
 
-    /**
-     * Gets the value of the button
-     * @returns {*}
-     */
-    this.value = function () {
-        return this._element.value;
-    };
+        Field.prototype = new Picasso.form.field.PicassoField;
 
-    /**
-     * Builds the button field
-     * @param {Picasso.pjo.Field} field
-     */
-    this.build = function (field) {
-        this.setId(field.id);
+        if (Picasso.form.field.hasOwnProperty(fieldName)) {
+            log.warn("Overriding a already registered Picasso field " + fieldName);
+        }
 
-        var buttomElement = document.createElement("button");
-        htmlUtils.setAttributes(buttomElement, {
-            id: this.getId(),
-            type: field.type || "button",
-            class: "btn btn-default"
-        });
-
-        htmlUtils.setAttributes(buttomElement, field.attrs);
-        buttomElement.innerHTML = field.value;
-        this.formIgnore = true;
-
-        this.setHTMLElement(buttomElement);
-    };
+        Picasso.form.field[fieldName] = Field;
+    }
 };
 
-Picasso.form.field.ButtonField.prototype = new Picasso.form.field.PicassoField();</code></pre>
+/**
+ * Adds a extra validator to the Picasso fields
+ * @param {string} validatorName
+ * @param {function} validator
+ */
+Picasso.extend.validator = function (validatorName, validator) {
+    //TODO: Validator extend engine
+};</code></pre>
         </article>
     </section>
 

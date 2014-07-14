@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/form/fields/ButtonField.js</title>
+    <title>JSDoc: Source: utils/log.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/form/fields/ButtonField.js</h1>
+    <h1 class="page-title">Source: utils/log.js</h1>
     
     
 
@@ -25,56 +25,27 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("form.field.ButtonField");
+            <pre class="prettyprint source"><code>Picasso.load("utils.log");
 
-/**
- * Default buttons constructor
- * @constructor
- * @extends {Picasso.form.field.PicassoField}
- */
-Picasso.form.field.ButtonField = function () {
-    /** @type {utils/html} */
-    var htmlUtils = Picasso.load("utils.html");
-
+Picasso.utils.log = (
     /**
-     * Verify if the button is empty
-     * @returns {boolean}
+     * Defines a set of functions to log messages
+     * @exports utils/log
      */
-    this.isEmpty = function () {
-        return false;
-    };
+    function () {
+        /**
+         * All the logging function utilities
+         * @export utils/log
+         */
+        var warn = function (msg, context) {
+            console.warn(msg, context);
+        };
 
-    /**
-     * Gets the value of the button
-     * @returns {*}
-     */
-    this.value = function () {
-        return this._element.value;
-    };
-
-    /**
-     * Builds the button field
-     * @param {Picasso.pjo.Field} field
-     */
-    this.build = function (field) {
-        this.setId(field.id);
-
-        var buttomElement = document.createElement("button");
-        htmlUtils.setAttributes(buttomElement, {
-            id: this.getId(),
-            type: field.type || "button",
-            class: "btn btn-default"
-        });
-
-        htmlUtils.setAttributes(buttomElement, field.attrs);
-        buttomElement.innerHTML = field.value;
-        this.formIgnore = true;
-
-        this.setHTMLElement(buttomElement);
-    };
-};
-
-Picasso.form.field.ButtonField.prototype = new Picasso.form.field.PicassoField();</code></pre>
+        return {
+            warn: warn
+        };
+    }());
+</code></pre>
         </article>
     </section>
 

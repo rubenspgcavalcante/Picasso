@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils/array</title>
+    <title>JSDoc: Class: PicassoForm</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Module: utils/array</h1>
+    <h1 class="page-title">Class: PicassoForm</h1>
     
     
 
@@ -27,7 +27,9 @@
     
 <header>
     <h2>
-    utils/array
+        <span class="ancestors"><a href="global.html#Picasso">Picasso</a><a href="Picasso.form.html">.form</a>.</span>
+    
+    PicassoForm
     </h2>
     
 </header>  
@@ -38,10 +40,26 @@
     
     
         
-            <div class="description">A set of array utils</div>
-        
-        
-        
+<dt>
+    <h4 class="name" id="PicassoForm"><span class="type-signature"></span>new PicassoForm<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        The Picasso representation of a form
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
 <dl class="details">
     
         
@@ -64,7 +82,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line8">line 8</a>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line7">line 7</a>
     </li></ul></dd>
     
     
@@ -75,8 +93,20 @@
     
 </dl>
 
-        
-        
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
     
     </div>
     
@@ -96,14 +126,14 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="objUtil"><span class="type-signature">&lt;private, inner> </span>objUtil<span class="type-signature"> :<a href="object.html">module:utils/object</a></span></h4>
+    <h4 class="name" id="element"><span class="type-signature">&lt;private, inner> </span>element<span class="type-signature"> :HTMLFormElement</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        Object utils
+        The HTML representation of this object
     </div>
     
     
@@ -112,7 +142,7 @@
         <ul>
             <li>
                 
-<span class="param-type"><a href="object.html">module:utils/object</a></span>
+<span class="param-type">HTMLFormElement</span>
 
 
             </li>
@@ -142,7 +172,71 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line16">line 16</a>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="fields"><span class="type-signature">&lt;private, inner> </span>fields<span class="type-signature"> :Object.&lt;string, <a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a>></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The form fields
+    </div>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object.&lt;string, <a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a>></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line14">line 14</a>
     </li></ul></dd>
     
     
@@ -166,7 +260,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="each"><span class="type-signature">&lt;inner> </span>each<span class="signature">(arr, call)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addField"><span class="type-signature"></span>addField<span class="signature">(pField)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -174,8 +268,7 @@
     
     
     <div class="description">
-        Iterates over a array, executing a callback
-to each element
+        Adds a field to the form
     </div>
     
 
@@ -209,36 +302,13 @@ to each element
 	
         <tr>
             
-                <td class="name"><code>arr</code></td>
+                <td class="name"><code>pField</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>call</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="array.html#eachCallback">module:utils/array.eachCallback</a></span>
+<span class="param-type"><a href="Picasso.form.field.PicassoField.html">Picasso.form.field.PicassoField</a></span>
 
 
             
@@ -279,7 +349,7 @@ to each element
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line76">line 76</a>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line27">line 27</a>
     </li></ul></dd>
     
     
@@ -307,7 +377,7 @@ to each element
         
             
 <dt>
-    <h4 class="name" id="equals"><span class="type-signature">&lt;inner> </span>equals<span class="signature">(arr1, arr2)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="getFields"><span class="type-signature"></span>getFields<span class="signature">()</span><span class="type-signature"> &rarr; {Picasso.form.field.PicassoField[]}</span></h4>
     
     
 </dt>
@@ -315,7 +385,181 @@ to each element
     
     
     <div class="description">
-        Compares two arrays and verify if their are equals
+        Gets the form fields
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Picasso.form.field.PicassoField[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getHTMLElement"><span class="type-signature"></span>getHTMLElement<span class="signature">()</span><span class="type-signature"> &rarr; {HTMLFormElement}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets the html element
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">HTMLFormElement</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setHTMLElement"><span class="type-signature"></span>setHTMLElement<span class="signature">(htmlForm)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the html element
     </div>
     
 
@@ -349,13 +593,13 @@ to each element
 	
         <tr>
             
-                <td class="name"><code>arr1</code></td>
+                <td class="name"><code>htmlForm</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">HTMLFormElement</span>
 
 
             
@@ -365,30 +609,7 @@ to each element
             
             
             
-            <td class="description last">First array</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr2</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Second array</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -419,7 +640,7 @@ to each element
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line50">line 50</a>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line49">line 49</a>
     </li></ul></dd>
     
     
@@ -440,28 +661,6 @@ to each element
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If they are equals
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -469,7 +668,7 @@ to each element
         
             
 <dt>
-    <h4 class="name" id="find"><span class="type-signature">&lt;inner> </span>find<span class="signature">(arr, element)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -477,7 +676,8 @@ to each element
     
     
     <div class="description">
-        Finds a element into the array
+        Gets the form value
+returns {Object}
     </div>
     
 
@@ -486,77 +686,6 @@ to each element
     
     
     
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">A array to search into</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The element to find</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
     
     
 <dl class="details">
@@ -581,7 +710,7 @@ to each element
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line26">line 26</a>
+        <a href="PicassoForm.js.html">system/form/PicassoForm.js</a>, <a href="PicassoForm.js.html#line65">line 65</a>
     </li></ul></dd>
     
     
@@ -602,28 +731,6 @@ to each element
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If the element was found
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -631,150 +738,6 @@ to each element
         </dl>
     
     
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-        
-        <dl>
-                
-<dt>
-    <h4 class="name" id="eachCallback"><span class="type-signature"></span>eachCallback<span class="signature">(element, index)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        'For each' callback
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Current element of the iteration</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The current index</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-            </dl>
     
     
     
@@ -794,7 +757,7 @@ to each element
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Jul 14 2014 15:45:01 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Jul 14 2014 15:45:02 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

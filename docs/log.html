@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/form/fields/ButtonField.js</title>
+    <title>JSDoc: Module: utils/log</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,66 +17,162 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/form/fields/ButtonField.js</h1>
+    <h1 class="page-title">Module: utils/log</h1>
     
     
 
 
+
+<section>
     
-    <section>
-        <article>
-            <pre class="prettyprint source"><code>Picasso.load("form.field.ButtonField");
+<header>
+    <h2>
+    utils/log
+    </h2>
+    
+</header>  
 
-/**
- * Default buttons constructor
- * @constructor
- * @extends {Picasso.form.field.PicassoField}
- */
-Picasso.form.field.ButtonField = function () {
-    /** @type {utils/html} */
-    var htmlUtils = Picasso.load("utils.html");
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+            <div class="description">Defines a set of functions to log messages</div>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
 
-    /**
-     * Verify if the button is empty
-     * @returns {boolean}
-     */
-    this.isEmpty = function () {
-        return false;
-    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="log.js.html">utils/log.js</a>, <a href="log.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-    /**
-     * Gets the value of the button
-     * @returns {*}
-     */
-    this.value = function () {
-        return this._element.value;
-    };
+        
+        
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="warn"><span class="type-signature">&lt;inner> </span>warn<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        All the logging function utilities
+    </div>
+    
 
-    /**
-     * Builds the button field
-     * @param {Picasso.pjo.Field} field
-     */
-    this.build = function (field) {
-        this.setId(field.id);
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
-        var buttomElement = document.createElement("button");
-        htmlUtils.setAttributes(buttomElement, {
-            id: this.getId(),
-            type: field.type || "button",
-            class: "btn btn-default"
-        });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="log.js.html">utils/log.js</a>, <a href="log.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-        htmlUtils.setAttributes(buttomElement, field.attrs);
-        buttomElement.innerHTML = field.value;
-        this.formIgnore = true;
+    
+    
 
-        this.setHTMLElement(buttomElement);
-    };
-};
+    
 
-Picasso.form.field.ButtonField.prototype = new Picasso.form.field.PicassoField();</code></pre>
-        </article>
-    </section>
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+</article>
+
+</section>  
 
 
 
