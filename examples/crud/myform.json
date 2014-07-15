@@ -89,7 +89,7 @@
                         {
                             "id": "date",
                             "type": "DateField",
-                            "label": "Mes e ano",
+                            "label": "data de nascimento",
                             "required": true,
                             "attrs": {
                                 "name": "passwordConfirmation"

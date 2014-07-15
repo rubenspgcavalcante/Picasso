@@ -108,15 +108,15 @@ Picasso.extend.field("DateField", function () {
             var $this = $(this.getHTMLElement());
 
             if (typeof val != "undefined") {
-                $this.find("[name=year").val(val.year);
-                $this.find("[name=month").val(val.month);
-                $this.find("[name=day").val(val.day);
+                $this.find("[name=year]").val(val.year);
+                $this.find("[name=month]").val(val.month);
+                $this.find("[name=day]").val(val.day);
             }
             else {
                 return {
-                    year: $this.find("[name=year").val(),
-                    month: $this.find("[name=month").val(),
-                    day: $this.find("[name=day").val()
+                    year: Number($this.find("[name=year]").val()),
+                    month: Number($this.find("[name=month]").val()),
+                    day: Number($this.find("[name=day]").val())
                 };
             }
 
@@ -134,3 +134,15 @@ Picasso.extend.field("DateField", function () {
         };
     }
 );
+
+/**
+ * Validates a date field object
+ * @param {Picasso.form.field.PicassoField} pField
+ * @returns {boolean}
+ */
+Picasso.extend.validator("DateField", function (pField) {
+    var val = pField.value();
+    var date = new Date(val.year, val.month - 1, val.day);
+
+    return val.year == date.getFullYear() && val.month == date.getMonth()+1 && val.day == date.getDate();
+});
