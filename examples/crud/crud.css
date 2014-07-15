@@ -29,3 +29,22 @@ body {
 .bg-info {
     padding: 15px;
 }
+
+.grid-block .date-container{
+    width: 100%;
+}
+
+.grid-block .date-container input{
+    float: left;
+    width: 45px;
+}
+
+.grid-block .date-container input.date-field-year{
+    width: 62px;
+}
+
+.grid-block .date-container span{
+    float: left;
+    font-size: 26px;
+    margin: 0 5px;
+}
