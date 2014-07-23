@@ -43,6 +43,17 @@ Picasso.form.PicassoForm = function () {
     };
 
     /**
+     * Gets
+     * @param {string} fieldId
+     * @return {Picasso.form.field.PicassoField}
+     */
+    this.getField = function(fieldId){
+        if(fields.hasOwnProperty(fieldId)){
+            return fields[fieldId];
+        }
+    };
+
+    /**
      * Sets the html element
      * @param {HTMLFormElement} htmlForm
      */

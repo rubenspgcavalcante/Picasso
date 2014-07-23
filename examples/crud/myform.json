@@ -37,7 +37,7 @@
                 {
                     "id": "section1",
                     "attrs": {
-                        "class": "teste"
+                        "class": "section"
                     },
                     "fields": [
                         {
@@ -64,7 +64,7 @@
                 {
                     "id": "section2",
                     "attrs": {
-                        "class": "teste"
+                        "class": "section"
                     },
                     "fields": [
                         {
@@ -85,7 +85,16 @@
                             "attrs": {
                                 "name": "passwordConfirmation"
                             }
-                        },
+                        }
+                    ]
+                },
+
+                {
+                    "id": "section3",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
                         {
                             "id": "date",
                             "type": "DateField",
@@ -93,6 +102,31 @@
                             "required": true,
                             "attrs": {
                                 "name": "passwordConfirmation"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "id": "block3",
+            "legend": "Address",
+
+            "fieldGrid": [
+                {
+                    "id": "mapSection",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
+                        {
+                            "id": "address",
+                            "type": "MapField",
+                            "label": "nome",
+                            "required": true,
+                            "attrs": {
+                                "name": "name"
                             }
                         }
                     ]

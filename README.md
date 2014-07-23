@@ -2,7 +2,9 @@ Picasso Framework
 ===========
 [![Build Status](https://travis-ci.org/rubenspgcavalcante/Picasso.svg?branch=master)](https://travis-ci.org/rubenspgcavalcante/Picasso)
 ##About
-*Picasso* is a javascript Framework to build dinamic html forms
+*Picasso* is a javascript Framework to build dinamic html forms.
+See the live example [here](https://rawgit.com/rubenspgcavalcante/Picasso/master/examples/crud/index.html)
+
 
 ###Why use it?
 Whenever you need to build dinamic forms, where the user can alter it

@@ -54,8 +54,8 @@ var P = P || Picasso;
  */
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
-    version: "0.1.0",
-    build: "2014-07-14",
+    version: "0.2.0",
+    build: "2014-07-23",
     license: "GPLv3"
 };
 /**
@@ -1629,6 +1629,17 @@ Picasso.form.PicassoForm = function () {
             }
         }
         return res;
+    };
+
+    /**
+     * Gets
+     * @param {string} fieldId
+     * @return {Picasso.form.field.PicassoField}
+     */
+    this.getField = function(fieldId){
+        if(fields.hasOwnProperty(fieldId)){
+            return fields[fieldId];
+        }
     };
 
     /**
