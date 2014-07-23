@@ -1,0 +1,137 @@
+{
+    "id": "myform",
+    "attrs": {
+        "method": "POST",
+        "class": "form"
+    },
+
+
+    "gridBlocks": [
+        {
+            "id": "block1",
+            "legend": "Options",
+            "fieldGrid": [
+                {
+                    "id": "buttonsGrid",
+                    "fields": [
+                        {
+                            "type": "submit",
+                            "value": "submit",
+                            "form-ignore": true
+                        },
+                        {
+                            "type": "cancel",
+                            "value": "cancel",
+                            "form-ignore": true
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "id": "block2",
+            "legend": "Personal Data",
+
+            "fieldGrid": [
+                {
+                    "id": "section1",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "label": "nome",
+                            "required": true,
+                            "attrs": {
+                                "name": "name"
+                            }
+                        },
+
+                        {
+                            "id": "email",
+                            "type": "text",
+                            "label": "email",
+                            "attrs": {
+                                "name": "email"
+                            }
+                        }
+                    ]
+                },
+
+                {
+                    "id": "section2",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
+                        {
+                            "id": "password",
+                            "type": "password",
+                            "label": "senha",
+                            "required": true,
+                            "attrs": {
+                                "name": "password"
+                            }
+                        },
+
+                        {
+                            "id": "passwordConfirmation",
+                            "type": "password",
+                            "label": "confirme a senha",
+                            "required": true,
+                            "attrs": {
+                                "name": "passwordConfirmation"
+                            }
+                        }
+                    ]
+                },
+
+                {
+                    "id": "section3",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
+                        {
+                            "id": "date",
+                            "type": "DateField",
+                            "label": "data de nascimento",
+                            "required": true,
+                            "attrs": {
+                                "name": "passwordConfirmation"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "id": "block3",
+            "legend": "Address",
+
+            "fieldGrid": [
+                {
+                    "id": "mapSection",
+                    "attrs": {
+                        "class": "section"
+                    },
+                    "fields": [
+                        {
+                            "id": "address",
+                            "type": "MapField",
+                            "label": "nome",
+                            "required": true,
+                            "attrs": {
+                                "name": "name"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

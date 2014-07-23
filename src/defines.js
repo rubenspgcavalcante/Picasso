@@ -32,6 +32,11 @@ var P = P || Picasso;
  */
 
 /**
+ * Reunites functions to augment Picasso functionality
+ * @namespace {Object} Picasso.extend
+ */
+
+/**
  * The dynamic form builder namespace
  * @namespace {Object} Picasso.form
  */

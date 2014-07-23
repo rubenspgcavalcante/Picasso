@@ -4,13 +4,16 @@ Picasso.load("form.FieldFactory");
  * A field factory
  * @constructor
  */
-Picasso.form.FieldFactory = function () {
-    /**
-     * All the available field constructors
-     * Can be a method name or the function itself
-     * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
-     */
-    this.constructors = {
+Picasso.form.FieldFactory = function () {};
+
+/**
+ * All the available field constructors
+ * Can be a method name or the function itself
+ * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
+ * @static
+ */
+Picasso.form.FieldFactory.constructors = (function(){
+    return {
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
@@ -18,9 +21,8 @@ Picasso.form.FieldFactory = function () {
         submit: Picasso.form.field.ButtonField,
         cancel: Picasso.form.field.ButtonField,
         button: Picasso.form.field.ButtonField
-    };
-};
-
+    }
+})();
 
 /**
  * Sets some picasso attributes to the html field element
@@ -49,8 +51,9 @@ Picasso.form.FieldFactory.prototype._setPicassoAttributes = function (pField) {
  * @private
  */
 Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function (fieldType) {
-    if (this.constructors.hasOwnProperty(fieldType)) {
-        var fieldConstructor = this.constructors[fieldType];
+    var constructors = this.constructor.constructors;
+    if (constructors.hasOwnProperty(fieldType)) {
+        var fieldConstructor = constructors[fieldType];
         if (typeof fieldConstructor === 'string') {
             return this[fieldConstructor];
         }
@@ -84,4 +87,13 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     this._setPicassoAttributes(picassoField);
     return picassoField;
+};
+
+/**
+ * Registers a constructor to the given type
+ * @param {string} type
+ * @param {Picasso.form.field.PicassoField.constructor} constructor
+ */
+Picasso.form.FieldFactory.prototype.registerConstructor = function(type, constructor){
+    Picasso.form.FieldFactory.constructors[type] = constructor;
 };

@@ -31,13 +31,16 @@
  * A field factory
  * @constructor
  */
-Picasso.form.FieldFactory = function () {
-    /**
-     * All the available field constructors
-     * Can be a method name or the function itself
-     * @type {Object&lt;string, string|Picasso.form.field.PicassoField.constructor>}
-     */
-    this.constructors = {
+Picasso.form.FieldFactory = function () {};
+
+/**
+ * All the available field constructors
+ * Can be a method name or the function itself
+ * @type {Object&lt;string, string|Picasso.form.field.PicassoField.constructor>}
+ * @static
+ */
+Picasso.form.FieldFactory.constructors = (function(){
+    return {
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
@@ -45,9 +48,8 @@ Picasso.form.FieldFactory = function () {
         submit: Picasso.form.field.ButtonField,
         cancel: Picasso.form.field.ButtonField,
         button: Picasso.form.field.ButtonField
-    };
-};
-
+    }
+})();
 
 /**
  * Sets some picasso attributes to the html field element
@@ -76,8 +78,9 @@ Picasso.form.FieldFactory.prototype._setPicassoAttributes = function (pField) {
  * @private
  */
 Picasso.form.FieldFactory.prototype._getFieldConstructorByFieldType = function (fieldType) {
-    if (this.constructors.hasOwnProperty(fieldType)) {
-        var fieldConstructor = this.constructors[fieldType];
+    var constructors = this.constructor.constructors;
+    if (constructors.hasOwnProperty(fieldType)) {
+        var fieldConstructor = constructors[fieldType];
         if (typeof fieldConstructor === 'string') {
             return this[fieldConstructor];
         }
@@ -111,6 +114,15 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     this._setPicassoAttributes(picassoField);
     return picassoField;
+};
+
+/**
+ * Registers a constructor to the given type
+ * @param {string} type
+ * @param {Picasso.form.field.PicassoField.constructor} constructor
+ */
+Picasso.form.FieldFactory.prototype.registerConstructor = function(type, constructor){
+    Picasso.form.FieldFactory.constructors[type] = constructor;
 };</code></pre>
         </article>
     </section>
@@ -121,13 +133,13 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.Validator.html">Validator</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="array.html">utils/array</a></li><li><a href="html.html">utils/html</a></li><li><a href="log.html">utils/log</a></li><li><a href="object.html">utils/object</a></li></ul><h3>Classes</h3><ul><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.PicassoForm.html">PicassoForm</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.form.Validator.html">Validator</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.FieldGrid.html">FieldGrid</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.extend.html">extend</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="Picasso.utils.html">utils</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 05 2014 23:55:52 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Jul 23 2014 11:33:56 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

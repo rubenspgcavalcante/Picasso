@@ -1,0 +1,69 @@
+body {
+    padding-top: 50px;
+}
+
+.btn, .btn-group {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.prettyprint {
+    height: 400px;
+    margin: 4px;
+}
+
+.grid-block {
+    background-color: #FFFFFF;
+    border-radius: 4px 4px 0 0;
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+    height: 88px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#block1 {
+    border-color: #DDDDDD;
+    border-width: 1px;
+    border-style: solid;
+    height: 120px;
+}
+
+#block2 {
+    height: 200px;
+}
+
+.bg-info {
+    padding: 15px;
+}
+
+.grid-block .date-container {
+    width: 100%;
+}
+
+.grid-block .date-container input {
+    float: left;
+    width: 45px;
+}
+
+.grid-block .date-container input.date-field-year {
+    width: 62px;
+}
+
+.grid-block .date-container span {
+    float: left;
+    font-size: 26px;
+    margin: 0 5px;
+}
+
+.grid-block #mapSection {
+    height: 500px;
+    width: 100%;
+}
+
+.grid-block .map-field {
+    height: 100%;
+    width: 100%;
+}
