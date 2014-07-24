@@ -36,7 +36,7 @@ var UserCreateView = Picasso.View.extend(function () {
     };
 
     this.render = function(user){
-        $.get("myform.json", function(json){
+        $.get("form.json?nocache=" + new Date().getTime(), function(json){
             $(".prettyprint").html(JSON.stringify(json, null, 2));
             prettyPrint();
 

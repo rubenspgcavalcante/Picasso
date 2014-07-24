@@ -28,8 +28,13 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
         return true;
     };
 
-    this.listen("showCreate", _showCreate);
-    this.listen("showList", _showList);
+    this.listen("showCreate", function(){
+        _showCreate();
+    });
+
+    this.listen("showList", function(){
+        _showList();
+    });
 
     this.listen("create", function (event) {
         var form = event.data;

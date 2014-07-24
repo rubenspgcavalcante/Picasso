@@ -1113,6 +1113,16 @@ Picasso.View.prototype.register = function(eventName, method){
 Picasso.View.extend = function(constructor){
     return Picasso.utils.object.extend(constructor, Picasso.View);
 };
+Picasso.load("form.validators.hidden");
+
+/**
+ * Default validation for hidden fields
+ * @param {Picasso.form.field.PicassoField} hiddenField
+ * @returns {boolean}
+ */
+Picasso.form.validators.hidden = function(hiddenField){
+    return true;
+};
 Picasso.load("form.validators.number");
 
 /**
@@ -1325,6 +1335,61 @@ Picasso.form.field.ButtonField = function () {
 };
 
 Picasso.form.field.ButtonField.prototype = new Picasso.form.field.PicassoField();
+Picasso.load("form.field.HiddenField");
+
+/**
+ * The default hidden input builder
+ * @constructor
+ * @extends {Picasso.form.field.PicassoField}
+ */
+Picasso.form.field.HiddenField = function () {
+    /** @type {utils/html} */
+    var htmlUtils = Picasso.load("utils.html");
+
+
+    /**
+     * Verify if the input is empty
+     * @returns {boolean}
+     */
+    this.isEmpty = function () {
+        return this.value() == "";
+    };
+
+    /**
+     * Gets/Sets the value of t he input
+     * @param {*} val
+     * @returns {*}
+     */
+    this.value = function (val) {
+        var el = this._element;
+        if (typeof val != "undefined") {
+            el.value = val;
+        }
+        else {
+            var res = el.value;
+            return res == ""? null : res;
+        }
+    };
+
+    /**
+     * The HTMLElement builder
+     * @param {Picasso.pjo.Field} field
+     * @return {HTMLElement}
+     */
+    this.build = function (field) {
+
+        var fieldElement = document.createElement("input");
+        htmlUtils.setAttributes(fieldElement, {
+            name: field.id || "",
+            type: "hidden"
+        });
+
+        htmlUtils.setAttributes(fieldElement, field.attrs);
+        this.setHTMLElement(fieldElement);
+    };
+};
+
+Picasso.form.field.HiddenField.prototype = new Picasso.form.field.PicassoField();
 Picasso.load("form.field.InputField");
 
 /**
@@ -1352,10 +1417,10 @@ Picasso.form.field.InputField = function () {
      */
     this.value = function (val) {
         var el = this._element.getElementsByTagName("input")[0];
-        if(typeof el != "undefined"){
+        if (typeof val != "undefined") {
             el.value = val;
         }
-        else{
+        else {
             return el.value;
         }
     };
@@ -1512,10 +1577,12 @@ Picasso.form.FieldFactory = function () {};
  */
 Picasso.form.FieldFactory.constructors = (function(){
     return {
+        hidden: Picasso.form.field.HiddenField,
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
         password: Picasso.form.field.InputField,
+
         submit: Picasso.form.field.ButtonField,
         cancel: Picasso.form.field.ButtonField,
         button: Picasso.form.field.ButtonField

@@ -1,11 +1,11 @@
-Picasso.load("form.field.InputField");
+Picasso.load("form.field.HiddenField");
 
 /**
- * The default 'input' builder
+ * The default hidden input builder
  * @constructor
  * @extends {Picasso.form.field.PicassoField}
  */
-Picasso.form.field.InputField = function () {
+Picasso.form.field.HiddenField = function () {
     /** @type {utils/html} */
     var htmlUtils = Picasso.load("utils.html");
 
@@ -19,17 +19,18 @@ Picasso.form.field.InputField = function () {
     };
 
     /**
-     * Gets/Sets the value of the input
+     * Gets/Sets the value of t he input
      * @param {*} val
      * @returns {*}
      */
     this.value = function (val) {
-        var el = this._element.getElementsByTagName("input")[0];
+        var el = this._element;
         if (typeof val != "undefined") {
             el.value = val;
         }
         else {
-            return el.value;
+            var res = el.value;
+            return res == ""? null : res;
         }
     };
 
@@ -40,27 +41,15 @@ Picasso.form.field.InputField = function () {
      */
     this.build = function (field) {
 
-        var formGroup = document.createElement("div");
-        formGroup.setAttribute("class", "form-group");
-
         var fieldElement = document.createElement("input");
         htmlUtils.setAttributes(fieldElement, {
             name: field.id || "",
-            type: field.type || "text"
+            type: "hidden"
         });
 
         htmlUtils.setAttributes(fieldElement, field.attrs);
-        htmlUtils.addClass(fieldElement, "form-control");
-
-        var labelElement = document.createElement("label");
-        labelElement.setAttribute("class", "control-label");
-        labelElement.innerHTML = field.label;
-
-        formGroup.appendChild(labelElement);
-        formGroup.appendChild(fieldElement);
-
-        this.setHTMLElement(formGroup);
+        this.setHTMLElement(fieldElement);
     };
 };
 
-Picasso.form.field.InputField.prototype = new Picasso.form.field.PicassoField();
+Picasso.form.field.HiddenField.prototype = new Picasso.form.field.PicassoField();

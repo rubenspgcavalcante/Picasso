@@ -14,10 +14,12 @@ Picasso.form.FieldFactory = function () {};
  */
 Picasso.form.FieldFactory.constructors = (function(){
     return {
+        hidden: Picasso.form.field.HiddenField,
         text: Picasso.form.field.InputField,
         textArea: Picasso.form.field.InputField,
         email: Picasso.form.field.InputField,
         password: Picasso.form.field.InputField,
+
         submit: Picasso.form.field.ButtonField,
         cancel: Picasso.form.field.ButtonField,
         button: Picasso.form.field.ButtonField
