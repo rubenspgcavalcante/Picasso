@@ -33,6 +33,7 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid, pForm) {
     var fieldGridElement = document.createElement("div");
     this.htmlUtils.setAttributes(fieldGridElement, fieldGrid.attrs);
     fieldGridElement.setAttribute("id", fieldGrid.id);
+
     var colSizeClass = "col-xs-";
     colSizeClass += fieldGrid.colXSize || Picasso.pjo.FieldGrid.colSize.MEDIUM;
 

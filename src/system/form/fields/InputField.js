@@ -19,11 +19,18 @@ Picasso.form.field.InputField = function () {
     };
 
     /**
-     * Gets the value of the input
+     * Gets/Sets the value of the input
+     * @param {*} val
      * @returns {*}
      */
-    this.value = function () {
-        return this._element.getElementsByTagName("input")[0].value;
+    this.value = function (val) {
+        var el = this._element.getElementsByTagName("input")[0];
+        if(typeof el != "undefined"){
+            el.value = val;
+        }
+        else{
+            return el.value;
+        }
     };
 
     /**

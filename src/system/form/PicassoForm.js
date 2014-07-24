@@ -43,21 +43,22 @@ Picasso.form.PicassoForm = function () {
     };
 
     /**
-     * Gets
+     * Gets a field by the Id
      * @param {string} fieldId
      * @return {Picasso.form.field.PicassoField}
      */
-    this.getField = function(fieldId){
-        if(fields.hasOwnProperty(fieldId)){
+    this.getField = function (fieldId) {
+        if (fields.hasOwnProperty(fieldId)) {
             return fields[fieldId];
         }
+        return null;
     };
 
     /**
      * Sets the html element
      * @param {HTMLFormElement} htmlForm
      */
-    this.setHTMLElement = function(htmlForm){
+    this.setHTMLElement = function (htmlForm) {
         element = htmlForm;
     };
 
@@ -65,25 +66,34 @@ Picasso.form.PicassoForm = function () {
      * Gets the html element
      * @returns {HTMLFormElement}
      */
-    this.getHTMLElement = function(){
+    this.getHTMLElement = function () {
         return element;
     };
 
     /**
-     * Gets the form value
+     * Gets/Sets the form value
+     * @param {Object<string, *>} data
      * returns {Object}
      */
-    this.value = function(){
+    this.value = function (data) {
         var fields = this.getFields();
-        var val = {};
+        if (typeof data == "undefined") {
+            var val = {};
 
-        for(var i=0; i < fields.length; i++){
-            var id = fields[i].getId();
-            if(typeof id != "undefined" && !fields[i].formIgnore){
-                val[id] = fields[i].value();
+            for (var i = 0; i < fields.length; i++) {
+                var id = fields[i].getId();
+                if (typeof id != "undefined" && !fields[i].formIgnore) {
+                    val[id] = fields[i].value();
+                }
+            }
+
+            return val;
+        } else {
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    this.getField(key).value(data[key]);
+                }
             }
         }
-
-        return val;
     };
 };

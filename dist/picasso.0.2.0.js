@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.2.0",
-    build: "2014-07-23",
+    build: "2014-07-24",
     license: "GPLv3"
 };
 /**
@@ -914,7 +914,7 @@ Picasso.Controller = function (model, view) {
     this._model = null;
 
     /**
-     * @type {Object<number, String, Picasso.View>}
+     * @type {Object<string, Picasso.View>}
      * @protected
      */
     this._views = {};
@@ -1346,11 +1346,18 @@ Picasso.form.field.InputField = function () {
     };
 
     /**
-     * Gets the value of the input
+     * Gets/Sets the value of the input
+     * @param {*} val
      * @returns {*}
      */
-    this.value = function () {
-        return this._element.getElementsByTagName("input")[0].value;
+    this.value = function (val) {
+        var el = this._element.getElementsByTagName("input")[0];
+        if(typeof el != "undefined"){
+            el.value = val;
+        }
+        else{
+            return el.value;
+        }
     };
 
     /**
@@ -1419,6 +1426,7 @@ Picasso.form.Builder.prototype.buildFieldGrid = function (fieldGrid, pForm) {
     var fieldGridElement = document.createElement("div");
     this.htmlUtils.setAttributes(fieldGridElement, fieldGrid.attrs);
     fieldGridElement.setAttribute("id", fieldGrid.id);
+
     var colSizeClass = "col-xs-";
     colSizeClass += fieldGrid.colXSize || Picasso.pjo.FieldGrid.colSize.MEDIUM;
 
@@ -1575,6 +1583,10 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
         picassoField.setId(field.id);
     }
 
+    if(field.value != null){
+        picassoField.value(field.value);
+    }
+
     this._setPicassoAttributes(picassoField);
     return picassoField;
 };
@@ -1632,21 +1644,22 @@ Picasso.form.PicassoForm = function () {
     };
 
     /**
-     * Gets
+     * Gets a field by the Id
      * @param {string} fieldId
      * @return {Picasso.form.field.PicassoField}
      */
-    this.getField = function(fieldId){
-        if(fields.hasOwnProperty(fieldId)){
+    this.getField = function (fieldId) {
+        if (fields.hasOwnProperty(fieldId)) {
             return fields[fieldId];
         }
+        return null;
     };
 
     /**
      * Sets the html element
      * @param {HTMLFormElement} htmlForm
      */
-    this.setHTMLElement = function(htmlForm){
+    this.setHTMLElement = function (htmlForm) {
         element = htmlForm;
     };
 
@@ -1654,26 +1667,35 @@ Picasso.form.PicassoForm = function () {
      * Gets the html element
      * @returns {HTMLFormElement}
      */
-    this.getHTMLElement = function(){
+    this.getHTMLElement = function () {
         return element;
     };
 
     /**
-     * Gets the form value
+     * Gets/Sets the form value
+     * @param {Object<string, *>} data
      * returns {Object}
      */
-    this.value = function(){
+    this.value = function (data) {
         var fields = this.getFields();
-        var val = {};
+        if (typeof data == "undefined") {
+            var val = {};
 
-        for(var i=0; i < fields.length; i++){
-            var id = fields[i].getId();
-            if(typeof id != "undefined" && !fields[i].formIgnore){
-                val[id] = fields[i].value();
+            for (var i = 0; i < fields.length; i++) {
+                var id = fields[i].getId();
+                if (typeof id != "undefined" && !fields[i].formIgnore) {
+                    val[id] = fields[i].value();
+                }
+            }
+
+            return val;
+        } else {
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    this.getField(key).value(data[key]);
+                }
             }
         }
-
-        return val;
     };
 };
 

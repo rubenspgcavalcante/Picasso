@@ -85,6 +85,10 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
         picassoField.setId(field.id);
     }
 
+    if(field.value != null){
+        picassoField.value(field.value);
+    }
+
     this._setPicassoAttributes(picassoField);
     return picassoField;
 };

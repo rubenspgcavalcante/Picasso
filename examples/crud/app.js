@@ -1,7 +1,9 @@
 $(document).ready(function(){
     var user = new UserModel();
     var userCreateView = new UserCreateView();
-    var userCRUDController = new CRUDController(user, userCreateView);
+    var userListView = new UserListView();
 
-    userCreateView.render();
+    var userCRUDController = new CRUDController(user, userListView, userCreateView);
+
+    userListView.render();
 });

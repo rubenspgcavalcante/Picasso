@@ -38,15 +38,29 @@
         </div>
     </div>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#json-form">
-        Show the JSON
-    </button>
-
-    <div class="starter-template formWrapper">
+    <div class="starter-template formWrapper" style="display: none">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#json-form">
+            Show the JSON
+        </button>
         <!--
             The Form will be rendered here.
             See the UserCreateView for more details
         -->
+    </div>
+
+    <div class="starter-template tableContainer">
+        <button class="btn btn-info btn-create">Create</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
 </div>
@@ -55,13 +69,16 @@
 <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="vendor/leaflet/leaflet.js"></script>
 <script type="text/javascript" src="vendor/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="vendor/jstorage.js"></script>
 
 <script type="text/javascript" src="../../dist/picasso.0.2.0.js"></script>
 <script type="text/javascript" src="plugins/DateField.js"></script>
 <script type="text/javascript" src="plugins/MapField.js"></script>
 
+<script type="text/javascript" src="db.js"></script>
 <script type="text/javascript" src="models/UserModel.js"></script>
 <script type="text/javascript" src="controllers/CRUDController.js"></script>
+<script type="text/javascript" src="views/UserListView.js"></script>
 <script type="text/javascript" src="views/UserCreateView.js"></script>
 <script type="text/javascript" src="app.js"></script>
 </body>

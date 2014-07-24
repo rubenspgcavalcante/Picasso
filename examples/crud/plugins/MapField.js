@@ -5,6 +5,8 @@
  * @extends {Picasso.form.field.PicassoField}
  */
 Picasso.extend.field("MapField", function () {
+    var that = this;
+
     /**
      * Local reference of the leaflet map
      * @type {L.map}
@@ -28,15 +30,9 @@ Picasso.extend.field("MapField", function () {
      * Bind the map events
      * @private
      */
-    var _bindLeafletEvents = function(){
-        lMap.on("click", function(ev){
-            if(marker != null){
-                lMap.removeLayer(marker);
-            }
-            marker = new L.Marker(ev.latlng);
-            lMap.addLayer(marker);
-            position.lat = ev.latlng.lat;
-            position.lng =  ev.latlng.lng;
+    var _bindLeafletEvents = function () {
+        lMap.on("click", function (ev) {
+            that.value(ev.latlng)
         });
     };
 
@@ -75,11 +71,22 @@ Picasso.extend.field("MapField", function () {
 
     /**
      * Returns or sets the value of a field
-     * @param {*} val
+     * @param {lat: number, lng: number} pos
      * @override {Picasso.form.field.PicassoField}
      */
-    this.value = function (val) {
-        return position
+    this.value = function (pos) {
+        if (typeof pos != "undefined") {
+            if (marker != null) {
+                lMap.removeLayer(marker);
+            }
+            marker = new L.Marker(pos);
+            lMap.addLayer(marker);
+            position.lat = pos.lat;
+            position.lng = pos.lng;
+        }
+        else {
+            return position
+        }
     };
 
     /**
@@ -87,7 +94,7 @@ Picasso.extend.field("MapField", function () {
      * @override {Picasso.form.field.PicassoField}
      */
     this.reset = function () {
-        if(marker != null){
+        if (marker != null) {
             lMap.removeLayer(marker);
         }
         position = {lat: null, lng: null};

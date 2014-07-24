@@ -21,7 +21,7 @@ Picasso.Controller = function (model, view) {
     this._model = null;
 
     /**
-     * @type {Object<number, String, Picasso.View>}
+     * @type {Object<string, Picasso.View>}
      * @protected
      */
     this._views = {};

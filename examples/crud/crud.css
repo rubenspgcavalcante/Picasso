@@ -61,6 +61,7 @@ body {
 .grid-block #mapSection {
     height: 500px;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .grid-block .map-field {
