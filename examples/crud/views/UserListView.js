@@ -3,10 +3,10 @@ var UserListView = Picasso.View.extend(function () {
     var that = this;
 
     var _getLine = function (user) {
-        var editBtn = $("<button>", {class: "edit btn btn-info btn-xs"}).html("edit");
+        var editBtn = $("<button>", {class: "edit btn btn-info"}).html("edit");
         editBtn.data("id", user.id);
 
-        var removeBtn = $("<button>", {class: "delete btn btn-danger btn-xs"}).html("del");
+        var removeBtn = $("<button>", {class: "delete btn btn-danger"}).html("del");
         removeBtn.data("id", user.id);
 
         return $("<tr>").append(

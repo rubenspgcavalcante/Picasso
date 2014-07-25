@@ -13,20 +13,26 @@ Picasso.form.Validator = function (_form) {
     /**
      * Validates a field
      * @param {Picasso.form.field.PicassoField} pField
-     * @returns {?boolean}
+     * @returns {Picasso.pjo.Validation}
      */
     this.validate = function (pField) {
-        if (!pField.required || !pField.isEmpty()) {
-            if (Picasso.form.validators.hasOwnProperty(pField.type)) {
-                return Picasso.form.validators[pField.type](pField);
+        var validation = new Picasso.pjo.Validation();
+        validation.field = pField;
+        validation.valid = false;
+
+        if (!pField.isRequired() || !pField.isEmpty()) {
+            if (Picasso.form.validators.hasOwnProperty(pField.getType())) {
+                return Picasso.form.validators[pField.getType()](pField);
             }
             else {
-                log.warn("No validator found to the field type " + pField.type, pField);
-                return null;
+                log.warn("No validator found to the field type " + pField.getType(), pField);
+                validation.valid = null;
+                return validation;
             }
         }
 
-        return false;
+        validation.errorMessages.push("Field is required");
+        return validation;
     };
 
     /**
@@ -40,7 +46,7 @@ Picasso.form.Validator = function (_form) {
         var validation = {};
         for (var i = 0; i < fields.length; i++) {
             var f = fields[i];
-            if(!f.formIgnore){
+            if(!f.isFormIgnored()){
                 validation[f.getId()] = this.validate(f);
             }
         }

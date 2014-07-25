@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.2.0",
-    build: "2014-07-24",
+    build: "2014-07-25",
     license: "GPLv3"
 };
 /**
@@ -297,6 +297,24 @@ Picasso.pjo.GridBlock = function(){
     /** @type {Picasso.pjo.FieldGrid[]} */
     this.fieldGrid = [];
 };
+Picasso.load("pjo.Validation");
+
+/**
+ * A validation object
+ * @constructor
+ */
+Picasso.pjo.Validation = function () {
+
+    /** @type {Picasso.form.field.PicassoField} */
+    this.field = null;
+
+    /** @type {string[]} */
+    this.errorMessages = [];
+
+    /**0@type {boolean} */
+    this.valid = false;
+
+};
 Picasso.load("error.InvalidFieldType");
 
 /**
@@ -458,10 +476,10 @@ Picasso.utils.array = (
 Picasso.load("utils.html");
 Picasso.utils.html = (
 
-    /**
-     * HTML and DOM utils
-     * @exports utils/html
-     */
+/**
+ * HTML and DOM utils
+ * @exports utils/html
+ */
     function () {
 
         /**
@@ -483,20 +501,43 @@ Picasso.utils.html = (
          * @param {HTMLElement} element An HTML element to add the classes
          * @param {string} _class One or more classes separated by space
          */
-        var addClass = function (element, _class){
+        var addClass = function (element, _class) {
             var classes = element.classList;
             var toAppend, i;
 
-            if(_class.indexOf(' ') != -1){
+            if (_class.indexOf(' ') != -1) {
                 toAppend = _class.split(' ');
             }
-            else{
+            else {
                 toAppend = [_class]
             }
 
-            for(i = 0; i < toAppend.length; i++){
-                if(!classes.contains(toAppend[i])){
+            for (i = 0; i < toAppend.length; i++) {
+                if (!classes.contains(toAppend[i])) {
                     classes.add(toAppend[i]);
+                }
+            }
+        };
+
+        /**
+         * Remove a class of a element
+         * @param {HTMLElement} element
+         * @param {string} _class
+         */
+        var removeClass = function (element, _class) {
+            var classes = element.classList;
+            var toRemove, i;
+
+            if (_class.indexOf(' ') != -1) {
+                toRemove = _class.split(' ');
+            }
+            else {
+                toRemove = [_class]
+            }
+
+            for (i = 0; i < toRemove.length; i++) {
+                if (!classes.contains(toRemove[i])) {
+                    classes.remove(toRemove[i]);
                 }
             }
         };
@@ -504,10 +545,11 @@ Picasso.utils.html = (
         // Public API
         return {
             setAttributes: setAttributes,
-            addClass: addClass
+            addClass: addClass,
+            removeClass: removeClass
         };
     }()
-);
+    );
 
 
 Picasso.load("utils.log");
@@ -1118,41 +1160,65 @@ Picasso.load("form.validators.hidden");
 /**
  * Default validation for hidden fields
  * @param {Picasso.form.field.PicassoField} hiddenField
- * @returns {boolean}
+ * @returns {Picasso.pjo.Validation}
  */
 Picasso.form.validators.hidden = function(hiddenField){
-    return true;
+    var validation = new Picasso.pjo.Validation();
+    validation.valid = true;
+
+    return validation;
 };
 Picasso.load("form.validators.number");
 
 /**
  * Default validation for number fields
  * @param {Picasso.form.field.PicassoField} numberField
- * @returns {boolean}
+ * @returns {Picasso.pjo.Validation}
  */
-Picasso.form.validators.number = function(numberField){
+Picasso.form.validators.number = function (numberField) {
     var val = numberField.value();
-    return !isNaN(Number(val));
+    var validation = new Picasso.pjo.Validation();
+    validation.field = numberField;
+
+    validation.valid = !isNaN(Number(val));
+    if (!validation.valid) {
+        validation.errorMessages.push("Field value is not a number");
+    }
 };
 Picasso.load("form.validators.password");
 
 /**
  * Default validation for password fields
  * @param {Picasso.form.field.PicassoField} passwordField
- * @returns {boolean}
+ * @returns {Picasso.pjo.Validation}
  */
 Picasso.form.validators.password = function(passwordField){
-    return typeof passwordField.value() != "undefined";
+    var validation = new Picasso.pjo.Validation();
+    validation.field = passwordField;
+    validation.valid = typeof passwordField.value() != "undefined";
+    if(!validation.valid){
+        validation.errorMessages.push("Field value is undefined");
+    }
+
+    return validation;
 };
 Picasso.load("form.validators.text");
 
 /**
  * Default validation for text fields
  * @param {Picasso.form.field.PicassoField} textField
- * @returns {boolean}
+ * @returns {Picasso.pjo.Validation}
  */
 Picasso.form.validators.text = function(textField){
-    return typeof textField.value() != "undefined";
+    var validation = new Picasso.pjo.Validation();
+    validation.field = textField;
+
+    validation.valid = typeof textField.value() != "undefined";
+    if(!validation.valid){
+        validation.errorMessages.push("Field value is undefined");
+    }
+
+    return validation;
 };
 Picasso.load("form.field.PicassoField");
 
@@ -1160,8 +1226,18 @@ Picasso.load("form.field.PicassoField");
  * The default field implementation
  * @constructor
  */
-Picasso.form.field.PicassoField = function () {
+Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
+    /**
+     * Sequence manager
+     * @type {Picasso.core.Sequence}
+     */
     var Sequence = Picasso.load("core.Sequence");
+
+    /**
+     * The html utils
+     * @type {utils/html}
+     */
+    var htmlUtils = Picasso.load("utils.html");
 
     /**
      * The id of the field
@@ -1178,26 +1254,48 @@ Picasso.form.field.PicassoField = function () {
     this._element = null;
 
     /**
-     * The type of this field
+     * The field label
      * @type {string}
-     * @public
+     * @protected
      */
-    this.type = "";
-
+    this._label = "";
 
     /**
      * If this field is ignored in
      * a form final value
      * @type {boolean}
+     * @protected
      */
-    this.formIgnore = false;
+    this._formIgnore = false;
 
     /**
      * The flag to mark this field as required
      * @type {boolean}
-     * @public
+     * @protected
      */
-    this.required = false;
+    this._required = false;
+
+    /**
+     * The type of this field
+     * @type {string}
+     * @protected
+     */
+    this._type = "";
+
+    /**
+     * Calls a 'post constructor' to this object
+     * @param {string} label
+     * @param {string} type
+     * @param {boolean} required
+     * @param {boolean} formIgnore
+     * @private
+     */
+    this.__postConstructor__ = function(label, type, required, formIgnore){
+        this._label = label;
+        this._type = type;
+        this._required = required;
+        this._formIgnore = formIgnore;
+    };
 
     /**
      * Builds the field
@@ -1247,6 +1345,38 @@ Picasso.form.field.PicassoField = function () {
     };
 
     /**
+     * Get the field label
+     * @return {string}
+     */
+    this.getLabel = function(){
+        return this._label;
+    };
+
+    /**
+     * Verify if the field is required
+     * @return {boolean}
+     */
+    this.isRequired = function(){
+        return this._required;
+    };
+
+    /**
+     * Verify if the field is ignored in the form
+     * @return {boolean}
+     */
+    this.isFormIgnored = function(){
+        return this._formIgnore;
+    };
+
+    /**
+     * Get the field type
+     * @return {string}
+     */
+    this.getType = function(){
+        return this._type;
+    };
+
+    /**
      * Sets this field id, if not is given
      * generates the id based on a sequence
      * @param {string|number} id
@@ -1263,7 +1393,22 @@ Picasso.form.field.PicassoField = function () {
 
             this._id = id;
         }
+    };
 
+    /**
+     * Add one or more classes (separated by space) to the field
+     * @param {string} classes
+     */
+    this.addClass = function (classes) {
+        htmlUtils.addClass(this._element, classes);
+    };
+
+    /**
+     * Removes one or more classes (separated by space) to the field
+     * @param {string} classes
+     */
+    this.removeClass = function (classes) {
+        htmlUtils.removeClass(this._element, classes);
     };
 
     /**
@@ -1641,10 +1786,8 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     var FieldConstructor = this._getFieldConstructorByFieldType(field.type);
     var picassoField = new FieldConstructor();
+    picassoField.__postConstructor__(field.label, field.type, field.required, field.formIgnore);
     picassoField.build(field);
-    picassoField.type = field.type;
-    picassoField.formIgnore = field.formIgnore;
-    picassoField.required = field.required;
 
     if (field.hasOwnProperty("id")) {
         picassoField.setId(field.id);
@@ -1799,20 +1942,26 @@ Picasso.form.Validator = function (_form) {
     /**
      * Validates a field
      * @param {Picasso.form.field.PicassoField} pField
-     * @returns {?boolean}
+     * @returns {Picasso.pjo.Validation}
      */
     this.validate = function (pField) {
-        if (!pField.required || !pField.isEmpty()) {
-            if (Picasso.form.validators.hasOwnProperty(pField.type)) {
-                return Picasso.form.validators[pField.type](pField);
+        var validation = new Picasso.pjo.Validation();
+        validation.field = pField;
+        validation.valid = false;
+
+        if (!pField.isRequired() || !pField.isEmpty()) {
+            if (Picasso.form.validators.hasOwnProperty(pField.getType())) {
+                return Picasso.form.validators[pField.getType()](pField);
             }
             else {
-                log.warn("No validator found to the field type " + pField.type, pField);
-                return null;
+                log.warn("No validator found to the field type " + pField.getType(), pField);
+                validation.valid = null;
+                return validation;
             }
         }
 
-        return false;
+        validation.errorMessages.push("Field is required");
+        return validation;
     };
 
     /**
@@ -1826,7 +1975,7 @@ Picasso.form.Validator = function (_form) {
         var validation = {};
         for (var i = 0; i < fields.length; i++) {
             var f = fields[i];
-            if(!f.formIgnore){
+            if(!f.isFormIgnored()){
                 validation[f.getId()] = this.validate(f);
             }
         }

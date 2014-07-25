@@ -15,17 +15,22 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
         createView.render(user);
     };
 
-    var _validForm = function(form){
+    var _validateForm = function(form){
         var validations = that.validator.validateForm(form);
+        var valid = true;
+        createView.clearErrors();
+
         for(var i in validations){
+            var errors = {};
             if(validations.hasOwnProperty(i)){
-                if(validations[i] !=null && !validations[i]){
-                    return false;
+                if(validations[i].valid != null && !validations[i].valid){
+                    createView.addValidationError(validations[i]);
+                    valid = false;
                 }
             }
         }
 
-        return true;
+        return valid;
     };
 
     this.listen("showCreate", function(){
@@ -38,13 +43,10 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
 
     this.listen("create", function (event) {
         var form = event.data;
-        if(_validForm(form)){
+        if(_validateForm(form)){
             var user = form.value();
             DB.save(user);
             _showList();
-        }
-        else{
-            alert("Invalid form");
         }
     });
 

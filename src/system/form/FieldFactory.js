@@ -78,10 +78,8 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     var FieldConstructor = this._getFieldConstructorByFieldType(field.type);
     var picassoField = new FieldConstructor();
+    picassoField.__postConstructor__(field.label, field.type, field.required, field.formIgnore);
     picassoField.build(field);
-    picassoField.type = field.type;
-    picassoField.formIgnore = field.formIgnore;
-    picassoField.required = field.required;
 
     if (field.hasOwnProperty("id")) {
         picassoField.setId(field.id);

@@ -29,6 +29,31 @@ var UserCreateView = Picasso.View.extend(function () {
         mapField.afterRender();
     };
 
+    this.addValidationError = function(validation){
+        validation.field.addClass("has-error");
+        var errors = validation.errorMessages;
+        var $li = $("<li>").append(
+            $("<span>").text(validation.field.getLabel()),
+            $("<ul>")
+        );
+
+        for(var i=0; i < errors.length; i++){
+            $li = $li.find("ul").append($("<li>").text(errors[i])).end();
+        }
+        $(this.dom).find(".errors").append($li).show();
+    };
+
+    this.clearErrors = function(){
+        if(this.form != null){
+            var fields = this.form.getFields();
+            for(var i=0; i < fields.length; i++){
+                $(fields[i].getHTMLElement()).removeClass("has-error");
+            }
+        }
+
+        $(this.dom).find(".errors").html("").hide();
+    };
+
     this.destroy = function(){
         $(that.dom).find(".form").remove();
         that.form = null;
@@ -36,6 +61,8 @@ var UserCreateView = Picasso.View.extend(function () {
     };
 
     this.render = function(user){
+        this.clearErrors();
+
         $.get("form.json?nocache=" + new Date().getTime(), function(json){
             $(".prettyprint").html(JSON.stringify(json, null, 2));
             prettyPrint();

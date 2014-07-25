@@ -2,6 +2,30 @@ body {
     padding-top: 50px;
 }
 
+table .edit, table .delete {
+    margin: 0;
+}
+
+.errors {
+    border-radius: 7px;
+    margin-left: 1px;
+    padding: 10px;
+}
+
+.errors > li {
+    margin-right: 20px;
+}
+
+.errors > li span{
+    color: #a94442;
+    font-weight: bolder;
+}
+
+.errors li ul{
+    list-style:none;
+    padding-left:0;
+}
+
 .btn, .btn-group {
     margin-bottom: 5px;
     margin-top: 5px;

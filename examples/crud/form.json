@@ -23,6 +23,10 @@
                             "type": "cancel",
                             "value": "cancel",
                             "form-ignore": true
+                        },
+                        {
+                            "id": "id",
+                            "type": "hidden"
                         }
                     ]
                 }

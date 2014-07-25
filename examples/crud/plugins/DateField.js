@@ -138,11 +138,18 @@ Picasso.extend.field("DateField", function () {
 /**
  * Validates a date field object
  * @param {Picasso.form.field.PicassoField} pField
- * @returns {boolean}
+ * @returns {Picasso.pjo.Validation}
  */
 Picasso.extend.validator("DateField", function (pField) {
     var val = pField.value();
     var date = new Date(val.year, val.month - 1, val.day);
+    var validation = new Picasso.pjo.Validation();
+    validation.field = pField;
 
-    return val.year == date.getFullYear() && val.month == date.getMonth()+1 && val.day == date.getDate();
+    validation.valid = val.year == date.getFullYear() && val.month == date.getMonth() + 1 && val.day == date.getDate();
+    if (!validation.valid) {
+        validation.errorMessages.push("Invalid date");
+    }
+
+    return validation;
 });
