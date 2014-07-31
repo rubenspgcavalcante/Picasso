@@ -20,6 +20,29 @@ Picasso.Model.prototype.construct = function(){
 };
 
 /**
+ * Sets a property of the model
+ * @param {string} property
+ * @param {*} value
+ */
+Picasso.Model.prototype.set = function(property, value){
+    if(this.hasOwnProperty(property)){
+        this[property] = value;
+        this.fire("propertyChange", {property: property, value: value});
+    }
+};
+
+/**
+ * Gets a model property value
+ * @param {string} property
+ * @return {*}
+ */
+Picasso.Model.prototype.get = function(property){
+    if(this.hasOwnProperty(property)){
+        return property;
+    }
+};
+
+/**
  * Extends from a Model
  * @static
  * @param {Function} constructor The constructor to extend

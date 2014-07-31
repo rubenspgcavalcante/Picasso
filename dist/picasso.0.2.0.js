@@ -1059,6 +1059,29 @@ Picasso.Model.prototype.construct = function(){
 };
 
 /**
+ * Sets a property of the model
+ * @param {string} property
+ * @param {*} value
+ */
+Picasso.Model.prototype.set = function(property, value){
+    if(this.hasOwnProperty(property)){
+        this[property] = value;
+        this.fire("propertyChange", {property: property, value: value});
+    }
+};
+
+/**
+ * Gets a model property value
+ * @param {string} property
+ * @return {*}
+ */
+Picasso.Model.prototype.get = function(property){
+    if(this.hasOwnProperty(property)){
+        return property;
+    }
+};
+
+/**
  * Extends from a Model
  * @static
  * @param {Function} constructor The constructor to extend
@@ -1076,6 +1099,7 @@ Picasso.load("View");
  * @extends Picasso.core.Subject
  */
 Picasso.View = function () {
+    var that = this;
 
     /**
      * @type {Picasso.Model}
@@ -1084,6 +1108,14 @@ Picasso.View = function () {
     this._model = null;
 
     /**
+     * The view form
+     * @type {Picasso.form.PicassoForm}
+     * @private
+     */
+    this._form = null;
+
+    /**
+     * Stores the models events callbacks
      * @type {Object<string, Function>}
      * @protected
      */
@@ -1129,12 +1161,45 @@ Picasso.View.prototype.setModel = function(model){
 };
 
 /**
+ * Binds the model properties to the form
+ * fields.
+ */
+Picasso.View.prototype.bindFormData = function(){
+    var that = this;
+    this._model._subscribe("propertyChange", function(ev) {
+        var property = ev.data.property;
+        var value = ev.data.value;
+
+        if (that._form != null) {
+            var field = that._form.getField(property);
+            field.value(value);
+        }
+    });
+};
+
+/**
  * Builds a picasso form object from the given JSON
  * @param {Object} formJSON
  * @returns {Picasso.form.PicassoForm}
  */
 Picasso.View.prototype.buildForm = function(formJSON){
     return this._formBuilder.buildForm(formJSON);
+};
+
+/**
+ * Sets the view form
+ * @param {Picasso.form.PicassoForm} pForm
+ */
+Picasso.View.prototype.setForm = function(pForm){
+    this._form = pForm;
+};
+
+/**
+ * Gets the view form
+ * @return {Picasso.form.PicassoForm}
+ */
+Picasso.View.prototype.getForm = function(){
+    return this._form;
 };
 
 /**

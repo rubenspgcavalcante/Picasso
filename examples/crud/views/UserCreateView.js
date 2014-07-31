@@ -1,9 +1,6 @@
 var UserCreateView = Picasso.View.extend(function () {
     this.construct($(".formWrapper")[0]);
 
-    /** @type {Picasso.form.PicassoForm} */
-    this.form = null;
-
     var that = this;
 
     this.change = function () {
@@ -14,7 +11,7 @@ var UserCreateView = Picasso.View.extend(function () {
     var _bindEvents = function(){
         var $this = $(that.dom);
         $this.find("form").submit(function(){
-            that.fire("create", that.form);
+            that.fire("create", that.getForm());
             return false;
         });
 
@@ -25,7 +22,7 @@ var UserCreateView = Picasso.View.extend(function () {
     };
 
     var _afterRender = function(){
-        var mapField = that.form.getField("address");
+        var mapField = that.getForm().getField("address");
         mapField.afterRender();
     };
 
@@ -44,8 +41,8 @@ var UserCreateView = Picasso.View.extend(function () {
     };
 
     this.clearErrors = function(){
-        if(this.form != null){
-            var fields = this.form.getFields();
+        if(this.getForm() != null){
+            var fields = this.getForm().getFields();
             for(var i=0; i < fields.length; i++){
                 $(fields[i].getHTMLElement()).removeClass("has-error");
             }
@@ -56,7 +53,7 @@ var UserCreateView = Picasso.View.extend(function () {
 
     this.destroy = function(){
         $(that.dom).find(".form").remove();
-        that.form = null;
+        that.setForm(null);
         $(that.dom).hide();
     };
 
@@ -67,12 +64,12 @@ var UserCreateView = Picasso.View.extend(function () {
             $(".prettyprint").html(JSON.stringify(json, null, 2));
             prettyPrint();
 
-            that.form = that.buildForm(json);
-            $(that.dom).append(that.form.getHTMLElement()).show();
+            that.setForm(that.buildForm(json));
+            $(that.dom).append(that.getForm().getHTMLElement()).show();
             _bindEvents();
             _afterRender();
             if(typeof user != "undefined"){
-                that.form.value(user);
+                that.getForm().value(user);
             }
         }, "json");
     };

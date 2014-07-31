@@ -1,5 +1,6 @@
 var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
     this.construct(model, lView, cView);
+
     var that = this;
     var listView = lView;
     var createView = cView;
