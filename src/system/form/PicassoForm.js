@@ -97,3 +97,9 @@ Picasso.form.PicassoForm = function () {
         }
     };
 };
+
+/**
+ * A alias to the Picasso Form object constructor
+ * @alias {Picasso.form.PicassoForm}
+ */
+Picasso.Form = Picasso.form.PicassoForm;
