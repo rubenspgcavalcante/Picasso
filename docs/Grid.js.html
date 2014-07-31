@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/form/Field.js</title>
+    <title>JSDoc: Source: system/pjo/form/Grid.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/form/Field.js</h1>
+    <h1 class="page-title">Source: system/pjo/form/Grid.js</h1>
     
     
 
@@ -25,53 +25,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.Field");
+            <pre class="prettyprint source"><code>Picasso.load("pjo.Grid");
 
-/**
- * A form field
- * @constructor
- */
-Picasso.pjo.Field = function(){
+Picasso.pjo.Grid = function(){
     /** @type {string|number} */
     this.id = null;
 
     /** @type {string} */
-    this.label = "";
-
-    /** @type {Picasso.pjo.Field.type} */
-    this.type = null;
-
-    /** @type {boolean} */
-    this.required = false;
-
-    /** @type {boolean} */
-    this.formIgnore = false;
-
-    /** @type {*} */
-    this.value = null;
+    this.legend = null;
 
     /**
-     * The field attributes
+     * The element attributes
      * @type {{name: string}}
      */
-    this.attrs = {
-        name: ""
-    };
-};
+    this.attrs = {};
 
-/**
- * Available default field types
- * @readonly
- * @enum {string}
- */
-Picasso.pjo.Field.type = {
-    TEXT: "text",
-    TEXTAREA: "textarea",
-    NUMBER: "number",
-    EMAIL: "email",
-    PASSWORD: "password",
-    SUBMIT: "submit",
-    CANCEL: "cancel"
+    /** @type {Picasso.pjo.Column[]} */
+    this.columns = [];
 };</code></pre>
         </article>
     </section>

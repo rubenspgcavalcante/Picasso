@@ -1,6 +1,6 @@
-Picasso.load("pjo.GridBlock");
+Picasso.load("pjo.Grid");
 
-Picasso.pjo.GridBlock = function(){
+Picasso.pjo.Grid = function(){
     /** @type {string|number} */
     this.id = null;
 
@@ -13,6 +13,6 @@ Picasso.pjo.GridBlock = function(){
      */
     this.attrs = {};
 
-    /** @type {Picasso.pjo.FieldGrid[]} */
-    this.fieldGrid = [];
+    /** @type {Picasso.pjo.Column[]} */
+    this.columns = [];
 };

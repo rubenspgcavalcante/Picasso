@@ -1,17 +1,17 @@
-Picasso.load("pjo.FieldGrid");
+Picasso.load("pjo.Column");
 
 /**
  * An form fieldset
  * @constructor
  */
-Picasso.pjo.FieldGrid = function(){
+Picasso.pjo.Column = function(){
     /** @type {string|number} */
     this.id = null;
 
     /** @type {number} */
     this.index = 0;
 
-    /** @type {Picasso.pjo.FieldGrid.colSize} */
+    /** @type {Picasso.pjo.Column.colSize} */
     this.colXSize = 3;
 
     /** @type {Picasso.pjo.Field[]} */
@@ -23,7 +23,7 @@ Picasso.pjo.FieldGrid = function(){
  * @enum {string}
  * @readonly
  */
-Picasso.pjo.FieldGrid.colSize = {
+Picasso.pjo.Column.colSize = {
     SMALL: 2,
     MEDIUM: 3,
     LARGE: 4

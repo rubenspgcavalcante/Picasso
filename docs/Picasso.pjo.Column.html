@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: EventHandler</title>
+    <title>JSDoc: Class: Column</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: EventHandler</h1>
+    <h1 class="page-title">Class: Column</h1>
     
     
 
@@ -29,7 +29,7 @@
     <h2>
         <span class="ancestors"><a href="global.html#Picasso">Picasso</a><a href="Picasso.pjo.html">.pjo</a>.</span>
     
-    EventHandler
+    Column
     </h2>
     
 </header>  
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="EventHandler"><span class="type-signature"></span>new EventHandler<span class="signature">(eventName, callback, context)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Column"><span class="type-signature"></span>new Column<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -49,7 +49,7 @@
     
     
     <div class="description">
-        Default event handler
+        An form fieldset
     </div>
     
 
@@ -57,103 +57,6 @@
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>eventName</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-|
-
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>context</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -179,7 +82,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventHandler.js.html">system/pjo/event/EventHandler.js</a>, <a href="EventHandler.js.html#line10">line 10</a>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line7">line 7</a>
     </li></ul></dd>
     
     
@@ -223,11 +126,15 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="callback"><span class="type-signature"></span>callback<span class="type-signature"> :function</span></h4>
+    <h4 class="name" id="colSize"><span class="type-signature">&lt;static, readonly> </span>colSize<span class="type-signature"> :string</span></h4>
     
     
 </dt>
 <dd>
+    
+    <div class="description">
+        The size of the grid columns
+    </div>
     
     
     
@@ -235,7 +142,7 @@
         <ul>
             <li>
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
             </li>
@@ -244,6 +151,123 @@
 
     
 <dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>SMALL</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    2
+                
+                </td>
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>MEDIUM</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    3
+                
+                </td>
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>LARGE</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    4
+                
+                </td>
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
     
         
     
@@ -265,7 +289,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventHandler.js.html">system/pjo/event/EventHandler.js</a>, <a href="EventHandler.js.html#line15">line 15</a>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line26">line 26</a>
     </li></ul></dd>
     
     
@@ -283,7 +307,7 @@
         
             
 <dt>
-    <h4 class="name" id="context"><span class="type-signature"></span>context<span class="type-signature"> :Object</span></h4>
+    <h4 class="name" id="colXSize"><span class="type-signature"></span>colXSize<span class="type-signature"> :<a href="Picasso.pjo.Column.html#colSize">Picasso.pjo.Column.colSize</a></span></h4>
     
     
 </dt>
@@ -295,7 +319,7 @@
         <ul>
             <li>
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Picasso.pjo.Column.html#colSize">Picasso.pjo.Column.colSize</a></span>
 
 
             </li>
@@ -325,7 +349,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventHandler.js.html">system/pjo/event/EventHandler.js</a>, <a href="EventHandler.js.html#line18">line 18</a>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line15">line 15</a>
     </li></ul></dd>
     
     
@@ -343,7 +367,7 @@
         
             
 <dt>
-    <h4 class="name" id="eventName"><span class="type-signature"></span>eventName<span class="type-signature"> :String</span></h4>
+    <h4 class="name" id="fields"><span class="type-signature"></span>fields<span class="type-signature"> :Picasso.pjo.Field[]</span></h4>
     
     
 </dt>
@@ -355,7 +379,7 @@
         <ul>
             <li>
                 
-<span class="param-type">String</span>
+<span class="param-type">Picasso.pjo.Field[]</span>
 
 
             </li>
@@ -385,7 +409,130 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventHandler.js.html">system/pjo/event/EventHandler.js</a>, <a href="EventHandler.js.html#line12">line 12</a>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="id"><span class="type-signature"></span>id<span class="type-signature"> :string|number</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="index"><span class="type-signature"></span>index<span class="type-signature"> :number</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Column.js.html">system/pjo/form/Column.js</a>, <a href="Column.js.html#line12">line 12</a>
     </li></ul></dd>
     
     

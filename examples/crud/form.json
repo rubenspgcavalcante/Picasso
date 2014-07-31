@@ -6,11 +6,11 @@
     },
 
 
-    "gridBlocks": [
+    "grid": [
         {
             "id": "block1",
             "legend": "Options",
-            "fieldGrid": [
+            "columns": [
                 {
                     "id": "buttonsGrid",
                     "fields": [
@@ -37,7 +37,7 @@
             "id": "block2",
             "legend": "Personal Data",
 
-            "fieldGrid": [
+            "columns": [
                 {
                     "id": "section1",
                     "attrs": {
@@ -117,7 +117,7 @@
             "id": "block3",
             "legend": "Address",
 
-            "fieldGrid": [
+            "columns": [
                 {
                     "id": "mapSection",
                     "attrs": {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/form/Field.js</title>
+    <title>JSDoc: Source: system/pjo/form/Column.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/form/Field.js</h1>
+    <h1 class="page-title">Source: system/pjo/form/Column.js</h1>
     
     
 
@@ -25,53 +25,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.Field");
+            <pre class="prettyprint source"><code>Picasso.load("pjo.Column");
 
 /**
- * A form field
+ * An form fieldset
  * @constructor
  */
-Picasso.pjo.Field = function(){
+Picasso.pjo.Column = function(){
     /** @type {string|number} */
     this.id = null;
 
-    /** @type {string} */
-    this.label = "";
+    /** @type {number} */
+    this.index = 0;
 
-    /** @type {Picasso.pjo.Field.type} */
-    this.type = null;
+    /** @type {Picasso.pjo.Column.colSize} */
+    this.colXSize = 3;
 
-    /** @type {boolean} */
-    this.required = false;
-
-    /** @type {boolean} */
-    this.formIgnore = false;
-
-    /** @type {*} */
-    this.value = null;
-
-    /**
-     * The field attributes
-     * @type {{name: string}}
-     */
-    this.attrs = {
-        name: ""
-    };
+    /** @type {Picasso.pjo.Field[]} */
+    this.fields = [];
 };
 
 /**
- * Available default field types
- * @readonly
+ * The size of the grid columns
  * @enum {string}
+ * @readonly
  */
-Picasso.pjo.Field.type = {
-    TEXT: "text",
-    TEXTAREA: "textarea",
-    NUMBER: "number",
-    EMAIL: "email",
-    PASSWORD: "password",
-    SUBMIT: "submit",
-    CANCEL: "cancel"
+Picasso.pjo.Column.colSize = {
+    SMALL: 2,
+    MEDIUM: 3,
+    LARGE: 4
 };</code></pre>
         </article>
     </section>
