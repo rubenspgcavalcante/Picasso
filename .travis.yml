@@ -9,8 +9,8 @@ before_install:
 script: grunt
 
 node_js:
-  - 0.8
-  - 0.10
+  - "0.8"
+  - "0.10"
 
 branches:
   only:
