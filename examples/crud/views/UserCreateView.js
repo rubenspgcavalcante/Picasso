@@ -3,11 +3,6 @@ var UserCreateView = Picasso.View.extend(function () {
 
     var that = this;
 
-    this.change = function () {
-        alert("Render the view again");
-    };
-    this.register("update", this.change);
-
     var _bindEvents = function(){
         var $this = $(that.dom);
         $this.find("form").submit(function(){
@@ -47,7 +42,6 @@ var UserCreateView = Picasso.View.extend(function () {
                 $(fields[i].getHTMLElement()).removeClass("has-error");
             }
         }
-
         $(this.dom).find(".errors").html("").hide();
     };
 
@@ -65,6 +59,7 @@ var UserCreateView = Picasso.View.extend(function () {
             prettyPrint();
 
             that.setForm(that.buildForm(json));
+            that.bindFormData();
             $(that.dom).append(that.getForm().getHTMLElement()).show();
             _bindEvents();
             _afterRender();

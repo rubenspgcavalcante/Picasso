@@ -30,7 +30,6 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
                 }
             }
         }
-
         return valid;
     };
 
@@ -53,7 +52,8 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
 
     this.listen("showEdit", function(event){
         var user = DB.get(event.data);
-        _showCreate(user);
+        that.getModel().update(user);
+        _showCreate(that.getModel());
     });
 
     this.listen("delete", function(event){

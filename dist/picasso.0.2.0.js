@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.2.0",
-    build: "2014-07-31",
+    build: "2014-08-01",
     license: "GPLv3"
 };
 /**
@@ -1091,6 +1091,22 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 };
 
 /**
+ * Gets the model associated with this controller
+ * @return {Picasso.Model}
+ */
+Picasso.Controller.prototype.getModel = function(){
+    return this._model;
+};
+
+Picasso.Controller.prototype.setModel = function(model){
+    for(var i in this._views){
+        if(this._views.hasOwnProperty(i)){
+            this._views[i].setModel(model);
+        }
+    }
+};
+
+/**
  * Extends from a Controller
  * @static
  * @param {Function} constructor The constructor to extend
@@ -1107,26 +1123,15 @@ Picasso.load("Model");
  * @extends Picasso.core,Subject
  */
 Picasso.Model = function () {};
-
 Picasso.Model.prototype = new Picasso.core.Subject();
-
-/**
- * Default model constructor
- */
-Picasso.Model.prototype.construct = function(){
-    if(!this.hasOwnProperty("_seq")){
-        var sequence = new Picasso.core.Sequence("Model");
-        this._seq = sequence.nextVal();
-    }
-};
 
 /**
  * Sets a property of the model
  * @param {string} property
  * @param {*} value
  */
-Picasso.Model.prototype.set = function(property, value){
-    if(this.hasOwnProperty(property)){
+Picasso.Model.prototype.set = function (property, value) {
+    if (this.hasOwnProperty(property)) {
         this[property] = value;
         this.fire("propertyChange", {property: property, value: value});
     }
@@ -1137,20 +1142,47 @@ Picasso.Model.prototype.set = function(property, value){
  * @param {string} property
  * @return {*}
  */
-Picasso.Model.prototype.get = function(property){
-    if(this.hasOwnProperty(property)){
+Picasso.Model.prototype.get = function (property) {
+    if (this.hasOwnProperty(property)) {
         return property;
     }
 };
 
 /**
+ * Updates the properties of the model
+ * @param {Object} plainModel
+ */
+Picasso.Model.prototype.update = function(plainModel){
+    for(var i in plainModel){
+        if(plainModel.hasOwnProperty(i)){
+            this.set(i, plainModel[i]);
+        }
+    }
+};
+
+/**
+ * Returns the plain object of this model with
+ * all the values
+ * @return {Object}
+ */
+Picasso.Model.prototype.toPlainObject = function () {
+    var pjo = new this.constructor();
+    for (var property in pjo) {
+        if (pjo.hasOwnProperty(property) && typeof pjo[property] != "function") {
+            pjo[property] = this[property];
+        }
+    }
+    return pjo;
+};
+
+/**
  * Extends from a Model
  * @static
- * @param {Function} constructor The constructor to extend
+ * @param {Function} Constructor The constructor to extend
  * @returns {Function} The updated constructor
  */
-Picasso.Model.extend = function (constructor) {
-    return Picasso.utils.object.extend(constructor, Picasso.Model);
+Picasso.Model.extend = function (Constructor) {
+    return Picasso.utils.object.extend(Constructor, Picasso.Model);
 };
 
 Picasso.load("View");
