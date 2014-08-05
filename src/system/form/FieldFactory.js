@@ -92,12 +92,3 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
     this._setPicassoAttributes(picassoField);
     return picassoField;
 };
-
-/**
- * Registers a constructor to the given type
- * @param {string} type
- * @param {Picasso.form.field.PicassoField.constructor} constructor
- */
-Picasso.form.FieldFactory.prototype.registerConstructor = function(type, constructor){
-    Picasso.form.FieldFactory.constructors[type] = constructor;
-};

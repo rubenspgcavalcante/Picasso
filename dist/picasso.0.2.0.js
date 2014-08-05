@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.2.0",
-    build: "2014-08-01",
+    build: "2014-08-05",
     license: "GPLv3"
 };
 /**
@@ -86,6 +86,25 @@ Picasso.load = function (namespace) {
 
     }
     return currentObj;
+};
+
+
+Picasso.load("loadField");
+/**
+ * Loads a field of the given type
+ * @param {Picasso.pjo.Field} field
+ * @returns {Picasso.form.field.PicassoField}
+ */
+Picasso.loadField = function (field) {
+    var fieldFactory = new Picasso.form.FieldFactory();
+    try {
+        return fieldFactory.create(field);
+    }
+    catch (e) {
+        var log = Picasso.load("utils.log");
+        log.error(e.message);
+        return null;
+    }
 };
 Picasso.load("extend");
 
@@ -1589,12 +1608,6 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
     };
 
 };
-
-/**
- * A alias to the Picasso field object constructor
- * @alias {Picasso.form.field.PicassoField}
- */
-Picasso.Field = Picasso.form.field.PicassoField;
 Picasso.load("form.field.ButtonField");
 
 /**
@@ -1964,15 +1977,6 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     this._setPicassoAttributes(picassoField);
     return picassoField;
-};
-
-/**
- * Registers a constructor to the given type
- * @param {string} type
- * @param {Picasso.form.field.PicassoField.constructor} constructor
- */
-Picasso.form.FieldFactory.prototype.registerConstructor = function(type, constructor){
-    Picasso.form.FieldFactory.constructors[type] = constructor;
 };
 Picasso.load("form.PicassoForm");
 

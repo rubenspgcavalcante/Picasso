@@ -208,9 +208,3 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
     };
 
 };
-
-/**
- * A alias to the Picasso field object constructor
- * @alias {Picasso.form.field.PicassoField}
- */
-Picasso.Field = Picasso.form.field.PicassoField;
