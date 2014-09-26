@@ -1,14 +1,12 @@
 {
     "name": "picasso",
     "version": "0.8.0",
-    "main": "dist/picasso.js",
+    "main": "dist/picasso.0.8.0.js",
     "license": "GPLv3",
     "ignore": [
-        "**/.*",
         "docs",
         "node_modules",
         "examples",
-        "*.md",
         "Gruntfile.js",
         "package.json"
     ],

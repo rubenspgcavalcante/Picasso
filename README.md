@@ -12,11 +12,16 @@ version.
 
 ##Download
 Get the latest version:  
-[Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.2.0.min.js)  
-[Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.2.0.js)
+[Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.8.0.min.js)  
+[Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.8.0.js)
 
 ###Dependeces?
 **Nope!**
+
+###Installing with bower
+```shellscript
+bower install picasso
+```
 
 #Building
 If you want to build the sources, you will need first install all dependencies and after install the grunt client
