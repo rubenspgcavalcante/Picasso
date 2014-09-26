@@ -134,7 +134,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="extend"><span class="type-signature">&lt;static> </span>extend<span class="signature">(constructor)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="extend"><span class="type-signature">&lt;static> </span>extend<span class="signature">(Constructor)</span><span class="type-signature"> &rarr; {function}</span></h4>
     
     
 </dt>
@@ -176,7 +176,7 @@
 	
         <tr>
             
-                <td class="name"><code>constructor</code></td>
+                <td class="name"><code>Constructor</code></td>
             
             
             <td class="type">
@@ -223,7 +223,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line51">line 51</a>
+        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line67">line 67</a>
     </li></ul></dd>
     
     
@@ -266,75 +266,6 @@
 </dl>
 
         
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="construct"><span class="type-signature"></span>construct<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Default model constructor
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
     
     
 </dd>
@@ -431,7 +362,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line39">line 39</a>
+        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line28">line 28</a>
     </li></ul></dd>
     
     
@@ -589,7 +520,212 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line27">line 27</a>
+        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="toPlainObject"><span class="type-signature"></span>toPlainObject<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the plain object of this model with
+all the values
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(plainModel)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Updates the properties of the model
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>plainModel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Model.js.html">system/mvc/Model.js</a>, <a href="Model.js.html#line38">line 38</a>
     </li></ul></dd>
     
     
@@ -636,7 +772,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jul 31 2014 09:57:52 GMT-0300 (BRT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Aug 05 2014 09:33:33 GMT-0300 (BRT)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.2.0",
-    build: "2014-07-31",
+    build: "2014-08-05",
     license: "GPLv3"
 };
 /**
@@ -86,6 +86,25 @@ Picasso.load = function (namespace) {
 
     }
     return currentObj;
+};
+
+
+Picasso.load("loadField");
+/**
+ * Loads a field of the given type
+ * @param {Picasso.pjo.Field} field
+ * @returns {Picasso.form.field.PicassoField}
+ */
+Picasso.loadField = function (field) {
+    var fieldFactory = new Picasso.form.FieldFactory();
+    try {
+        return fieldFactory.create(field);
+    }
+    catch (e) {
+        var log = Picasso.load("utils.log");
+        log.error(e.message);
+        return null;
+    }
 };
 Picasso.load("extend");
 
@@ -555,21 +574,83 @@ Picasso.utils.html = (
 Picasso.load("utils.log");
 
 Picasso.utils.log = (
-    /**
-     * Defines a set of functions to log messages
-     * @exports utils/log
-     */
+/**
+ * Defines a set of functions to log messages
+ * @exports utils/log
+ */
     function () {
         /**
-         * All the logging function utilities
-         * @export utils/log
+         * The log levels
+         * @enum {string}
+         */
+        var lvs = {
+            ERROR: "error",
+            WARN: "warn",
+            INFO: "info",
+            DISABLED: "disabled"
+        };
+
+        var currentLevel = lvs.DISABLED;
+
+        /**
+         * Shows info in the console
+         * @param {string} msg
+         * @param {object} context
+         */
+        var info = function (msg, context) {
+            if (currentLevel == lvs.INFO) {
+                context = context || "(no context informed)";
+                console.info(msg, context);
+            }
+        };
+
+        /**
+         * Warning in the console
+         * @param {string} msg
+         * @param {object} context
          */
         var warn = function (msg, context) {
-            console.warn(msg, context);
+            if (currentLevel == lvs.INFO || currentLevel == lvs.WARN) {
+                context = context || "(no context informed)";
+                console.warn(msg, context);
+            }
+        };
+
+        /**
+         * Error in the console
+         * @param {string} msg
+         * @param {object} context
+         */
+        var error = function (msg, context) {
+            if (currentLevel == lvs.INFO || currentLevel == lvs.WARN || currentLevel == lvs.ERROR) {
+                context = context || "(no context informed)";
+                console.error(msg, context);
+            }
+        };
+
+        /**
+         * Sets the level of the logger
+         * @param {lvs} level
+         */
+        var setLogLevel = function(level){
+            currentLevel = level;
+        };
+
+        /**
+         * Get the log level
+         * @return {lvs}
+         */
+        var getLogLevel = function(){
+            return currentLevel;
         };
 
         return {
-            warn: warn
+            lvs: lvs,
+            info: info,
+            warn: warn,
+            error: error,
+            setLogLevel: setLogLevel,
+            getLogLevel: getLogLevel
         };
     }());
 
@@ -1029,6 +1110,22 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 };
 
 /**
+ * Gets the model associated with this controller
+ * @return {Picasso.Model}
+ */
+Picasso.Controller.prototype.getModel = function(){
+    return this._model;
+};
+
+Picasso.Controller.prototype.setModel = function(model){
+    for(var i in this._views){
+        if(this._views.hasOwnProperty(i)){
+            this._views[i].setModel(model);
+        }
+    }
+};
+
+/**
  * Extends from a Controller
  * @static
  * @param {Function} constructor The constructor to extend
@@ -1045,26 +1142,15 @@ Picasso.load("Model");
  * @extends Picasso.core,Subject
  */
 Picasso.Model = function () {};
-
 Picasso.Model.prototype = new Picasso.core.Subject();
-
-/**
- * Default model constructor
- */
-Picasso.Model.prototype.construct = function(){
-    if(!this.hasOwnProperty("_seq")){
-        var sequence = new Picasso.core.Sequence("Model");
-        this._seq = sequence.nextVal();
-    }
-};
 
 /**
  * Sets a property of the model
  * @param {string} property
  * @param {*} value
  */
-Picasso.Model.prototype.set = function(property, value){
-    if(this.hasOwnProperty(property)){
+Picasso.Model.prototype.set = function (property, value) {
+    if (this.hasOwnProperty(property)) {
         this[property] = value;
         this.fire("propertyChange", {property: property, value: value});
     }
@@ -1075,20 +1161,47 @@ Picasso.Model.prototype.set = function(property, value){
  * @param {string} property
  * @return {*}
  */
-Picasso.Model.prototype.get = function(property){
-    if(this.hasOwnProperty(property)){
+Picasso.Model.prototype.get = function (property) {
+    if (this.hasOwnProperty(property)) {
         return property;
     }
 };
 
 /**
+ * Updates the properties of the model
+ * @param {Object} plainModel
+ */
+Picasso.Model.prototype.update = function(plainModel){
+    for(var i in plainModel){
+        if(plainModel.hasOwnProperty(i)){
+            this.set(i, plainModel[i]);
+        }
+    }
+};
+
+/**
+ * Returns the plain object of this model with
+ * all the values
+ * @return {Object}
+ */
+Picasso.Model.prototype.toPlainObject = function () {
+    var pjo = new this.constructor();
+    for (var property in pjo) {
+        if (pjo.hasOwnProperty(property) && typeof pjo[property] != "function") {
+            pjo[property] = this[property];
+        }
+    }
+    return pjo;
+};
+
+/**
  * Extends from a Model
  * @static
- * @param {Function} constructor The constructor to extend
+ * @param {Function} Constructor The constructor to extend
  * @returns {Function} The updated constructor
  */
-Picasso.Model.extend = function (constructor) {
-    return Picasso.utils.object.extend(constructor, Picasso.Model);
+Picasso.Model.extend = function (Constructor) {
+    return Picasso.utils.object.extend(Constructor, Picasso.Model);
 };
 
 Picasso.load("View");
@@ -1495,12 +1608,6 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
     };
 
 };
-
-/**
- * A alias to the Picasso field object constructor
- * @alias {Picasso.form.field.PicassoField}
- */
-Picasso.Field = Picasso.form.field.PicassoField;
 Picasso.load("form.field.ButtonField");
 
 /**
@@ -1870,15 +1977,6 @@ Picasso.form.FieldFactory.prototype.create = function (field) {
 
     this._setPicassoAttributes(picassoField);
     return picassoField;
-};
-
-/**
- * Registers a constructor to the given type
- * @param {string} type
- * @param {Picasso.form.field.PicassoField.constructor} constructor
- */
-Picasso.form.FieldFactory.prototype.registerConstructor = function(type, constructor){
-    Picasso.form.FieldFactory.constructors[type] = constructor;
 };
 Picasso.load("form.PicassoForm");
 

@@ -27,3 +27,22 @@ Picasso.load = function (namespace) {
     }
     return currentObj;
 };
+
+
+Picasso.load("loadField");
+/**
+ * Loads a field of the given type
+ * @param {Picasso.pjo.Field} field
+ * @returns {Picasso.form.field.PicassoField}
+ */
+Picasso.loadField = function (field) {
+    var fieldFactory = new Picasso.form.FieldFactory();
+    try {
+        return fieldFactory.create(field);
+    }
+    catch (e) {
+        var log = Picasso.load("utils.log");
+        log.error(e.message);
+        return null;
+    }
+};

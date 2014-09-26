@@ -94,6 +94,22 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 };
 
 /**
+ * Gets the model associated with this controller
+ * @return {Picasso.Model}
+ */
+Picasso.Controller.prototype.getModel = function(){
+    return this._model;
+};
+
+Picasso.Controller.prototype.setModel = function(model){
+    for(var i in this._views){
+        if(this._views.hasOwnProperty(i)){
+            this._views[i].setModel(model);
+        }
+    }
+};
+
+/**
  * Extends from a Controller
  * @static
  * @param {Function} constructor The constructor to extend

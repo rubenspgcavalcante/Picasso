@@ -47,7 +47,7 @@
                         {
                             "id": "name",
                             "type": "text",
-                            "label": "nome",
+                            "label": "name",
                             "required": true,
                             "attrs": {
                                 "name": "name"
@@ -74,7 +74,7 @@
                         {
                             "id": "password",
                             "type": "password",
-                            "label": "senha",
+                            "label": "password",
                             "required": true,
                             "attrs": {
                                 "name": "password"
@@ -84,7 +84,7 @@
                         {
                             "id": "passwordConfirmation",
                             "type": "password",
-                            "label": "confirme a senha",
+                            "label": "password confirmation",
                             "required": true,
                             "attrs": {
                                 "name": "passwordConfirmation"
@@ -102,7 +102,7 @@
                         {
                             "id": "date",
                             "type": "DateField",
-                            "label": "data de nascimento",
+                            "label": "birth date",
                             "required": true,
                             "attrs": {
                                 "name": "passwordConfirmation"
@@ -127,7 +127,7 @@
                         {
                             "id": "address",
                             "type": "MapField",
-                            "label": "nome",
+                            "label": "name",
                             "required": true,
                             "attrs": {
                                 "name": "name"
