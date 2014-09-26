@@ -1,22 +1,42 @@
 {
-  "name": "picasso",
-  "author": "Rubens Pinheiro Gonçalves Cavalcante",
-  "version": "0.2.0",
-  "license": "GPLv3",
-  "scripts": {
-    "build": "grunt"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/rubenspgcavalcante/Picasso.git"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.6.3",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-jsdoc": "~0.5.4",
-    "grunt-string-replace": "~0.2.7",
-    "jsdoc": "~3.3.0-alpha5"
-  }
+    "name": "picasso",
+    "title": "Picasso Framework",
+    "author": {
+        "name": "Rubens Pinheiro Gonçalves Cavalcante",
+        "email": "rubenspgcavalcante@gmail.com",
+        "homepage": "http://github.com/rubenspgcavalcante"
+    },
+    "version": "0.8.0",
+    "license": "GPLv3",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/rubenspgcavalcante/Picasso.git"
+    },
+    "keywords": [
+        "picasso",
+        "javascript",
+        "browser",
+        "framework",
+        "forms",
+        "dynamic form"
+    ],
+    "licenses": [
+        {
+            "type": "GPLv3",
+            "url": "http://github.com/rubenspgcavalcante/Picasso/blob/master/LICENSE.txt"
+        }
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.5",
+        "grunt-contrib-jshint": "~0.6.3",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-jsdoc": "~0.5.4",
+        "grunt-string-replace": "~0.2.7",
+        "jsdoc": "~3.3.0-alpha5"
+    },
+    "scripts": {
+        "build": "npm install && grunt"
+    }
 }
