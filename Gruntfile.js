@@ -28,14 +28,14 @@ module.exports = function (grunt) {
                     "src/system/form/fields/PicassoField.js",
                     "src/system/form/fields/*"
                 ],
-                dest: "dist/<%=pkg.name %>.<%= pkg.version %>.js"
+                dest: "dist/<%=pkg.name %>.js"
             }
         },
 
         'string-replace': {
             dist: {
                 files: {
-                    "dist/": "dist/<%=pkg.name %>.<%= pkg.version %>.js"
+                    "dist/": "dist/<%=pkg.name %>.js"
                 }
             },
 
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                     },
                     {
                         pattern: "%author%",
-                        replacement: "<%= pkg.author %>"
+                        replacement: "<%= pkg.author.name %>"
                     },
                     {
                         pattern: "%buildDate%",
@@ -67,14 +67,14 @@ module.exports = function (grunt) {
                     '* Picasso\n' +
                     '* A Framework to build dinamic forms using MVC\n' +
                     '* Build date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                    '* @author <%= pkg.author %>\n' +
+                    '* @author <%= pkg.author.name %>\n' +
                     '* @version <%= pkg.version %>\n' +
                     '* @license <%= pkg.license %>\n' +
                     '*/\n'
             },
             dist: {
-                src: "dist/<%= pkg.name %>.<%= pkg.version %>.js",
-                dest: "dist/<%= pkg.name %>.<%= pkg.version %>.min.js"
+                src: "dist/<%= pkg.name %>.js",
+                dest: "dist/<%= pkg.name %>.min.js"
             }
         },
 

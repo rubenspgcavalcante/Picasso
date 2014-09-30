@@ -53,9 +53,9 @@ var P = P || Picasso;
  * @type {{author: string, version: string, build: string, license: string}}
  */
 Picasso.info = {
-    author: "[object Object]",
-    version: "0.8.0",
-    build: "2014-09-25",
+    author: "Rubens Pinheiro Gonçalves Cavalcante",
+    version: "0.8.1",
+    build: "2014-09-29",
     license: "GPLv3"
 };
 /**

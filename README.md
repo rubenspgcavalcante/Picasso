@@ -12,8 +12,8 @@ version.
 
 ##Download
 Get the latest version:  
-[Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.8.0.min.js)  
-[Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.0.8.0.js)
+[Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.min.js)  
+[Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.js)
 
 ###Dependeces?
 **Nope!**
