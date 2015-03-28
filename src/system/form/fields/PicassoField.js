@@ -175,18 +175,18 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
 
     /**
      * Add one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.addClass = function (classes) {
-        htmlUtils.addClass(this._element, classes);
+    this.addClass = function (_class) {
+        htmlUtils.addClass(this._element, _class);
     };
 
     /**
      * Removes one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.removeClass = function (classes) {
-        htmlUtils.removeClass(this._element, classes);
+    this.removeClass = function (_class) {
+        htmlUtils.removeClass(this._element, _class);
     };
 
     /**

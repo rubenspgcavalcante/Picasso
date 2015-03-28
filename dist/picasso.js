@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.8.1",
-    build: "2014-09-29",
+    build: "2015-03-28",
     license: "GPLv3"
 };
 /**
@@ -1017,7 +1017,14 @@ Picasso.core.Subject = function () {
 Picasso.load("Controller");
 
 /**
- * The picasso Controller entity
+ * The picasso Controller entity.
+ * To create an application controller use the extend static method
+ * @example:
+ *      var MyCustomController = Picasso.Controller.extend(function (model, view) {
+ *          this.construct(model, view);
+ *          // ...
+ *      });
+ *
  * @param {Picasso.Model} model A model to associate to this controller
  * @param {Picasso.View} view A view to associate to this controller
  * @constructor
@@ -1575,18 +1582,18 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
 
     /**
      * Add one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.addClass = function (classes) {
-        htmlUtils.addClass(this._element, classes);
+    this.addClass = function (_class) {
+        htmlUtils.addClass(this._element, _class);
     };
 
     /**
      * Removes one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.removeClass = function (classes) {
-        htmlUtils.removeClass(this._element, classes);
+    this.removeClass = function (_class) {
+        htmlUtils.removeClass(this._element, _class);
     };
 
     /**
