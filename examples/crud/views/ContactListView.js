@@ -1,34 +1,34 @@
-var UserListView = Picasso.View.extend(function () {
+var ContactListView = Picasso.View.extend(function () {
     this.construct($(".tableContainer")[0]);
     var that = this;
 
-    var _getLine = function (user) {
+    var _getLine = function (contact) {
         var btnIcon = $('<i class="btn-addon glyphicon"></i>');
 
         var editBtn = $("<button>", {class: "edit btn btn-xs btn-info"}).html(
             btnIcon.clone().addClass('glyphicon-pencil').text(" Edit")
         );
-        editBtn.data("id", user.id);
+        editBtn.data("id", contact.id);
 
         var removeBtn = $("<button>", {class: "delete btn btn-xs btn-danger"}).html(
             btnIcon.clone().addClass('glyphicon-remove').text(" Delete")
         );
-        removeBtn.data("id", user.id);
+        removeBtn.data("id", contact.id);
 
         return $("<tr>").append(
-            $("<td>").text(user.name),
-            $("<td>").text(user.email),
+            $("<td>").text(contact.name),
+            $("<td>").text(contact.email),
             $("<td>").html(editBtn),
             $("<td>").html(removeBtn)
         )
     };
 
     var _buildTableLines = function () {
-        var users = DB.list();
+        var contacts = DB.list();
         var $table = $(that.dom).find("tbody").html("").end();
 
-        for (var i = 0; i < users.length; i++) {
-            $table = $table.find("tbody").append(_getLine(users[i])).end();
+        for (var i = 0; i < contacts.length; i++) {
+            $table = $table.find("tbody").append(_getLine(contacts[i])).end();
         }
 
         return $table;

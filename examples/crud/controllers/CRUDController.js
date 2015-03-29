@@ -11,9 +11,9 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
         listView.show();
     };
 
-    var _showCreate = function(user){
+    var _showCreate = function(contact){
         listView.hide();
-        createView.render(user);
+        createView.render(contact);
     };
 
     var _validateForm = function(form){
@@ -44,15 +44,15 @@ var CRUDController = Picasso.Controller.extend(function (model, lView, cView) {
     this.listen("create", function (event) {
         var form = event.data;
         if(_validateForm(form)){
-            var user = form.value();
-            DB.save(user);
+            var contact = form.value();
+            DB.save(contact);
             _showList();
         }
     });
 
     this.listen("showEdit", function(event){
-        var user = DB.get(event.data);
-        that.getModel().update(user);
+        var contact = DB.get(event.data);
+        that.getModel().update(contact);
         _showCreate(that.getModel());
     });
 

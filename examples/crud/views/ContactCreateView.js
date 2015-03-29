@@ -1,4 +1,4 @@
-var UserCreateView = Picasso.View.extend(function () {
+var ContactCreateView = Picasso.View.extend(function () {
     this.construct($(".formWrapper")[0]);
 
     var that = this;
@@ -51,7 +51,7 @@ var UserCreateView = Picasso.View.extend(function () {
         $(that.dom).hide();
     };
 
-    this.render = function(user){
+    this.render = function(contact){
         this.clearErrors();
 
         $.get("form.json?nocache=" + new Date().getTime(), function(json){
@@ -63,8 +63,8 @@ var UserCreateView = Picasso.View.extend(function () {
             $(that.dom).append(that.getForm().getHTMLElement()).show();
             _bindEvents();
             _afterRender();
-            if(typeof user != "undefined"){
-                that.getForm().value(user);
+            if(typeof contact != "undefined"){
+                that.getForm().value(contact);
             }
         }, "json");
     };
