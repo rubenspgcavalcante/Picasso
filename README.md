@@ -15,7 +15,7 @@ Get the latest version:
 [Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.min.js)  
 [Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.js)
 
-###Dependeces?
+###Dependencies?
 **Nope!**
 
 ###Installing with bower

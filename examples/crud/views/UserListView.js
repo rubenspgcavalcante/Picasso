@@ -3,10 +3,16 @@ var UserListView = Picasso.View.extend(function () {
     var that = this;
 
     var _getLine = function (user) {
-        var editBtn = $("<button>", {class: "edit btn btn-info"}).html("edit");
+        var btnIcon = $('<i class="btn-addon glyphicon"></i>');
+
+        var editBtn = $("<button>", {class: "edit btn btn-xs btn-info"}).html(
+            btnIcon.clone().addClass('glyphicon-pencil').text(" Edit")
+        );
         editBtn.data("id", user.id);
 
-        var removeBtn = $("<button>", {class: "delete btn btn-danger"}).html("del");
+        var removeBtn = $("<button>", {class: "delete btn btn-xs btn-danger"}).html(
+            btnIcon.clone().addClass('glyphicon-remove').text(" Delete")
+        );
         removeBtn.data("id", user.id);
 
         return $("<tr>").append(
@@ -38,7 +44,9 @@ var UserListView = Picasso.View.extend(function () {
         });
 
         $(that.dom).find("tbody .delete").click(function () {
-            that.fire("delete", $(this).data("id"));
+            if (confirm('Are you sure you want delete this contact?')) {
+                that.fire("delete", $(this).data("id"));
+            }
         });
     };
 
