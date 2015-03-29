@@ -73,7 +73,7 @@ Picasso.extend.field("MapField", function () {
 
     /**
      * Returns or sets the value of a field
-     * @param {lat: number, lng: number} pos
+     * @param {{lat: number, lng: number}} pos
      * @override {Picasso.form.field.PicassoField}
      */
     this.value = function (pos) {

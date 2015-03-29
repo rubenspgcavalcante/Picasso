@@ -1158,8 +1158,13 @@ Picasso.Model.prototype = new Picasso.core.Subject();
  */
 Picasso.Model.prototype.set = function (property, value) {
     if (this.hasOwnProperty(property)) {
-        this[property] = value;
-        this.fire("propertyChange", {property: property, value: value});
+        if (this[property] instanceof Picasso.Model) {
+            this[property].update(value);
+        }
+        else {
+            this[property] = value;
+            this.fire("propertyChange", {property: property, value: value});
+        }
     }
 };
 
@@ -1170,7 +1175,7 @@ Picasso.Model.prototype.set = function (property, value) {
  */
 Picasso.Model.prototype.get = function (property) {
     if (this.hasOwnProperty(property)) {
-        return property;
+        return this[property];
     }
 };
 
@@ -1178,9 +1183,9 @@ Picasso.Model.prototype.get = function (property) {
  * Updates the properties of the model
  * @param {Object} plainModel
  */
-Picasso.Model.prototype.update = function(plainModel){
-    for(var i in plainModel){
-        if(plainModel.hasOwnProperty(i)){
+Picasso.Model.prototype.update = function (plainModel) {
+    for (var i in plainModel) {
+        if (plainModel.hasOwnProperty(i)) {
             this.set(i, plainModel[i]);
         }
     }
@@ -1208,7 +1213,31 @@ Picasso.Model.prototype.toPlainObject = function () {
  * @returns {Function} The updated constructor
  */
 Picasso.Model.extend = function (Constructor) {
-    return Picasso.utils.object.extend(Constructor, Picasso.Model);
+    var metaData = [];
+    var sampleModel = new Constructor();
+
+    for (var attr in sampleModel) {
+        if (sampleModel.hasOwnProperty(attr)) {
+            metaData.push(attr);
+        }
+    }
+
+    var Model = Picasso.utils.object.extend(Constructor, Picasso.Model);
+    for (var i = 0; i < metaData.length; i++) {
+        (function (attr) {
+
+            var methodSuffix = attr.charAt(0).toUpperCase() + attr.slice(1);
+            Model.prototype['set' + methodSuffix] = function (val) {
+                this.set(attr, val);
+            };
+
+            Model.prototype['get' + methodSuffix] = function () {
+                return this.get(attr);
+            };
+        }(metaData[i]));
+    }
+
+    return Model;
 };
 
 Picasso.load("View");
