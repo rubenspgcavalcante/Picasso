@@ -102,7 +102,7 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 
 /**
  * Gets the model associated with this controller
- * @return {Picasso.Model}
+ * @return {Picasso.Model|Picasso.Collection}
  */
 Picasso.Controller.prototype.getModel = function(){
     return this._model;

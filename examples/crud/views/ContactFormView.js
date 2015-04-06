@@ -1,4 +1,4 @@
-var ContactCreateView = Picasso.View.extend(function () {
+var ContactFormView = Picasso.View.extend(function () {
     this.construct($(".formWrapper")[0]);
 
     var that = this;
@@ -6,7 +6,7 @@ var ContactCreateView = Picasso.View.extend(function () {
     var _bindEvents = function(){
         var $this = $(that.dom);
         $this.find("form").submit(function(){
-            that.fire("create", that.getForm());
+            that.fire("save", that.getForm());
             return false;
         });
 

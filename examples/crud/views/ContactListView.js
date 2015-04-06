@@ -23,8 +23,7 @@ var ContactListView = Picasso.View.extend(function () {
         )
     };
 
-    var _buildTableLines = function () {
-        var contacts = DB.list();
+    var _buildTableLines = function (contacts) {
         var $table = $(that.dom).find("tbody").html("").end();
 
         for (var i = 0; i < contacts.length; i++) {
@@ -58,8 +57,8 @@ var ContactListView = Picasso.View.extend(function () {
         $(this.dom).show();
     };
 
-    this.render = function () {
-        $(this.dom).find(".tableContainer").html(_buildTableLines());
+    this.render = function (contacts) {
+        $(this.dom).find(".tableContainer").html(_buildTableLines(contacts));
         _bindEvents();
     };
 });

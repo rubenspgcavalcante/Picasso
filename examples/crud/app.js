@@ -1,11 +1,12 @@
-$(document).ready(function(){
+$(document).ready(function () {
     var log = Picasso.load("utils.log");
     log.setLogLevel(log.lvs.INFO);
 
-    var user = new ContactModel();
-    var userCreateView = new ContactCreateView();
-    var userListView = new ContactListView();
-    var userCRUDController = new CRUDController(user, userListView, userCreateView);
+    var contactList = new Picasso.Collection(ContactModel);
+    contactList.addElements(DB.list());
 
-    userListView.render();
+    var contactListView = new ContactListView();
+    var contactListController = new ContactListController(contactList, contactListView);
+
+    contactListController.startApp();
 });
