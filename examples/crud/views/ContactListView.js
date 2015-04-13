@@ -29,17 +29,16 @@ var ContactListView = Picasso.View.extend(function () {
         for (var i = 0; i < contacts.length; i++) {
             $table = $table.find("tbody").append(_getLine(contacts[i])).end();
         }
-
         return $table;
     };
 
     var _bindEvents = function () {
         $(that.dom).find(".btn-create").unbind("click").click(function () {
-            that.fire("showCreate");
+            that.fire("show-create");
         });
 
         $(that.dom).find("tbody .edit").click(function () {
-            that.fire("showEdit", $(this).data("id"));
+            that.fire("show-edit", $(this).data("id"));
         });
 
         $(that.dom).find("tbody .delete").click(function () {

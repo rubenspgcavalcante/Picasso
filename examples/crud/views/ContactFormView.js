@@ -11,7 +11,7 @@ var ContactFormView = Picasso.View.extend(function () {
         });
 
         $this.find("button[type=cancel]").click(function(){
-            that.fire("showList");
+            that.fire("show-list");
         });
 
     };

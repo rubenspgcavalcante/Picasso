@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.8.1",
-    build: "2015-04-06",
+    build: "2015-04-13",
     license: "GPLv3"
 };
 /**
@@ -1045,6 +1045,16 @@ Picasso.Collection.MetaConstructor = function () {
     this.clear = function () {
         for (var i = 0, l = this.length; i < l; i++) {
             this.pop();
+        }
+    };
+
+    /**
+     * Iterates over each element of the collection
+     * @param {function} callback
+     */
+    this.each = function (callback) {
+        for (var i = 0, l = this.length; i < l; i++) {
+            callback(this[i], i);
         }
     };
 

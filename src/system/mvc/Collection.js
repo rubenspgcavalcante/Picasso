@@ -33,6 +33,16 @@ Picasso.Collection.MetaConstructor = function () {
     };
 
     /**
+     * Iterates over each element of the collection
+     * @param {function} callback
+     */
+    this.each = function (callback) {
+        for (var i = 0, l = this.length; i < l; i++) {
+            callback(this[i], i);
+        }
+    };
+
+    /**
      * Gets a element of the collection
      * @param {number} id
      * @returns {?Picasso.Model}

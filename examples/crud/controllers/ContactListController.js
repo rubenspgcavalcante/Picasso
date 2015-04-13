@@ -15,15 +15,15 @@ var ContactListController = Picasso.Controller.extend(function (contactCollectio
         formView.render(contact);
     };
 
-    this.listen("showCreate", function () {
+    this.listen("show-create", function () {
         _showCreate();
     });
 
-    this.listen("showList", function () {
+    this.listen("show-list", function () {
         _showList();
     });
 
-    this.listen("showEdit", function (event) {
+    this.listen("show-edit", function (event) {
         var contact = new ContactModel();
         contact.update(DB.get(event.data));
         _showCreate(contact);
