@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils/array</title>
+    <title>JSDoc: Class: MetaConstructor</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Module: utils/array</h1>
+    <h1 class="page-title">Class: MetaConstructor</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    utils/array
+    MetaConstructor
     </h2>
     
 </header>  
@@ -38,87 +38,25 @@
     
     
         
-            <div class="description">A set of array utils</div>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Members</h3>
-        
-        <dl>
-            
 <dt>
-    <h4 class="name" id="objUtil"><span class="type-signature">&lt;private, inner> </span>objUtil<span class="type-signature"> :<a href="object.html">module:utils/object</a></span></h4>
+    <h4 class="name" id="MetaConstructor"><span class="type-signature"></span>new MetaConstructor<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
     <div class="description">
-        Object utils
+        A model collection constructor
     </div>
     
+
     
     
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type"><a href="object.html">module:utils/object</a></span>
-
-
-            </li>
-        </ul>
     
-
+    
+    
+    
     
 <dl class="details">
     
@@ -142,7 +80,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line16">line 16</a>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line17">line 17</a>
     </li></ul></dd>
     
     
@@ -155,9 +93,37 @@
 
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
 </dd>
 
-        </dl>
+    
+    </div>
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li>Array</li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -166,7 +132,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="each"><span class="type-signature">&lt;inner> </span>each<span class="signature">(arr, call)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addElement"><span class="type-signature"></span>addElement<span class="signature">(element)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -174,478 +140,7 @@
     
     
     <div class="description">
-        Iterates over a array, executing a callback
-to each element
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>call</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="array.html#eachCallback">module:utils/array.eachCallback</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line76">line 76</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="equals"><span class="type-signature">&lt;inner> </span>equals<span class="signature">(arr1, arr2)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Compares two arrays and verify if their are equals
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr1</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">First array</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr2</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Second array</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line50">line 50</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If they are equals
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="find"><span class="type-signature">&lt;inner> </span>find<span class="signature">(arr, element)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Finds a element into the array
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>arr</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">A array to search into</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The element to find</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If the element was found
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-        
-        <dl>
-                
-<dt>
-    <h4 class="name" id="eachCallback"><span class="type-signature"></span>eachCallback<span class="signature">(element, index)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        'For each' callback
+        Adds a element to the collection
     </div>
     
 
@@ -684,8 +179,301 @@ to each element
             
             <td class="type">
             
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="addElements"><span class="type-signature"></span>addElements<span class="signature">(elements)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Adds elements to the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>elements</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Clears the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="each"><span class="type-signature"></span>each<span class="signature">(callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Iterates over each element of the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
                 
-<span class="param-type">*</span>
+<span class="param-type">function</span>
 
 
             
@@ -695,14 +483,108 @@ to each element
             
             
             
-            <td class="description last">Current element of the iteration</td>
+            <td class="description last"></td>
         </tr>
 	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getElement"><span class="type-signature"></span>getElement<span class="signature">(id)</span><span class="type-signature"> &rarr; {<a href="Picasso.Model.html">Picasso.Model</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a element of the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>id</code></td>
             
             
             <td class="type">
@@ -718,7 +600,7 @@ to each element
             
             
             
-            <td class="description last">The current index</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -749,7 +631,277 @@ to each element
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array.js.html">utils/array.js</a>, <a href="array.js.html#line62">line 62</a>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeElement"><span class="type-signature"></span>removeElement<span class="signature">(id)</span><span class="type-signature"> &rarr; {<a href="Picasso.Model.html">Picasso.Model</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Removes a element from the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setCollectionType"><span class="type-signature"></span>setCollectionType<span class="signature">(ModelConstructor)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the type of the collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ModelConstructor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line22">line 22</a>
     </li></ul></dd>
     
     
@@ -774,7 +926,181 @@ to each element
     
 </dd>
 
-            </dl>
+        
+            
+<dt>
+    <h4 class="name" id="updateElement"><span class="type-signature"></span>updateElement<span class="signature">(element, <span class="optional">property</span>)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Update a element from collection
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Picasso.Model.html">Picasso.Model</a></span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    'id'
+                
+                </td>
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Collection.js.html">system/mvc/Collection.js</a>, <a href="Collection.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
     
     
     
