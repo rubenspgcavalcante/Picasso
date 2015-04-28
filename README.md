@@ -15,7 +15,7 @@ Get the latest version:
 [Production](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.min.js)  
 [Development](https://raw.githubusercontent.com/rubenspgcavalcante/Picasso/master/dist/picasso.js)
 
-###Dependeces?
+###Dependencies?
 **Nope!**
 
 ###Installing with bower
@@ -44,3 +44,7 @@ email: [rubenspgcavalcante@gmail.com](mailto:rubenspgcavalcante@gmail.com)
 ![GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)  
 Using GNU GENERAL PUBLIC LICENSE *Version 3, 29 June 2007*  
 See the online version on [gnu.org](http://www.gnu.org/copyleft/gpl.html)  
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rubenspgcavalcante/picasso/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

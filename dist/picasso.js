@@ -54,8 +54,8 @@ var P = P || Picasso;
  */
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
-    version: "0.8.1",
-    build: "2014-09-29",
+    version: "0.9",
+    build: "2015-04-22",
     license: "GPLv3"
 };
 /**
@@ -1014,10 +1014,127 @@ Picasso.core.Subject = function () {
     }
 };
 
+Picasso.load("Collection");
+
+Picasso.Collection = function (ModelConstructor) {
+    var Collection = Picasso.utils.object.extend(Picasso.Collection.MetaConstructor, Array);
+
+    var collection = new Collection();
+    collection.setCollectionType(ModelConstructor);
+
+    return collection;
+};
+
+/**
+ * A model collection constructor
+ * @extends {Array}
+ * @constructor
+ */
+Picasso.Collection.MetaConstructor = function () {
+    /**
+     * Sets the type of the collection
+     * @param {Picasso.Model} ModelConstructor
+     */
+    this.setCollectionType = function (ModelConstructor) {
+        this.ModelConstructor = ModelConstructor;
+    };
+
+    /**
+     * Clears the collection
+     */
+    this.clear = function () {
+        for (var i = 0, l = this.length; i < l; i++) {
+            this.pop();
+        }
+    };
+
+    /**
+     * Iterates over each element of the collection
+     * @param {function} callback
+     */
+    this.each = function (callback) {
+        for (var i = 0, l = this.length; i < l; i++) {
+            callback(this[i], i);
+        }
+    };
+
+    /**
+     * Gets a element of the collection
+     * @param {number} id
+     * @returns {?Picasso.Model}
+     */
+    this.getElement = function (id) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                return this[i];
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Adds a element to the collection
+     * @param element
+     */
+    this.addElement = function (element) {
+        var model = new this.ModelConstructor();
+        model.update(element);
+        this.push(model);
+    };
+
+    /**
+     * Adds elements to the collection
+     * @param elements
+     */
+    this.addElements = function (elements) {
+        for (var i = 0; i < elements.length; i++) {
+            this.addElement(elements[i]);
+        }
+    };
+
+    /**
+     * Removes a element from the collection
+     * @param {number} id
+     * @returns {Picasso.Model}
+     */
+    this.removeElement = function (id) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                return this.splice(i, 1);
+            }
+        }
+    };
+
+    /**
+     * Update a element from collection
+     * @param {Picasso.Model} element
+     * @param {string} [property='id']
+     */
+    this.updateElement = function (element, property) {
+        if (!element.hasOwnProperty(property) || typeof property === 'undefined') {
+            property = 'id';
+        }
+
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].hasOwnProperty(property) && element.hasOwnProperty(property)
+                && element[property] === this[i][property]) {
+
+                this[i].update(element);
+            }
+        }
+    };
+};
 Picasso.load("Controller");
 
 /**
- * The picasso Controller entity
+ * The picasso Controller entity.
+ * To create an application controller use the extend static method
+ * @example:
+ *      var MyCustomController = Picasso.Controller.extend(function (model, view) {
+ *          this.construct(model, view);
+ *          // ...
+ *      });
+ *
  * @param {Picasso.Model} model A model to associate to this controller
  * @param {Picasso.View} view A view to associate to this controller
  * @constructor
@@ -1111,7 +1228,7 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 
 /**
  * Gets the model associated with this controller
- * @return {Picasso.Model}
+ * @return {Picasso.Model|Picasso.Collection}
  */
 Picasso.Controller.prototype.getModel = function(){
     return this._model;
@@ -1151,8 +1268,13 @@ Picasso.Model.prototype = new Picasso.core.Subject();
  */
 Picasso.Model.prototype.set = function (property, value) {
     if (this.hasOwnProperty(property)) {
-        this[property] = value;
-        this.fire("propertyChange", {property: property, value: value});
+        if (this[property] instanceof Picasso.Model) {
+            this[property].update(value);
+        }
+        else {
+            this[property] = value;
+            this.fire("propertyChange", {property: property, value: value});
+        }
     }
 };
 
@@ -1163,7 +1285,7 @@ Picasso.Model.prototype.set = function (property, value) {
  */
 Picasso.Model.prototype.get = function (property) {
     if (this.hasOwnProperty(property)) {
-        return property;
+        return this[property];
     }
 };
 
@@ -1171,9 +1293,9 @@ Picasso.Model.prototype.get = function (property) {
  * Updates the properties of the model
  * @param {Object} plainModel
  */
-Picasso.Model.prototype.update = function(plainModel){
-    for(var i in plainModel){
-        if(plainModel.hasOwnProperty(i)){
+Picasso.Model.prototype.update = function (plainModel) {
+    for (var i in plainModel) {
+        if (plainModel.hasOwnProperty(i)) {
             this.set(i, plainModel[i]);
         }
     }
@@ -1201,7 +1323,31 @@ Picasso.Model.prototype.toPlainObject = function () {
  * @returns {Function} The updated constructor
  */
 Picasso.Model.extend = function (Constructor) {
-    return Picasso.utils.object.extend(Constructor, Picasso.Model);
+    var metaData = [];
+    var sampleModel = new Constructor();
+
+    for (var attr in sampleModel) {
+        if (sampleModel.hasOwnProperty(attr)) {
+            metaData.push(attr);
+        }
+    }
+
+    var Model = Picasso.utils.object.extend(Constructor, Picasso.Model);
+    for (var i = 0; i < metaData.length; i++) {
+        (function (attr) {
+
+            var methodSuffix = attr.charAt(0).toUpperCase() + attr.slice(1);
+            Model.prototype['set' + methodSuffix] = function (val) {
+                this.set(attr, val);
+            };
+
+            Model.prototype['get' + methodSuffix] = function () {
+                return this.get(attr);
+            };
+        }(metaData[i]));
+    }
+
+    return Model;
 };
 
 Picasso.load("View");
@@ -1575,18 +1721,18 @@ Picasso.form.field.PicassoField = function (label, type, required, formIgnore) {
 
     /**
      * Add one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.addClass = function (classes) {
-        htmlUtils.addClass(this._element, classes);
+    this.addClass = function (_class) {
+        htmlUtils.addClass(this._element, _class);
     };
 
     /**
      * Removes one or more classes (separated by space) to the field
-     * @param {string} classes
+     * @param {string} _class
      */
-    this.removeClass = function (classes) {
-        htmlUtils.removeClass(this._element, classes);
+    this.removeClass = function (_class) {
+        htmlUtils.removeClass(this._element, _class);
     };
 
     /**

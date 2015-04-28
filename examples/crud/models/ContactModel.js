@@ -1,4 +1,4 @@
-var UserModel = Picasso.Model.extend(function () {
+var ContactModel = Picasso.Model.extend(function () {
     this.id = null;
     this.name = null;
     this.email = null;

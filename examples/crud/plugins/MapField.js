@@ -48,11 +48,13 @@ Picasso.extend.field("MapField", function () {
     this.build = function (field) {
         var $map = $("<div>", {class: "map-field"});
         lMap = L.map($map[0]).setView([0, 0], 2);
-        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            attribution: [
+            'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ',
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ',
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>'
+            ].join(''),
             id: 'examples.map-i86knfo3'
         }).addTo(lMap);
 
@@ -71,7 +73,7 @@ Picasso.extend.field("MapField", function () {
 
     /**
      * Returns or sets the value of a field
-     * @param {lat: number, lng: number} pos
+     * @param {{lat: number, lng: number}} pos
      * @override {Picasso.form.field.PicassoField}
      */
     this.value = function (pos) {

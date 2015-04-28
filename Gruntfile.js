@@ -64,13 +64,13 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: '/**\n' +
-                    '* Picasso\n' +
-                    '* A Framework to build dinamic forms using MVC\n' +
-                    '* Build date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                    '* @author <%= pkg.author.name %>\n' +
-                    '* @version <%= pkg.version %>\n' +
-                    '* @license <%= pkg.license %>\n' +
-                    '*/\n'
+                '* Picasso\n' +
+                '* A Framework to build dinamic forms using MVC\n' +
+                '* Build date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+                '* @author <%= pkg.author.name %>\n' +
+                '* @version <%= pkg.version %>\n' +
+                '* @license <%= pkg.license %>\n' +
+                '*/\n'
             },
             dist: {
                 src: "dist/<%= pkg.name %>.js",

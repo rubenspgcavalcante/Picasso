@@ -1,7 +1,14 @@
 Picasso.load("Controller");
 
 /**
- * The picasso Controller entity
+ * The picasso Controller entity.
+ * To create an application controller use the extend static method
+ * @example:
+ *      var MyCustomController = Picasso.Controller.extend(function (model, view) {
+ *          this.construct(model, view);
+ *          // ...
+ *      });
+ *
  * @param {Picasso.Model} model A model to associate to this controller
  * @param {Picasso.View} view A view to associate to this controller
  * @constructor
@@ -95,7 +102,7 @@ Picasso.Controller.prototype.listen = function (uiActionName, callback) {
 
 /**
  * Gets the model associated with this controller
- * @return {Picasso.Model}
+ * @return {Picasso.Model|Picasso.Collection}
  */
 Picasso.Controller.prototype.getModel = function(){
     return this._model;
