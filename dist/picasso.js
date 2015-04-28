@@ -54,8 +54,8 @@ var P = P || Picasso;
  */
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
-    version: "0.9",
-    build: "2015-04-22",
+    version: "0.9.0",
+    build: "2015-04-28",
     license: "GPLv3"
 };
 /**
@@ -2147,6 +2147,12 @@ Picasso.form.PicassoForm = function () {
     var element = null;
 
     /**
+     * Describes the valid state of the form
+     * @type {boolean}
+     */
+    this.valid = false;
+
+    /**
      * Adds a field to the form
      * @param {Picasso.form.field.PicassoField} pField
      */
@@ -2296,8 +2302,9 @@ Picasso.form.Validator = function (_form) {
         var validation = {};
         for (var i = 0; i < fields.length; i++) {
             var f = fields[i];
-            if(!f.isFormIgnored()){
+            if (!f.isFormIgnored()) {
                 validation[f.getId()] = this.validate(f);
+                pForm.valid = pForm.valid && validation[f.getId()];
             }
         }
 

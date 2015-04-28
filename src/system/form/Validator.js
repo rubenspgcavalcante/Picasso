@@ -46,8 +46,9 @@ Picasso.form.Validator = function (_form) {
         var validation = {};
         for (var i = 0; i < fields.length; i++) {
             var f = fields[i];
-            if(!f.isFormIgnored()){
+            if (!f.isFormIgnored()) {
                 validation[f.getId()] = this.validate(f);
+                pForm.valid = pForm.valid && validation[f.getId()];
             }
         }
 

@@ -24,67 +24,14 @@
 </div>
 
 <div class="container">
-    <div id="json-form" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">JSON used to build the form</h4>
-                </div>
-                <pre class="prettyprint lang-json linenums nocode">
 
-                </pre>
-            </div>
-        </div>
+    <div class="templateContainer">
+
     </div>
-
-    <div class="starter-template formWrapper" style="display: none">
-        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#json-form">
-            Show the JSON
-        </button>
-        <div>
-            <ul class="errors bg-danger list-inline" style="display: none"></ul>
-        </div>
-        <!--
-            The Form will be rendered here.
-            See the ContactFormView for more details
-        -->
-    </div>
-    <br/>
-
-    <div class="panel panel-default tableContainer">
-        <div class="panel-heading">
-            <h1 class="panel-title">Contact list</h1>
-        </div>
-
-        <div class="panel-body">
-            <button class="btn btn-sm btn-success btn-create">
-                <i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Create
-            </button>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th style="width: 64px"></th>
-                    <th style="width: 64px"></th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div class="panel-footer">
-            <p class="text-muted text-right">
-                <i class="glyphicon glyphicon-warning-sign text-danger"></i>
-                All the data is stored in web browser cache
-            </p>
-        </div>
-    </div>
-
 </div>
 
 <script type="text/javascript" src="vendor/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="vendor/underscore-min.js"></script>
 <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="vendor/leaflet/leaflet.js"></script>
 <script type="text/javascript" src="vendor/google-code-prettify/prettify.js"></script>
@@ -95,6 +42,8 @@
 <script type="text/javascript" src="plugins/MapField.js"></script>
 
 <script type="text/javascript" src="db.js"></script>
+<script type="text/javascript" src="TemplateLoader.js"></script>
+
 <script type="text/javascript" src="models/ContactModel.js"></script>
 
 <script type="text/javascript" src="controllers/ContactFormController.js"></script>

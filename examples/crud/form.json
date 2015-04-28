@@ -1,141 +1,134 @@
 {
-    "id": "myform",
-    "attrs": {
-        "method": "POST",
-        "class": "form"
-    },
-
-
-    "grid": [
+  "id": "myform",
+  "attrs": {
+    "method": "POST",
+    "class": "form"
+  },
+  "grid": [
+    {
+      "id": "block1",
+      "legend": "Options",
+      "columns": [
         {
-            "id": "block1",
-            "legend": "Options",
-            "columns": [
-                {
-                    "id": "buttonsGrid",
-                    "fields": [
-                        {
-                            "type": "submit",
-                            "value": "submit",
-                            "form-ignore": true
-                        },
-                        {
-                            "type": "cancel",
-                            "value": "cancel",
-                            "form-ignore": true
-                        },
-                        {
-                            "id": "id",
-                            "type": "hidden"
-                        }
-                    ]
-                }
-            ]
-        },
-
-        {
-            "id": "block2",
-            "legend": "Personal Data",
-
-            "columns": [
-                {
-                    "id": "section1",
-                    "attrs": {
-                        "class": "section"
-                    },
-                    "fields": [
-                        {
-                            "id": "name",
-                            "type": "text",
-                            "label": "name",
-                            "required": true,
-                            "attrs": {
-                                "name": "name"
-                            }
-                        },
-
-                        {
-                            "id": "email",
-                            "type": "text",
-                            "label": "email",
-                            "attrs": {
-                                "name": "email"
-                            }
-                        }
-                    ]
-                },
-
-                {
-                    "id": "section2",
-                    "attrs": {
-                        "class": "section"
-                    },
-                    "fields": [
-                        {
-                            "id": "password",
-                            "type": "password",
-                            "label": "password",
-                            "required": true,
-                            "attrs": {
-                                "name": "password"
-                            }
-                        },
-
-                        {
-                            "id": "passwordConfirmation",
-                            "type": "password",
-                            "label": "password confirmation",
-                            "required": true,
-                            "attrs": {
-                                "name": "passwordConfirmation"
-                            }
-                        }
-                    ]
-                },
-
-                {
-                    "id": "section3",
-                    "attrs": {
-                        "class": "section"
-                    },
-                    "fields": [
-                        {
-                            "id": "date",
-                            "type": "DateField",
-                            "label": "birth date",
-                            "required": true,
-                            "attrs": {
-                                "name": "passwordConfirmation"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-
-        {
-            "id": "block3",
-            "legend": "Address",
-
-            "columns": [
-                {
-                    "id": "mapSection",
-                    "attrs": {
-                        "class": "section"
-                    },
-                    "fields": [
-                        {
-                            "id": "address",
-                            "type": "MapField",
-                            "label": "name",
-                            "required": true,
-                            "attrs": {
-                                "name": "name"
-                            }
-                        }
-                    ]
-                }
-            ]
+          "id": "buttonsGrid",
+          "fields": [
+            {
+              "type": "button",
+              "value": "submit",
+              "form-ignore": true,
+              "attrs": {
+                "class": "btn btn-default save"
+              }
+            },
+            {
+              "type": "cancel",
+              "value": "cancel",
+              "form-ignore": true
+            },
+            {
+              "id": "id",
+              "type": "hidden"
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "id": "block2",
+      "legend": "Personal Data",
+      "columns": [
+        {
+          "id": "section1",
+          "attrs": {
+            "class": "section"
+          },
+          "fields": [
+            {
+              "id": "name",
+              "type": "text",
+              "label": "name",
+              "required": true,
+              "attrs": {
+                "name": "name"
+              }
+            },
+            {
+              "id": "email",
+              "type": "text",
+              "label": "email",
+              "attrs": {
+                "name": "email"
+              }
+            }
+          ]
+        },
+        {
+          "id": "section2",
+          "attrs": {
+            "class": "section"
+          },
+          "fields": [
+            {
+              "id": "password",
+              "type": "password",
+              "label": "password",
+              "required": true,
+              "attrs": {
+                "name": "password"
+              }
+            },
+            {
+              "id": "passwordConfirmation",
+              "type": "password",
+              "label": "password confirmation",
+              "required": true,
+              "attrs": {
+                "name": "passwordConfirmation"
+              }
+            }
+          ]
+        },
+        {
+          "id": "section3",
+          "attrs": {
+            "class": "section"
+          },
+          "fields": [
+            {
+              "id": "date",
+              "type": "DateField",
+              "label": "birth date",
+              "required": true,
+              "attrs": {
+                "name": "passwordConfirmation"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block3",
+      "legend": "Address",
+      "columns": [
+        {
+          "id": "mapSection",
+          "attrs": {
+            "class": "section"
+          },
+          "fields": [
+            {
+              "id": "address",
+              "type": "MapField",
+              "label": "name",
+              "required": true,
+              "attrs": {
+                "name": "name"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

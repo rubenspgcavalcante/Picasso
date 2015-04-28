@@ -1,0 +1,12 @@
+<ul class="errors bg-danger list-inline">
+    <% _.each(validations, function(validation) { %>
+        <li>
+            <%= validation.field.getLabel() %>
+            <ul>
+                <% _.each(validation.errorMessages, function(msg){ %>
+                <li><%= msg %></li>
+                <% }); %>
+            </ul>
+        </li>
+    <% }); %>
+</ul>

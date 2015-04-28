@@ -4,18 +4,8 @@ var ContactFormController = Picasso.Controller.extend(function (contact, formVie
 
     var _validateForm = function(form){
         var validations = that.validator.validateForm(form);
-        var valid = true;
-        formView.clearErrors();
-
-        for(var i in validations){
-            if(validations.hasOwnProperty(i)){
-                if(validations[i].valid != null && !validations[i].valid){
-                    formView.addValidationError(validations[i]);
-                    valid = false;
-                }
-            }
-        }
-        return valid;
+        formView.addValidationErrors(validations);
+        return form.valid;
     };
 
     this.listen("save", function (event) {

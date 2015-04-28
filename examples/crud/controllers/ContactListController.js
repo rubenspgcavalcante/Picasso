@@ -7,11 +7,10 @@ var ContactListController = Picasso.Controller.extend(function (contactCollectio
     var _showList = function () {
         formView.destroy();
         listView.render(that.getModel());
-        listView.show();
     };
 
     var _showCreate = function (contact) {
-        listView.hide();
+        listView.destroy();
         formView.render(contact);
     };
 

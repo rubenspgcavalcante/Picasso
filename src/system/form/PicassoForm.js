@@ -21,6 +21,12 @@ Picasso.form.PicassoForm = function () {
     var element = null;
 
     /**
+     * Describes the valid state of the form
+     * @type {boolean}
+     */
+    this.valid = false;
+
+    /**
      * Adds a field to the form
      * @param {Picasso.form.field.PicassoField} pField
      */
