@@ -39,11 +39,11 @@ table .edit, table .delete {
 
 .grid-block {
     background-color: #FFFFFF;
+    border: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
     box-shadow: none;
     margin-left: 0;
     margin-right: 0;
-    height: 88px;
     width: 100%;
     margin-top: 10px;
 }
@@ -52,11 +52,6 @@ table .edit, table .delete {
     border-color: #DDDDDD;
     border-width: 1px;
     border-style: solid;
-    height: 120px;
-}
-
-#block2 {
-    height: 200px;
 }
 
 .bg-info {

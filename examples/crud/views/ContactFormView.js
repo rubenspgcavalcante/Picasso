@@ -51,7 +51,7 @@ var ContactFormView = Picasso.View.extend(function () {
 
             var errors = [];
             for (var i in validations) {
-                if (validations.hasOwnProperty(i) && !validations[i].valid) {
+                if (validations.hasOwnProperty(i) && validations[i].valid === false) {
                     errors.push(validations[i]);
                     validations[i].field.addClass('has-error');
                 }

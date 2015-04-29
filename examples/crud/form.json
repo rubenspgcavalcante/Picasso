@@ -8,6 +8,9 @@
     {
       "id": "block1",
       "legend": "Options",
+      "attrs": {
+        "class": "row"
+      },
       "columns": [
         {
           "id": "buttonsGrid",
@@ -36,6 +39,9 @@
     {
       "id": "block2",
       "legend": "Personal Data",
+      "attrs": {
+        "class": "row"
+      },
       "columns": [
         {
           "id": "section1",
@@ -110,6 +116,9 @@
     {
       "id": "block3",
       "legend": "Address",
+      "attrs": {
+        "class": "row"
+      },
       "columns": [
         {
           "id": "mapSection",

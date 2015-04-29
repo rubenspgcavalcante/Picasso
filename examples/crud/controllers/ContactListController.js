@@ -28,12 +28,12 @@ var ContactListController = Picasso.Controller.extend(function (contactCollectio
         _showCreate(contact);
     });
 
-    this.listen("save-complete", function (event) {
-        if(this.getModel().getElement(event.data) != null){
+    formController.onSaveComplete(function (newContact) {
+        if (this.getModel().getElement(newContact) != null) {
             that.getModel().updateElement(formController.getModel());
         }
         else {
-            that.getModel().addElement(DB.get(event.data));
+            that.getModel().addElement(DB.get(newContact));
         }
         _showList();
     });

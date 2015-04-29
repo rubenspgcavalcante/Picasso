@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.9.0",
-    build: "2015-04-28",
+    build: "2015-04-29",
     license: "GPLv3"
 };
 /**
@@ -2300,14 +2300,21 @@ Picasso.form.Validator = function (_form) {
     this.validateForm = function (pForm) {
         var fields = pForm.getFields();
         var validation = {};
+        var formValid = true;
+
         for (var i = 0; i < fields.length; i++) {
             var f = fields[i];
             if (!f.isFormIgnored()) {
                 validation[f.getId()] = this.validate(f);
-                pForm.valid = pForm.valid && validation[f.getId()];
+
+                //If there's no validator registered, the valid property is always null
+                if (validation[f.getId()].valid !== null) {
+                    formValid = formValid && !!validation[f.getId()].valid;
+                }
             }
         }
 
+        pForm.valid = formValid;
         return validation;
     };
 };
