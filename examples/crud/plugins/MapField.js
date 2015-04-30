@@ -51,7 +51,7 @@ Picasso.extend.field("MapField", function () {
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: [
-            'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ',
+                'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ',
                 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ',
                 'Imagery © <a href="http://mapbox.com">Mapbox</a>'
             ].join(''),
@@ -77,7 +77,7 @@ Picasso.extend.field("MapField", function () {
      * @override {Picasso.form.field.PicassoField}
      */
     this.value = function (pos) {
-        if (typeof pos != "undefined") {
+        if (typeof pos != "undefined" && pos.lat != null && pos.lng != null) {
             if (marker != null) {
                 lMap.removeLayer(marker);
             }

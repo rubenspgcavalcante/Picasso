@@ -21,6 +21,7 @@ var ContactListView = Picasso.View.extend(function () {
 
     var _compileTemplate = function (templateStr, contacts) {
         var compiled = _.template(templateStr);
+        that.destroy();
         $(that.dom).html(compiled({contacts: contacts}));
         _bindEvents();
     };

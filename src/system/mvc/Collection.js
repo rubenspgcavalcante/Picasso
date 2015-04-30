@@ -2,7 +2,6 @@ Picasso.load("Collection");
 
 Picasso.Collection = function (ModelConstructor) {
     var Collection = Picasso.utils.object.extend(Picasso.Collection.MetaConstructor, Array);
-
     var collection = new Collection();
     collection.setCollectionType(ModelConstructor);
 
@@ -49,7 +48,7 @@ Picasso.Collection.MetaConstructor = function () {
      */
     this.getElement = function (id) {
         for (var i = 0; i < this.length; i++) {
-            if (this[i].id === id) {
+            if (this[i].id == id) {
                 return this[i];
             }
         }

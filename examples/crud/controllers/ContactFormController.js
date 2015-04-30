@@ -3,13 +3,13 @@ var ContactFormController = Picasso.Controller.extend(function (contact, formVie
     var that = this;
     var saveCallback = new Function();
 
-    var _validateForm = function(form){
+    var _validateForm = function (form) {
         var validations = that.validator.validateForm(form);
         formView.addValidationErrors(validations);
         return form.valid;
     };
 
-    this.onSaveComplete = function(callback){
+    this.onSaveComplete = function (callback) {
         saveCallback = callback;
     };
 
@@ -18,7 +18,7 @@ var ContactFormController = Picasso.Controller.extend(function (contact, formVie
         if (_validateForm(form)) {
             var contact = form.value();
             DB.save(contact);
-            saveCallback(event.data);
+            saveCallback(contact);
         }
     });
 

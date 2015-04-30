@@ -55,7 +55,7 @@ var P = P || Picasso;
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
     version: "0.9.1",
-    build: "2015-04-29",
+    build: "2015-04-30",
     license: "GPLv3"
 };
 /**
@@ -928,6 +928,7 @@ Picasso.core.Subject = function () {
      * Visits all the associated handlers to the given event
      * and call it or remove it
      * @param {string} action
+     * @param {function} callback
      * @param {Picasso.pjo.Event} event
      * @private
      */
@@ -1018,7 +1019,6 @@ Picasso.load("Collection");
 
 Picasso.Collection = function (ModelConstructor) {
     var Collection = Picasso.utils.object.extend(Picasso.Collection.MetaConstructor, Array);
-
     var collection = new Collection();
     collection.setCollectionType(ModelConstructor);
 
@@ -1065,7 +1065,7 @@ Picasso.Collection.MetaConstructor = function () {
      */
     this.getElement = function (id) {
         for (var i = 0; i < this.length; i++) {
-            if (this[i].id === id) {
+            if (this[i].id == id) {
                 return this[i];
             }
         }

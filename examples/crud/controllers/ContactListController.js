@@ -29,11 +29,11 @@ var ContactListController = Picasso.Controller.extend(function (contactCollectio
     });
 
     formController.onSaveComplete(function (newContact) {
-        if (this.getModel().getElement(newContact) != null) {
+        if (that.getModel().getElement(newContact.id) != null) {
             that.getModel().updateElement(formController.getModel());
         }
         else {
-            that.getModel().addElement(DB.get(newContact));
+            that.getModel().addElement(DB.get(newContact.id));
         }
         _showList();
     });
@@ -45,6 +45,6 @@ var ContactListController = Picasso.Controller.extend(function (contactCollectio
     });
 
     this.startApp = function () {
-        listView.render(this.getModel());
+        listView.render(that.getModel());
     };
 });

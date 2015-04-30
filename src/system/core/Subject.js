@@ -17,6 +17,7 @@ Picasso.core.Subject = function () {
      * Visits all the associated handlers to the given event
      * and call it or remove it
      * @param {string} action
+     * @param {function} callback
      * @param {Picasso.pjo.Event} event
      * @private
      */
