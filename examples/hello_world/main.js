@@ -1,46 +1,67 @@
 (function (document) {
     var App = {};
 
-    App.HelloModel = Picasso.Model(function () {
+    App.HelloModel = Picasso.Model.extend(function () {
         this.message = null;
     });
 
-    App.MainController = Picasso.Controller(function (model, view) {
+    App.MainController = Picasso.Controller.extend(function (model, view) {
         this.construct(model, view);
+        var that = this;
 
-        this.listen('click', function (event) {
-            console.log('Button has been clicked!');
+        this.listen('click-on-button', function (event) {
+            that.getModel().update(event.data);
+            alert('Button has been clicked! The message is: ' + that.getModel().getMessage());
         });
+
+        this.startApp = function(){
+            view.render();
+        };
 
     });
 
-    App.FormView = Picasso.View(function () {
+    App.FormView = Picasso.View.extend(function () {
         this.construct(document.getElementById('form-container'));
+        var that = this;
 
         this.render = function () {
             var myForm = this.buildForm({
                 id: 'my-form',
-                grid: {
+                grid: [{
                     id: 'form-grid',
-                    collumns: [{
-                        id: 'section',
-                        fields: [{
-                            id: "message",
-                            type: "text",
-                            label: "message"
-                        }]
-                    }]
-                }
+                    columns: [
+                        {
+                            id: 'btnSection',
+                            fields: [{
+                                id: "clickBtn",
+                                type: "button",
+                                value: "click-me"
+                            }]
+                        },
+
+                        {
+                            id: 'inputSection',
+                            fields: [{
+                                id: "message",
+                                type: "text",
+                                label: "message"
+                            }]
+                        }
+                    ]
+                }]
             });
             this.setForm(myForm);
+            this.bindFormData();
+
+            this.dom.appendChild(this.getForm().getHTMLElement());
+            document.getElementById('clickBtn').onclick = function () {
+                that.fire('click-on-button', that.getForm().value());
+            }
         };
     });
 
 
-    var hello = new App.HelloModel();
-    var formView = new App.FormView();
-
-    var controller = new App.MainController(hello, formView);
-    formView.render();
+    var controller = new App.MainController(new App.HelloModel(), new App.FormView());
+    controller.startApp();
 
 })(document, window, undefined);
