@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: system/pjo/form/Validation.js</title>
+    <title>JSDoc: Source: system/form/validators/email.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: system/pjo/form/Validation.js</h1>
+    <h1 class="page-title">Source: system/form/validators/email.js</h1>
     
     
 
@@ -25,23 +25,29 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>Picasso.load("pjo.Validation");
+            <pre class="prettyprint source"><code>Picasso.load("form.validators.text");
 
 /**
- * A validation object
- * @constructor
+ * Default validation for text fields
+ * @param {Picasso.form.field.PicassoField} emailField
+ * @returns {Picasso.pjo.Validation}
  */
-Picasso.pjo.Validation = function () {
+Picasso.form.validators.email = function (emailField) {
+    var validation = new Picasso.pjo.Validation();
+    validation.field = emailField;
 
-    /** @type {Picasso.form.field.PicassoField} */
-    this.field = null;
+    validation.valid = typeof emailField.value() != "undefined";
+    if (!validation.valid) {
+        validation.errorMessages.push("Field value is undefined");
+    }
 
-    /** @type {string[]} */
-    this.errorMessages = [];
+    var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    if (!emailRegex.test(emailField.value())) {
+        validation.valid = false;
+        validation.errorMessages.push("Field contains a invalid email");
+    }
 
-    /**0@type {boolean} */
-    this.valid = false;
-
+    return validation;
 };</code></pre>
         </article>
     </section>

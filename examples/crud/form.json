@@ -60,7 +60,7 @@
             },
             {
               "id": "email",
-              "type": "text",
+              "type": "email",
               "label": "email",
               "attrs": {
                 "name": "email"
