@@ -1,27 +1,49 @@
-<div class="starter-template tableContainer">
-    <button class="btn btn-info btn-create">Create</button>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th style="width: 64px"></th>
-            <th style="width: 64px"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% _.each(contacts, function(contact){ %>
-        <tr>
-            <td><%= contact.name %></td>
-            <td><%= contact.email %></td>
-            <td>
-                <button class="edit btn btn-info" data-element-id="<%= contact.id %>">edit</button>
-            </td>
-            <td>
-                <button class="delete btn btn-danger" data-element-id="<%= contact.id %>">delete</button>
-            </td>
-        </tr>
-        <% }); %>
-        </tbody>
-    </table>
+<div class="col-sm-12">
+    <div class="row">&nbsp;</div>
+
+    <div class="panel panel-default tableContainer">
+        <div class="panel-heading">
+            <h1 class="panel-title">Contact list</h1>
+        </div>
+
+        <div class="panel-body">
+            <button class="btn btn-sm btn-success btn-create">
+                <i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Create
+            </button>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th style="width: 64px"></th>
+                    <th style="width: 64px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% _.each(contacts, function(contact){ %>
+                <tr>
+                    <td><%= contact.name %></td>
+                    <td><%= contact.email %></td>
+                    <td>
+                        <button class="edit btn btn-xs btn-info" data-element-id="<%= contact.id %>">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp; Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button class="delete btn btn-xs btn-danger" data-element-id="<%= contact.id %>">
+                            <i class="glyphicon glyphicon-remove"></i>&nbsp; Delete
+                        </button>
+                    </td>
+                </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <p class="text-muted text-right">
+                <i class="glyphicon glyphicon-warning-sign text-danger"></i>
+                All the data is stored in web browser cache
+            </p>
+        </div>
+    </div>
 </div>
