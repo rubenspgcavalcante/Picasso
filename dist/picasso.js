@@ -54,8 +54,8 @@ var P = P || Picasso;
  */
 Picasso.info = {
     author: "Rubens Pinheiro Gonçalves Cavalcante",
-    version: "0.9.1",
-    build: "2015-04-30",
+    version: "0.9.2",
+    build: "2015-05-09",
     license: "GPLv3"
 };
 /**
@@ -1491,12 +1491,12 @@ Picasso.form.validators.email = function (emailField) {
     validation.field = emailField;
 
     validation.valid = typeof emailField.value() != "undefined";
-    if (!validation.valid) {
+    if (!validation.valid && emailField.isRequired()) {
         validation.errorMessages.push("Field value is undefined");
     }
 
     var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    if (!emailRegex.test(emailField.value())) {
+    if (!emailRegex.test(emailField.value()) && emailField.isRequired()) {
         validation.valid = false;
         validation.errorMessages.push("Field contains a invalid email");
     }
