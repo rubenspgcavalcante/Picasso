@@ -1,4 +1,31 @@
-/* Picasso
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: picasso.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: picasso.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Picasso
  * A Framework to build dinamic forms using MVC
  * Build date: Sun, 11 Oct 2015 01:45:03 GMT
  * @author Rubens Pinheiro Gonçalves Cavalcante
@@ -86,7 +113,7 @@ Picasso.load = function (namespace) {
         parts = parts.slice(1);
     }
 
-    for (var i = 0; i < parts.length; i++) {
+    for (var i = 0; i &lt; parts.length; i++) {
         if (typeof currentObj[parts[i]] === "undefined") {
             currentObj[parts[i]] = {};
         }
@@ -362,7 +389,7 @@ Picasso.load("error.InvalidParameters");
 /**
  * Invalid parameters error
  * @param {string} funcName The name of the function that are throwing this error
- * @param {Object<string, String>} errorParameters A map of parameter/error message type
+ * @param {Object&lt;string, String>} errorParameters A map of parameter/error message type
  * @param {Object} context The context that the error occurred
  * @extends {Error}
  * @constructor
@@ -429,8 +456,8 @@ Picasso.utils.array = (
          * @public
          */
         var find = function (arr, element) {
-            for (var i = 0; i < arr.length; i++) {
-                if (typeof arr[i] == 'object' && typeof element == 'object') {
+            for (var i = 0; i &lt; arr.length; i++) {
+                if (typeof arr[i] == 'object' &amp;&amp; typeof element == 'object') {
                     if (objUtil.equals(arr[i], element)) {
                         return true;
                     }
@@ -455,7 +482,7 @@ Picasso.utils.array = (
         var equals = function (arr1, arr2) {
             if (arr1.length != arr2.length) return false;
 
-            for (var i = 0; i < arr2.length; i++) {
+            for (var i = 0; i &lt; arr2.length; i++) {
                 if (!find(arr1, arr2[i])) {
                     return false;
                 }
@@ -486,7 +513,7 @@ Picasso.utils.array = (
             var i, l;
 
             l = arr.length;
-            for (i = 0; i < l; i++) {
+            for (i = 0; i &lt; l; i++) {
                 call(arr[i], i);
             }
         };
@@ -539,7 +566,7 @@ Picasso.utils.html = (
                 toAppend = [_class]
             }
 
-            for (i = 0; i < toAppend.length; i++) {
+            for (i = 0; i &lt; toAppend.length; i++) {
                 if (!classes.contains(toAppend[i])) {
                     classes.add(toAppend[i]);
                 }
@@ -562,7 +589,7 @@ Picasso.utils.html = (
                 toRemove = [_class]
             }
 
-            for (i = 0; i < toRemove.length; i++) {
+            for (i = 0; i &lt; toRemove.length; i++) {
                 if (!classes.contains(toRemove[i])) {
                     classes.remove(toRemove[i]);
                 }
@@ -750,7 +777,7 @@ Picasso.utils.object = (
                             break;
                         case 'function':
                             if (typeof(obj2[path]) == 'undefined' ||
-                                (path != 'equals' && obj1[path].toString() != obj2[path].toString())
+                                (path != 'equals' &amp;&amp; obj1[path].toString() != obj2[path].toString())
                                 ) {
                                 return false;
                             }
@@ -799,7 +826,7 @@ Picasso.utils.object = (
             }
 
             for (var property in pjo) {
-                if (pjo.hasOwnProperty(property) && formattedObj.hasOwnProperty(property)) {
+                if (pjo.hasOwnProperty(property) &amp;&amp; formattedObj.hasOwnProperty(property)) {
                     pjo[property] = formattedObj[property];
                 }
             }
@@ -836,7 +863,7 @@ Picasso.load("core.Sequence");
 Picasso.core.Sequence = (function () {
     /**
      * Stores all the sequences
-     * @type {Object<string, number>}
+     * @type {Object&lt;string, number>}
      * @private
      * @static
      */
@@ -863,7 +890,7 @@ Picasso.core.Sequence = (function () {
     };
 
     /**
-     * Controls a sequence of the given entity. </br>
+     * Controls a sequence of the given entity. &lt;/br>
      * Take note that this is the real Sequence constructor.
      *
      * @param {string} entity The entity name
@@ -928,7 +955,7 @@ Picasso.core.Subject = function () {
 
     /**
      * All the event handlers (Observers) are stored here
-     * @type {Object<string, Picasso.pjo.EventHandler[]>}
+     * @type {Object&lt;string, Picasso.pjo.EventHandler[]>}
      */
     var handlers = {};
 
@@ -943,17 +970,17 @@ Picasso.core.Subject = function () {
     var _visit = function (action, event, callback) {
 
         var evListeners = handlers[event.name] || [];
-        for (var i = 0; i < evListeners.length; i++) {
+        for (var i = 0; i &lt; evListeners.length; i++) {
             if (action == "fire") {
                 var cbk = evListeners[i].callback;
-                if(typeof cbk == "string" && evListeners[i].context.hasOwnProperty(cbk)){
+                if(typeof cbk == "string" &amp;&amp; evListeners[i].context.hasOwnProperty(cbk)){
                     evListeners[i].context[cbk](event);
                 }
                 else{
                     evListeners[i].callback.call(evListeners.context, event);
                 }
             }
-            else if (evListeners[i].callback === callback && (event.context == null || evListeners.context === event.context)) {
+            else if (evListeners[i].callback === callback &amp;&amp; (event.context == null || evListeners.context === event.context)) {
                 evListeners.splice(i, 1);
             }
         }
@@ -998,7 +1025,7 @@ Picasso.core.Subject = function () {
             throw new Picasso.error.InvalidParameters("usubscribe", {eventType: "obrigatory"}, this._unsubscribe);
         }
 
-        if (typeof callback == "undefined" && typeof context == "undefined") {
+        if (typeof callback == "undefined" &amp;&amp; typeof context == "undefined") {
             delete handlers[eventType];
         }
         else {
@@ -1051,7 +1078,7 @@ Picasso.Collection.MetaConstructor = function () {
      * Clears the collection
      */
     this.clear = function () {
-        for (var i = 0, l = this.length; i < l; i++) {
+        for (var i = 0, l = this.length; i &lt; l; i++) {
             this.pop();
         }
     };
@@ -1061,7 +1088,7 @@ Picasso.Collection.MetaConstructor = function () {
      * @param {function} callback
      */
     this.each = function (callback) {
-        for (var i = 0, l = this.length; i < l; i++) {
+        for (var i = 0, l = this.length; i &lt; l; i++) {
             callback(this[i], i);
         }
     };
@@ -1072,7 +1099,7 @@ Picasso.Collection.MetaConstructor = function () {
      * @returns {?Picasso.Model}
      */
     this.getElement = function (id) {
-        for (var i = 0; i < this.length; i++) {
+        for (var i = 0; i &lt; this.length; i++) {
             if (this[i].id == id) {
                 return this[i];
             }
@@ -1095,7 +1122,7 @@ Picasso.Collection.MetaConstructor = function () {
      * @param elements
      */
     this.addElements = function (elements) {
-        for (var i = 0; i < elements.length; i++) {
+        for (var i = 0; i &lt; elements.length; i++) {
             this.addElement(elements[i]);
         }
     };
@@ -1106,7 +1133,7 @@ Picasso.Collection.MetaConstructor = function () {
      * @returns {Picasso.Model}
      */
     this.removeElement = function (id) {
-        for (var i = 0; i < this.length; i++) {
+        for (var i = 0; i &lt; this.length; i++) {
             if (this[i].id == id) {
                 return this.splice(i, 1);
             }
@@ -1123,9 +1150,9 @@ Picasso.Collection.MetaConstructor = function () {
             property = 'id';
         }
 
-        for (var i = 0; i < this.length; i++) {
-            if (this[i].hasOwnProperty(property) && element.hasOwnProperty(property)
-                && element[property] === this[i][property]) {
+        for (var i = 0; i &lt; this.length; i++) {
+            if (this[i].hasOwnProperty(property) &amp;&amp; element.hasOwnProperty(property)
+                &amp;&amp; element[property] === this[i][property]) {
 
                 this[i].update(element);
             }
@@ -1162,7 +1189,7 @@ Picasso.Controller = function (model, view) {
     this._model = null;
 
     /**
-     * @type {Object<string, Picasso.View>}
+     * @type {Object&lt;string, Picasso.View>}
      * @protected
      */
     this._views = {};
@@ -1182,7 +1209,7 @@ Picasso.Controller = function (model, view) {
  */
 Picasso.Controller.prototype._registerUIAction = function (view) {
     var l = this._UIActions.length;
-    for (var i = 0; i < l; i++) {
+    for (var i = 0; i &lt; l; i++) {
         var evHandler = this._UIActions[i];
         view._subscribe(evHandler.eventName, evHandler.callback);
     }
@@ -1199,7 +1226,7 @@ Picasso.Controller.prototype.construct = function (model) {
     this._model = model;
     var l = arguments.length;
     if (l > 1) {
-        for (var i = 1; i < l; i++) {
+        for (var i = 1; i &lt; l; i++) {
             if (arguments[i] instanceof Picasso.View) {
                 this.registerView(arguments[i]);
                 arguments[i].setModel(model);
@@ -1317,7 +1344,7 @@ Picasso.Model.prototype.update = function (plainModel) {
 Picasso.Model.prototype.toPlainObject = function () {
     var pjo = new this.constructor();
     for (var property in pjo) {
-        if (pjo.hasOwnProperty(property) && typeof pjo[property] != "function") {
+        if (pjo.hasOwnProperty(property) &amp;&amp; typeof pjo[property] != "function") {
             pjo[property] = this[property];
         }
     }
@@ -1341,7 +1368,7 @@ Picasso.Model.extend = function (Constructor) {
     }
 
     var Model = Picasso.utils.object.extend(Constructor, Picasso.Model);
-    for (var i = 0; i < metaData.length; i++) {
+    for (var i = 0; i &lt; metaData.length; i++) {
         (function (attr) {
 
             var methodSuffix = attr.charAt(0).toUpperCase() + attr.slice(1);
@@ -1383,7 +1410,7 @@ Picasso.View = function () {
 
     /**
      * Stores the models events callbacks
-     * @type {Object<string, Function>}
+     * @type {Object&lt;string, Function>}
      * @protected
      */
     this._modelEvents = {};
@@ -1499,12 +1526,12 @@ Picasso.form.validators.email = function (emailField) {
     validation.field = emailField;
 
     validation.valid = typeof emailField.value() != "undefined";
-    if (!validation.valid && emailField.isRequired()) {
+    if (!validation.valid &amp;&amp; emailField.isRequired()) {
         validation.errorMessages.push("Field value is undefined");
     }
 
     var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    if (!emailRegex.test(emailField.value()) && emailField.isRequired()) {
+    if (!emailRegex.test(emailField.value()) &amp;&amp; emailField.isRequired()) {
         validation.valid = false;
         validation.errorMessages.push("Field contains a invalid email");
     }
@@ -2073,7 +2100,7 @@ Picasso.form.FieldFactory = function () {};
 /**
  * All the available field constructors
  * Can be a method name or the function itself
- * @type {Object<string, string|Picasso.form.field.PicassoField.constructor>}
+ * @type {Object&lt;string, string|Picasso.form.field.PicassoField.constructor>}
  * @static
  */
 Picasso.form.FieldFactory.constructors = (function(){
@@ -2166,7 +2193,7 @@ Picasso.form.PicassoForm = function () {
 
     /**
      * The form fields
-     * @type {Object<string, Picasso.form.field.PicassoField>}
+     * @type {Object&lt;string, Picasso.form.field.PicassoField>}
      * @private
      */
     var fields = {};
@@ -2236,7 +2263,7 @@ Picasso.form.PicassoForm = function () {
 
     /**
      * Gets/Sets the form value
-     * @param {Object<string, *>} data
+     * @param {Object&lt;string, *>} data
      * returns {Object}
      */
     this.value = function (data) {
@@ -2244,9 +2271,9 @@ Picasso.form.PicassoForm = function () {
         if (typeof data == "undefined") {
             var val = {};
 
-            for (var i = 0; i < fields.length; i++) {
+            for (var i = 0; i &lt; fields.length; i++) {
                 var id = fields[i].getId();
-                if (typeof id != "undefined" && !fields[i].formIgnore) {
+                if (typeof id != "undefined" &amp;&amp; !fields[i].formIgnore) {
                     val[id] = fields[i].value();
                 }
             }
@@ -2334,14 +2361,14 @@ Picasso.form.Validator = function (_form) {
         var validation = {};
         var formValid = true;
 
-        for (var i = 0; i < fields.length; i++) {
+        for (var i = 0; i &lt; fields.length; i++) {
             var f = fields[i];
             if (!f.isFormIgnored()) {
                 validation[f.getId()] = this.validate(f);
 
                 //If there's no validator registered, the valid property is always null
                 if (validation[f.getId()].valid !== null) {
-                    formValid = formValid && !!validation[f.getId()].valid;
+                    formValid = formValid &amp;&amp; !!validation[f.getId()].valid;
                 }
             }
         }
@@ -2349,4 +2376,26 @@ Picasso.form.Validator = function (_form) {
         pForm.valid = formValid;
         return validation;
     };
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Picasso.Collection.MetaConstructor.html">MetaConstructor</a></li><li><a href="Picasso.Controller.html">Controller</a></li><li><a href="Picasso.core.Sequence.html">Sequence</a></li><li><a href="Picasso.core.Subject.html">Subject</a></li><li><a href="Picasso.error.InvalidFieldType.html">InvalidFieldType</a></li><li><a href="Picasso.error.InvalidParameters.html">InvalidParameters</a></li><li><a href="Picasso.error.NotImplementedError.html">NotImplementedError</a></li><li><a href="Picasso.form.Builder.html">Builder</a></li><li><a href="Picasso.form.field.ButtonField.html">ButtonField</a></li><li><a href="Picasso.form.field.HiddenField.html">HiddenField</a></li><li><a href="Picasso.form.field.InputField.html">InputField</a></li><li><a href="Picasso.form.field.PicassoField.html">PicassoField</a></li><li><a href="Picasso.form.FieldFactory.html">FieldFactory</a></li><li><a href="Picasso.form.PicassoForm.html">PicassoForm</a></li><li><a href="Picasso.form.Renderer.html">Renderer</a></li><li><a href="Picasso.form.Validator.html">Validator</a></li><li><a href="Picasso.Model.html">Model</a></li><li><a href="Picasso.pjo.Column.html">Column</a></li><li><a href="Picasso.pjo.Event.html">Event</a></li><li><a href="Picasso.pjo.EventHandler.html">EventHandler</a></li><li><a href="Picasso.pjo.Field.html">Field</a></li><li><a href="Picasso.pjo.Form.html">Form</a></li><li><a href="Picasso.pjo.Validation.html">Validation</a></li><li><a href="Picasso.View.html">View</a></li></ul><h3>Namespaces</h3><ul><li><a href="global.html#Picasso">Picasso</a></li><li><a href="Picasso.core.html">core</a></li><li><a href="Picasso.error.html">error</a></li><li><a href="Picasso.extend.html">extend</a></li><li><a href="Picasso.form.html">form</a></li><li><a href="Picasso.form.field.html">field</a></li><li><a href="Picasso.pjo.html">pjo</a></li><li><a href="global.html#Picasso#utils">utils</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Sat Oct 10 2015 22:45:05 GMT-0300 (BRT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

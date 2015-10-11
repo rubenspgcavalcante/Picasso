@@ -1,0 +1,8 @@
+/* Picasso
+ * A Framework to build dinamic forms using MVC
+ * Build date: <%= now %>
+ * @author <%= pkg.author.name %>
+ * @version <%= pkg.version %>
+ * @license <%= pkg.license %>
+ */
+

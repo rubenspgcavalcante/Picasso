@@ -2,10 +2,10 @@ language: node_js
 
 before_install:
   - npm cache clean
-  - npm install -g grunt-cli
+  - npm install -g gulp
   - npm install
 
-script: grunt
+script: gulp
 
 node_js:
   - "0.10"
