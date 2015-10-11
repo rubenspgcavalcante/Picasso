@@ -6,7 +6,7 @@
     "email": "rubenspgcavalcante@gmail.com",
     "homepage": "http://github.com/rubenspgcavalcante"
   },
-  "version": "0.9.3",
+  "version": "0.9.4",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
@@ -33,7 +33,13 @@
     "gulp-header": "^1.7.1",
     "gulp-jsdoc": "^0.1.5",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.4.1"
+    "gulp-uglify": "^1.4.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.10",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "^1.9.18"
   },
   "scripts": {
     "build": "npm install && gulp"

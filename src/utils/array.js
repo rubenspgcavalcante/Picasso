@@ -6,16 +6,6 @@ Picasso.utils.array = (
      * @exports utils/array
      */
     function () {
-
-        // Depedences
-        /**
-         * Object utils
-         * @type module:utils/object
-         * @private
-         */
-        var objUtil = Picasso.load("Picasso.utils.object");
-
-
         /**
          * Finds a element into the array
          * @param {Array} arr A array to search into
@@ -24,6 +14,13 @@ Picasso.utils.array = (
          * @public
          */
         var find = function (arr, element) {
+            /**
+             * Object utils
+             * @type module:utils/object
+             * @private
+             */
+            var objUtil = Picasso.load("Picasso.utils.object");
+
             for (var i = 0; i < arr.length; i++) {
                 if (typeof arr[i] == 'object' && typeof element == 'object') {
                     if (objUtil.equals(arr[i], element)) {

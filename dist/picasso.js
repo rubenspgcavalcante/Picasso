@@ -1,8 +1,8 @@
 /* Picasso
  * A Framework to build dinamic forms using MVC
- * Build date: Sun, 11 Oct 2015 01:45:03 GMT
+ * Build date: Sun, 11 Oct 2015 03:00:09 GMT
  * @author Rubens Pinheiro Gonçalves Cavalcante
- * @version 0.9.3
+ * @version 0.9.4
  * @license GPL-3.0
  */
 
@@ -411,16 +411,6 @@ Picasso.utils.array = (
      * @exports utils/array
      */
     function () {
-
-        // Depedences
-        /**
-         * Object utils
-         * @type module:utils/object
-         * @private
-         */
-        var objUtil = Picasso.load("Picasso.utils.object");
-
-
         /**
          * Finds a element into the array
          * @param {Array} arr A array to search into
@@ -429,6 +419,13 @@ Picasso.utils.array = (
          * @public
          */
         var find = function (arr, element) {
+            /**
+             * Object utils
+             * @type module:utils/object
+             * @private
+             */
+            var objUtil = Picasso.load("Picasso.utils.object");
+
             for (var i = 0; i < arr.length; i++) {
                 if (typeof arr[i] == 'object' && typeof element == 'object') {
                     if (objUtil.equals(arr[i], element)) {
