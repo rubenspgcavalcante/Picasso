@@ -28,12 +28,22 @@ If you want to build the sources, you will need first install all dependencies a
 globally:
 ```shellscript
 npm install
-sudo npm install -g grunt-cli
+sudo npm install gulp -g
 ```
 
 To run the tasks:
 ```shellscript
-grunt
+gulp
+```
+
+#Testing
+```shellscript
+npm install karma -g
+```
+
+Then run the test runner:
+```shellscript
+karma
 ```
 
 ##Author
